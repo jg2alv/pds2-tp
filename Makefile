@@ -4,8 +4,9 @@
 GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./inc
 RM = rm -rf
 
+
 all: ./bin/main
-	./bin/main
+	doxygen Doxyfile
 
 clean:
 	$(RM) ./obj/*.o ./bin/main
