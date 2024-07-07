@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 
-GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./inc
+GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./include
 RM = rm -rf
 
 
