@@ -4,7 +4,7 @@
 #include <iostream>
 #include <Jogador.hpp>
 
-class Reversi : public Jogos
+class Reversi : public Jogo
 {
     private:
     Jogador _jogador1;
