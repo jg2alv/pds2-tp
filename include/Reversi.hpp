@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <Jogador.hpp>
+#include "ClassePai.hpp"
 
 class Reversi : public Jogo
 {
