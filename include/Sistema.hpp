@@ -4,7 +4,7 @@
 #include <string>
 #include <set>
 
-#include "Jogador.h"
+#include "Jogador.hpp"
 
 enum class Comando
 {

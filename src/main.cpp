@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "Jogador.h"
-#include "Sistema.h"
+#include "Jogador.hpp"
+#include "Sistema.hpp"
 
 int main()
 {

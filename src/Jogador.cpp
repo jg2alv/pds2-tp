@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "Jogador.h"
+#include "Jogador.hpp"
 
 Jogador::Jogador()
 {

@@ -2,7 +2,7 @@
 #include <set>
 #include <iostream>
 
-#include "Sistema.h"
+#include "Sistema.hpp"
 
 int Sistema::CadastrarJogador(std::string nome, std::string apelido) {
     std:: cout << apelido << nome;
