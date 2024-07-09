@@ -2,32 +2,29 @@
 #define SISTEMA_HPP
 
 #include <string>
-#include <set>
+#include <vector>
 
 #include "Jogador.hpp"
 
-enum class Comando
-{
-    CJ,
-    RJ,
-    LJ,
-    EP,
-    FS,
-    IN
+enum class Comando {
+    CadastrarJogador,
+    RemoverJogador,
+    ListarJogadores,
+    ExecutarPartida,
+    FinalizarSistema
 };
 
-class Sistema
-{
+class Sistema {
     private:
-        std::set<Jogador*> __jogadores;
+        std::vector<Jogador*> __jogadores;
 
     public:
-        Comando AnalisarComando(std::string comando);
-        int CadastrarJogador(std::string nome, std::string apelido);
-        int RemoverJogador(std::string apelido);
-        int ListarJogadores();
-        int JogadorExiste(std::string apelido);
+        Comando analisarComando(std::string comando);
+        std::string executarComando(Comando comando_);
+        void cadastrarJogador(std::string nome, std::string apelido);
+        void removerJogador(std::string apelido);
+        int listarJogadores();
+        bool jogadorExiste(std::string apelido);
 };
 
 #endif
-
