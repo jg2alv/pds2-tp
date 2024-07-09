@@ -1,47 +1,27 @@
 #include <iostream>
 #include <string>
+#include <exception>
 
 #include "Jogador.hpp"
 #include "Sistema.hpp"
 #include "Jogo.hpp"
 
-int main()
-{
+int main() {
     Sistema* sistema = new Sistema();
 
-    while (1)
-    {
-        std::string comando;
-        std::cin >> comando;
-        Comando comandoAnalisado = sistema->AnalisarComando(comando);
-
-        switch (comandoAnalisado)
-        {
-        case Comando::CJ: {
-            std::string apelido, nome;
-            std::cin >> apelido >> nome;
-            std::cout << apelido << std::endl;
-            break;
+    while (true) {
+        std::string comando; std::cin >> comando;
+        Comando comando_analisado = sistema->analisarComando(comando);
+        try {
+            std::string saida = sistema->executarComando(comando_analisado);
+            std::cout << saida << std::endl;
         }
-        
-        case Comando::RJ:
-            break;
-
-        case Comando::LJ:
-            break;
-
-        case Comando::EP:
-            break;
-
-        case Comando::FS:
-            break;
-
-        case Comando::IN:
-            break;
+        catch(const std::exception& e) {
+            std::cerr << "ERRO: " << e.what() << std::endl;
         }
     }
 
-    free(sistema);
+    delete sistema;
 
     return 0;
 }
