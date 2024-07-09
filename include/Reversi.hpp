@@ -2,7 +2,7 @@
 #define REVERSI_INCLUDED
 
 #include <iostream>
-#include <Jogador.hpp>
+#include "Jogador.hpp"
 #include "ClassePai.hpp"
 
 class Reversi : public Jogo
@@ -13,9 +13,14 @@ class Reversi : public Jogo
 
     public:
 
-    Reversi(){}
-    void setJogadores (Jogador jogador1, Jogador jogador2) {}
-    ~Reversi(){}
+    Reversi(int rows, int cols);
+    void setJogadores (Jogador jogador1, Jogador jogador2);
+    bool lerJogada (int player, int row, int col);
+    bool jogadaValida (int row, int col);
+    bool verificarVitoria (int player);
+    bool verificarEmpate();
+    
+    ~Reversi();
 };
 
 

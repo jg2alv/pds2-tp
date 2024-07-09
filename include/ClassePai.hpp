@@ -15,7 +15,7 @@ protected:
 public:
      
     Jogo(int rows, int cols);
-
+    Jogo();
     
     virtual void imprimirTabuleiro() const;
 
