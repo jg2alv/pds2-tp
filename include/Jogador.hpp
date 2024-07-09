@@ -3,14 +3,15 @@
 
 #include <string>
 
-class Jogador
-{
+class Jogador {
 private:
     std::string _nome;
     std::string _apelido;
 
 public:
-    Jogador();
+    Jogador(std::string apelido, std::string nome);
+    std::string getApelido();
+    std::string getNome();
 };
 
 #endif
