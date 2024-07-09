@@ -1,5 +1,5 @@
-#ifndef JOGADOR_INCLUDED
-#define JOGADOR_INCLUDED
+#ifndef JOGADOR_HPP
+#define JOGADOR_HPP
 
 #include <string>
 
@@ -14,3 +14,4 @@ public:
 };
 
 #endif
+

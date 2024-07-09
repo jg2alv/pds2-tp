@@ -1,5 +1,5 @@
-#ifndef LIG4_INCLUDED
-#define LIG4_INCLUDED
+#ifndef LIG4_HPP
+#define LIG4_HPP
 
 #include "Jogador.hpp"
 #include "Jogo.hpp"

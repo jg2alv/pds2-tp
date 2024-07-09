@@ -1,5 +1,5 @@
-#ifndef REVERSI_INCLUDED
-#define REVERSI_INCLUDED
+#ifndef REVERSI_HPP
+#define REVERSI_HPP
 
 #include <iostream>
 #include "Jogador.hpp"
@@ -22,16 +22,6 @@ class Reversi : public Jogo
     
     ~Reversi();
 };
-
-
-
-
-
-
-
-
-
-
 
 
 #endif

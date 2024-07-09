@@ -1,5 +1,5 @@
-#ifndef SISTEMA_INCLUDED
-#define SISTEMA_INCLUDED
+#ifndef SISTEMA_HPP
+#define SISTEMA_HPP
 
 #include <string>
 #include <set>
@@ -30,3 +30,4 @@ class Sistema
 };
 
 #endif
+
