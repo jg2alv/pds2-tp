@@ -37,7 +37,7 @@ Comando Sistema::analisarComando(std::string comando) {
     else if (comando == "LJ") return Comando::ListarJogadores;
     else if (comando == "EP") return Comando::ExecutarPartida;
     else if (comando == "FS") return Comando::FinalizarSistema;
-    else throw;
+    else throw Excecao("comando invalido");
 }
 
 std::string Sistema::executarComando(Comando comando_analisado) {
