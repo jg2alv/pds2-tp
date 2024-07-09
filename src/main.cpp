@@ -3,7 +3,7 @@
 
 #include "Jogador.hpp"
 #include "Sistema.hpp"
-#include "ClassePai.hpp"
+#include "Jogo.hpp"
 
 int main()
 {
