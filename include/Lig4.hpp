@@ -2,7 +2,7 @@
 #define LIG4_INCLUDED
 
 #include "Jogador.hpp"
-#include "ClassePai.hpp"
+#include "Jogo.hpp"
 
 class Lig4 : public Jogo
 {
@@ -17,3 +17,4 @@ public:
 };
 
 #endif
+

@@ -1,8 +1,9 @@
-#ifndef CLASSEPAI_HPP
-#define CLASSEPAI_HPP
+#ifndef JOGO_HPP
+#define JOGO_HPP
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 
@@ -35,4 +36,5 @@ public:
     virtual void reiniciarTabuleiro();
 };
 
-#endif 
+#endif
+

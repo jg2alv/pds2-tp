@@ -1,4 +1,4 @@
-#include "ClassePai.hpp"
+#include "Jogo.hpp"
 
  
 Jogo::Jogo(int rows, int cols) : rows(rows), cols(cols), board(rows * cols, ' ') {}
