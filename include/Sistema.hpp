@@ -23,8 +23,9 @@ class Sistema {
         std::string executarComando(Comando comando_);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
-        int listarJogadores();
-        bool jogadorExiste(std::string apelido);
+        void listarJogadores(std::string criterio);
+        int indiceDoJogador(std::string apelido);
+        ~Sistema();
 };
 
 #endif

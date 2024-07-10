@@ -5,8 +5,8 @@
 
 class Jogador {
 private:
-    std::string _nome;
     std::string _apelido;
+    std::string _nome;
 
 public:
     Jogador(std::string apelido, std::string nome);
