@@ -17,14 +17,16 @@ enum class Comando {
 class Sistema {
     private:
         std::vector<Jogador*> __jogadores;
+        bool __sistema_finalizado = false;
 
     public:
+        bool isSistemaFinalizado();
         Comando analisarComando(std::string comando);
         std::string executarComando(Comando comando_);
+        std::vector<Jogador *>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string criterio);
-        int indiceDoJogador(std::string apelido);
         ~Sistema();
 };
 

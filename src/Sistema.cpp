@@ -5,25 +5,47 @@
 #include "Sistema.hpp"
 #include "Excecao.hpp"
 
-void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
-    int indice_jogador = this->indiceDoJogador(apelido);
-    if(indice_jogador != -1) throw Excecao("jogador repetido");
+bool Sistema::isSistemaFinalizado() { return this->__sistema_finalizado; }
+
+Comando Sistema::analisarComando(std::string comando) {
+    if (comando == "CJ") return Comando::CadastrarJogador;
+    else if (comando == "RJ") return Comando::RemoverJogador;
+    else if (comando == "LJ") return Comando::ListarJogadores;
+    else if (comando == "EP") return Comando::ExecutarPartida;
+    else if (comando == "FS") return Comando::FinalizarSistema;
+    else throw Excecao("comando invalido");
+}
+
+std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
+    auto acharJogador = [apelido](Jogador* j) { return j->getApelido() == apelido; };
+    auto jogador = std::find_if(this->__jogadores.begin(), this->__jogadores.end(), acharJogador);
     
-    Jogador* jogador = new Jogador(apelido, nome);
-    this->__jogadores.push_back(jogador);
+    return jogador;
+}
+
+void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
+    auto jogador = this->acharJogador(apelido);
+    bool jogador_repetido = jogador != this->__jogadores.end();
+    
+    if(jogador_repetido) throw Excecao("jogador repetido");
+    
+    Jogador* novo_jogador = new Jogador(apelido, nome);
+    this->__jogadores.push_back(novo_jogador);
 }
 
 void Sistema::removerJogador(std::string apelido) {
-    int indice_jogador = this->indiceDoJogador(apelido);
-    if(indice_jogador == -1) throw Excecao("jogador inexistente");
+    auto jogador = this->acharJogador(apelido);
+    bool jogador_inexistente = jogador == this->__jogadores.end();
 
-    this->__jogadores.erase(this->__jogadores.begin() + indice_jogador);
+    if(jogador_inexistente) throw Excecao("jogador inexistente");
+
+    this->__jogadores.erase(jogador);
 }
 
-bool ordenacaoPorNome(Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
-bool ordenacaoPorApelido(Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
+void Sistema::listarJogadores(std::string criterio) {
+    auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
+    auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
-void Sistema::listarJogadores(std::string criterio) {    
     if(criterio == "A")
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorApelido);
     else if(criterio == "N")
@@ -38,23 +60,6 @@ void Sistema::listarJogadores(std::string criterio) {
         std::cout << apelido << " " << nome << std::endl; 
         // vitorias e derrotas
     }
-}
-
-int Sistema::indiceDoJogador(std::string apelido) {
-    int tam = this->__jogadores.size();
-    for(int i = 0; i < tam; i++)
-        if(this->__jogadores[i]->getApelido() == apelido) return i;
-    
-    return -1;
-}
-
-Comando Sistema::analisarComando(std::string comando) {
-    if (comando == "CJ") return Comando::CadastrarJogador;
-    else if (comando == "RJ") return Comando::RemoverJogador;
-    else if (comando == "LJ") return Comando::ListarJogadores;
-    else if (comando == "EP") return Comando::ExecutarPartida;
-    else if (comando == "FS") return Comando::FinalizarSistema;
-    else throw Excecao("comando invalido");
 }
 
 std::string Sistema::executarComando(Comando comando_analisado) {
@@ -85,7 +90,8 @@ std::string Sistema::executarComando(Comando comando_analisado) {
         }
 
         case Comando::FinalizarSistema: {
-            return "FS";
+            this->__sistema_finalizado = true;
+            return "";
         }
 
         default: {
