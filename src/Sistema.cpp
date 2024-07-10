@@ -1,34 +1,51 @@
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 #include "Sistema.hpp"
 #include "Excecao.hpp"
 
 void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
-    bool jogador_existe = this->jogadorExiste(apelido);
-    if(jogador_existe) throw Excecao("jogador repetido");
+    int indice_jogador = this->indiceDoJogador(apelido);
+    if(indice_jogador != -1) throw Excecao("jogador repetido");
     
     Jogador* jogador = new Jogador(apelido, nome);
     this->__jogadores.push_back(jogador);
 }
 
 void Sistema::removerJogador(std::string apelido) {
-    bool jogador_existe = this->jogadorExiste(apelido);
-    if(!jogador_existe) throw Excecao("jogador inexistente");
+    int indice_jogador = this->indiceDoJogador(apelido);
+    if(indice_jogador == -1) throw Excecao("jogador inexistente");
 
-    //remover jogador
+    this->__jogadores.erase(this->__jogadores.begin() + indice_jogador);
 }
 
-int Sistema::listarJogadores() {
-    return 0;
+bool ordenacaoPorNome(Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
+bool ordenacaoPorApelido(Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
+
+void Sistema::listarJogadores(std::string criterio) {    
+    if(criterio == "A")
+        std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorApelido);
+    else if(criterio == "N")
+        std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
+    else throw Excecao("criterio de ordenacao de jogadores invalido");
+
+    int tam = this->__jogadores.size();
+    for(int i = 0; i < tam; i++) {
+        std::string apelido = this->__jogadores[i]->getApelido();
+        std::string nome = this->__jogadores[i]->getNome();
+
+        std::cout << apelido << " " << nome << std::endl; 
+        // vitorias e derrotas
+    }
 }
 
-bool Sistema::jogadorExiste(std::string apelido) {
+int Sistema::indiceDoJogador(std::string apelido) {
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++)
-        if(this->__jogadores[i]->getApelido() == apelido) return true;
+        if(this->__jogadores[i]->getApelido() == apelido) return i;
     
-    return false;
+    return -1;
 }
 
 Comando Sistema::analisarComando(std::string comando) {
@@ -57,6 +74,9 @@ std::string Sistema::executarComando(Comando comando_analisado) {
         }
 
         case Comando::ListarJogadores: {
+            std::string criterio;
+            std::cin >> criterio;
+            this->listarJogadores(criterio);
             return "";
         }
 
@@ -65,11 +85,17 @@ std::string Sistema::executarComando(Comando comando_analisado) {
         }
 
         case Comando::FinalizarSistema: {
-            return "";
+            return "FS";
         }
 
         default: {
             throw Excecao("comando invalido");
         }
     }
+}
+
+Sistema::~Sistema() {
+    int tam = this->__jogadores.size();
+    for(int i = 0; i < tam; i++)
+        delete this->__jogadores[i];
 }
