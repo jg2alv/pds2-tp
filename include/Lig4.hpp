@@ -13,6 +13,7 @@ private:
 public:
     Lig4(int rows, int cols, Jogador *jogador1, Jogador *jogador2);
 
+    void imprimirTabuleiro() const;
     void setJogadores(Jogador *jogador1, Jogador *jogador2);
     bool lerJogada(int player, int row, int col);
     bool jogadaValida(int row, int col) const;

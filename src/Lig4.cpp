@@ -8,6 +8,24 @@ Lig4::Lig4(int rows, int cols, Jogador *jogador1, Jogador *jogador2) : Jogo(rows
     this->_jogador2 = jogador2;
 }
 
+void Lig4::imprimirTabuleiro() const
+{
+    for (int i = 0; i < this->rows; i++)
+    {
+        for (int j = 0; j < this->cols; j++)
+        {
+            std::cout << "|" << this->board[i + j] << "|";
+        }
+        std::cout << std::endl;
+    }
+
+    for (int i = 1; i <= this->cols; i++)
+    {
+        std::cout << " " << i << " ";
+    }
+    std::cout << std::endl;
+}
+
 void Lig4::setJogadores(Jogador *jogador1, Jogador *jogador2)
 {
 }
