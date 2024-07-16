@@ -13,6 +13,9 @@ protected:
     int cols; 
     vector<char> board; 
 
+    char get_char(int i, int j);
+    void set_char(int i, int j, char c);
+
 public:
      
     Jogo(int rows, int cols);
@@ -35,6 +38,7 @@ public:
     
     virtual void reiniciarTabuleiro();
 };
+
 
 #endif
 
