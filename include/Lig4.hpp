@@ -10,6 +10,8 @@ private:
     Jogador *_jogador1;
     Jogador *_jogador2;
 
+    int get_linha(int coluna);
+
 public:
     Lig4(int linhas, int colunas, Jogador *jogador1, Jogador *jogador2);
 

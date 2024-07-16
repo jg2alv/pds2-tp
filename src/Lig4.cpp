@@ -2,6 +2,18 @@
 #include "Jogo.hpp"
 #include "Lig4.hpp"
 
+int Lig4::get_linha(int coluna)
+{
+    if (get_char(0, coluna) != ' ')
+        return -1;
+
+    for (int i = (this->linhas - 1); i >= 0; i--)
+    {
+        if (get_char(i, coluna) == ' ')
+            return i;
+    }
+}
+
 Lig4::Lig4(int linhas, int colunas, Jogador *jogador1, Jogador *jogador2) : Jogo(linhas, colunas)
 {
     this->_jogador1 = jogador1;
