@@ -14,7 +14,7 @@ void Lig4::imprimirTabuleiro() const
     {
         for (int j = 0; j < this->cols; j++)
         {
-            std::cout << "|" << this->board[i + j] << "|";
+            std::cout << "|" << get_char(i, j) << "|";
         }
         std::cout << std::endl;
     }
