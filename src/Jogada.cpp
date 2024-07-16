@@ -1,6 +1,6 @@
 #include "Jogada.hpp"
 
-Jogada::Jogada(int coluna) : Jogada(-1, coluna) {}
+Jogada::Jogada(int coluna) : Jogada(0, coluna) {}
 
 Jogada::Jogada(int linha, int coluna)
 {
