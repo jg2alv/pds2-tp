@@ -1,7 +1,7 @@
 #include "Jogo.hpp"
 
 
-char Jogo::get_char(int i, int j) {
+char Jogo::get_char(int i, int j) const {
     return board[i*cols + j];
 }
 

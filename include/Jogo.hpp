@@ -13,7 +13,7 @@ protected:
     int cols; 
     vector<char> board; 
 
-    char get_char(int i, int j);
+    char get_char(int i, int j) const;
     void set_char(int i, int j, char c);
 
 public:
