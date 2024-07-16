@@ -20,6 +20,7 @@ public:
     void realizarJogada(int linha, int coluna, char simbolo, char oponente); 
     bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const override;
     bool verificarVitoria() const override;
+    Jogada lerJogada (int jogador) override;
     bool verificarEmpate() const override;
     void imprimirTabuleiro() const override;
     void reiniciarTabuleiro()override;

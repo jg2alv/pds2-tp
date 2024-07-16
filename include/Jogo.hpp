@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include "Jogada.hpp"
 
 using namespace std;
-
 
 class Jogo {
 protected:
@@ -37,6 +37,8 @@ public:
 
     
     virtual void reiniciarTabuleiro() = 0;
+
+    virtual Jogada lerJogada(int jogador) = 0;
 };
 
 
