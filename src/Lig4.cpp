@@ -42,11 +42,11 @@ void Lig4::setJogadores(Jogador *jogador1, Jogador *jogador2)
 {
 }
 
-bool Lig4::lerJogada(int jogador, int linha, int colunas)
+Jogada Lig4::lerJogada(int jogador)
 {
 }
 
-bool Lig4::jogadaValida(int linhas, int colunas) const
+bool Lig4::jogadaValida(Jogada jogada) const
 {
 }
 

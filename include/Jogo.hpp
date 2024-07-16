@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <vector>
+#include "Jogada.hpp"
 
 using namespace std;
-
 
 class Jogo {
 protected:
@@ -22,20 +22,10 @@ public:
     Jogo();
     
     virtual void imprimirTabuleiro() const;
-
-     
-    virtual bool lerJogada(int jogador, int linha, int coluna) = 0;
-
-     
-    virtual bool jogadaValida(int linha, int coluna) const = 0;
-
-     
+    virtual Jogada lerJogada(int jogador) = 0;
+    virtual bool jogadaValida(Jogada jogada) const = 0;
     virtual bool verificarVitoria(int jogador) const = 0;
-
-     
     virtual bool verificarEmpate() const = 0;
-
-    
     virtual void reiniciarTabuleiro();
 };
 

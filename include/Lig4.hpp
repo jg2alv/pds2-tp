@@ -17,10 +17,10 @@ public:
 
     void imprimirTabuleiro() const;
     void setJogadores(Jogador *jogador1, Jogador *jogador2);
-    bool lerJogada(int jogador, int linha, int coluna);
-    bool jogadaValida(int linha, int coluna) const;
-    bool verificarVitoria(int jogador) const;
-    bool verificarEmpate() const;
+    Jogada lerJogada(int jogador) override;
+    bool jogadaValida(Jogada jogada) const override;
+    bool verificarVitoria(int jogador) const override;
+    bool verificarEmpate() const override;
 };
 
 #endif

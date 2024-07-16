@@ -15,8 +15,8 @@ class Reversi : public Jogo
 
     Reversi(int linhas, int colunas);
     void setJogadores (Jogador jogador1, Jogador jogador2);
-    bool lerJogada (int jogador, int linha, int coluna) override; 
-    bool jogadaValida (int linha, int coluna) const override;
+    Jogada lerJogada (int jogador) override; 
+    bool jogadaValida (Jogada jogada) const override;
     bool verificarVitoria (int jogador) const override;
     bool verificarEmpate() const override;
     
