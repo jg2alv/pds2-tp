@@ -10,7 +10,7 @@ private:
 
 public:
     Jogador(std::string apelido, std::string nome);
-    std::string getApelido();
+    std::string getApelido() const;
     std::string getNome();
 };
 

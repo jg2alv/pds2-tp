@@ -21,22 +21,22 @@ public:
     Jogo(int linhas, int colunas);
     Jogo();
     
-    virtual void imprimirTabuleiro() const;
+    virtual void imprimirTabuleiro() const=0;
 
      
-    virtual bool lerJogada(int jogador, int linha, int coluna) = 0;
+    virtual void realizarJogada(int jogador, int linha, int coluna) = 0;
 
      
-    virtual bool jogadaValida(int linha, int coluna) const = 0;
+    virtual bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const = 0;
 
      
-    virtual bool verificarVitoria(int jogador) const = 0;
+    virtual bool verificarVitoria() const = 0;
 
      
     virtual bool verificarEmpate() const = 0;
 
     
-    virtual void reiniciarTabuleiro();
+    virtual void reiniciarTabuleiro() = 0;
 };
 
 

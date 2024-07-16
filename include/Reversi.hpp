@@ -5,24 +5,26 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
-class Reversi : public Jogo
-{
-    private:
+class Reversi : public Jogo {
+protected:
     Jogador _jogador1;
     Jogador _jogador2;
 
-    public:
+    bool dentroDosLimites(int linha, int coluna) const;
+    bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const;
+    bool podeJogar(char simbolo, char oponente) const;
 
+public:
     Reversi(int linhas, int colunas);
-    void setJogadores (Jogador jogador1, Jogador jogador2);
-    bool lerJogada (int jogador, int linha, int coluna) override; 
-    bool jogadaValida (int linha, int coluna) const override;
-    bool verificarVitoria (int jogador) const override;
+    void setJogadores(Jogador jogador1, Jogador jogador2);
+    void realizarJogada(int linha, int coluna, char simbolo, char oponente); 
+    bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const override;
+    bool verificarVitoria() const override;
     bool verificarEmpate() const override;
-    
+    void imprimirTabuleiro() const override;
+    void reiniciarTabuleiro()override;
+
     ~Reversi();
 };
 
-
 #endif
-
