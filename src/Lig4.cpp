@@ -2,7 +2,7 @@
 #include "Jogo.hpp"
 #include "Lig4.hpp"
 
-Lig4::Lig4(int rows, int cols, Jogador *jogador1, Jogador *jogador2) : Jogo(rows, cols)
+Lig4::Lig4(int linhas, int colunas, Jogador *jogador1, Jogador *jogador2) : Jogo(linhas, colunas)
 {
     this->_jogador1 = jogador1;
     this->_jogador2 = jogador2;
@@ -10,16 +10,16 @@ Lig4::Lig4(int rows, int cols, Jogador *jogador1, Jogador *jogador2) : Jogo(rows
 
 void Lig4::imprimirTabuleiro() const
 {
-    for (int i = 0; i < this->rows; i++)
+    for (int i = 0; i < this->linhas; i++)
     {
-        for (int j = 0; j < this->cols; j++)
+        for (int j = 0; j < this->colunas; j++)
         {
             std::cout << "|" << get_char(i, j) << "|";
         }
         std::cout << std::endl;
     }
 
-    for (int i = 1; i <= this->cols; i++)
+    for (int i = 1; i <= this->colunas; i++)
     {
         std::cout << " " << i << " ";
     }
@@ -30,15 +30,15 @@ void Lig4::setJogadores(Jogador *jogador1, Jogador *jogador2)
 {
 }
 
-bool Lig4::lerJogada(int player, int row, int col)
+bool Lig4::lerJogada(int jogador, int linha, int colunas)
 {
 }
 
-bool Lig4::jogadaValida(int row, int col) const
+bool Lig4::jogadaValida(int linhas, int colunas) const
 {
 }
 
-bool Lig4::verificarVitoria(int player) const
+bool Lig4::verificarVitoria(int jogador) const
 {
 }
 

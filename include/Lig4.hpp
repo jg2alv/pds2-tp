@@ -11,13 +11,13 @@ private:
     Jogador *_jogador2;
 
 public:
-    Lig4(int rows, int cols, Jogador *jogador1, Jogador *jogador2);
+    Lig4(int linhas, int colunas, Jogador *jogador1, Jogador *jogador2);
 
     void imprimirTabuleiro() const;
     void setJogadores(Jogador *jogador1, Jogador *jogador2);
-    bool lerJogada(int player, int row, int col);
-    bool jogadaValida(int row, int col) const;
-    bool verificarVitoria(int player) const;
+    bool lerJogada(int jogador, int linha, int coluna);
+    bool jogadaValida(int linha, int coluna) const;
+    bool verificarVitoria(int jogador) const;
     bool verificarEmpate() const;
 };
 

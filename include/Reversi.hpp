@@ -13,11 +13,11 @@ class Reversi : public Jogo
 
     public:
 
-    Reversi(int rows, int cols);
+    Reversi(int linhas, int colunas);
     void setJogadores (Jogador jogador1, Jogador jogador2);
-    bool lerJogada (int player, int row, int col) override; 
-    bool jogadaValida (int row, int col) const override;
-    bool verificarVitoria (int player) const override;
+    bool lerJogada (int jogador, int linha, int coluna) override; 
+    bool jogadaValida (int linha, int coluna) const override;
+    bool verificarVitoria (int jogador) const override;
     bool verificarEmpate() const override;
     
     ~Reversi();
