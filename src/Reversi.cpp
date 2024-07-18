@@ -2,15 +2,10 @@
 #include "Jogador.hpp"
 #include <iostream>
 
-Reversi::Reversi(int linhas, int colunas) : Jogo(linhas, colunas), _jogador1("Apelido1", "Nome1"), _jogador2("Apelido2", "Nome2"){
-    setJogadores(_jogador1, _jogador2);
-    reiniciarTabuleiro();
-}
 
-void Reversi::setJogadores(Jogador jogador1, Jogador jogador2) {
-    _jogador1 = jogador1;
-    _jogador2 = jogador2;
-}
+Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2)
+    : Jogo(linhas, colunas, jogador1, jogador2) {}
+
 
 bool Reversi::dentroDosLimites(int linha, int coluna) const {
     return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas;
@@ -72,8 +67,8 @@ void Reversi::realizarJogada(int linha, int coluna, char simbolo, char oponente)
 }
 
 bool Reversi::verificarVitoria() const {
-    char apelido1 = _jogador1.getApelido()[0];
-    char apelido2 = _jogador2.getApelido()[0];
+    char apelido1 = jogador1.getApelido()[0];
+    char apelido2 = jogador2.getApelido()[0];
     int contador1 = 0;
     int contador2 = 0;
 
@@ -91,8 +86,8 @@ bool Reversi::verificarVitoria() const {
 }
 
 bool Reversi::verificarEmpate() const {
-    char apelido1 = _jogador1.getApelido()[0];
-    char apelido2 = _jogador2.getApelido()[0];
+    char apelido1 = jogador1.getApelido()[0];
+    char apelido2 = jogador2.getApelido()[0];
     int contador1 = 0;
     int contador2 = 0;
 
@@ -142,10 +137,10 @@ void Reversi::reiniciarTabuleiro() {
         }
     }
 
-    set_char(linhas / 2 - 1, colunas / 2 - 1, _jogador2.getApelido()[0]);
-    set_char(linhas / 2 - 1, colunas / 2, _jogador1.getApelido()[0]);
-    set_char(linhas / 2, colunas / 2 - 1, _jogador1.getApelido()[0]);
-    set_char(linhas / 2, colunas / 2, _jogador2.getApelido()[0]);
+    set_char(linhas / 2 - 1, colunas / 2 - 1, jogador2.getApelido()[0]);
+    set_char(linhas / 2 - 1, colunas / 2, jogador1.getApelido()[0]);
+    set_char(linhas / 2, colunas / 2 - 1, jogador1.getApelido()[0]);
+    set_char(linhas / 2, colunas / 2, jogador2.getApelido()[0]);
 }
 
 Reversi::~Reversi() {}

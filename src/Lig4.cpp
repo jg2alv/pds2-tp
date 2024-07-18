@@ -2,6 +2,7 @@
 #include "Jogo.hpp"
 #include "Lig4.hpp"
 
+
 int Lig4::get_linha(int coluna)
 {
     if (get_char(0, coluna) != ' ')
@@ -14,11 +15,10 @@ int Lig4::get_linha(int coluna)
     }
 }
 
-Lig4::Lig4(int linhas, int colunas, Jogador *jogador1, Jogador *jogador2) : Jogo(linhas, colunas)
-{
-    this->_jogador1 = jogador1;
-    this->_jogador2 = jogador2;
-}
+
+Lig4::Lig4(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2)
+    : Jogo(linhas, colunas, jogador1, jogador2) {}
+
 
 void Lig4::imprimirTabuleiro() const
 {
@@ -36,10 +36,6 @@ void Lig4::imprimirTabuleiro() const
         std::cout << " " << i << " ";
     }
     std::cout << std::endl;
-}
-
-void Lig4::setJogadores(Jogador *jogador1, Jogador *jogador2)
-{
 }
 
 Jogada Lig4::lerJogada(int jogador)
