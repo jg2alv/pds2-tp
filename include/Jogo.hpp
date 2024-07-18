@@ -1,17 +1,15 @@
 #ifndef JOGO_HPP
 #define JOGO_HPP
 
-#include <iostream>
 #include <vector>
 #include "Jogada.hpp"
 
-using namespace std;
 
 class Jogo {
 protected:
     int linhas; 
     int colunas; 
-    vector<char> tabuleiro; 
+    std::vector<char> tabuleiro; 
 
     char get_char(int i, int j) const;
     void set_char(int i, int j, char c);

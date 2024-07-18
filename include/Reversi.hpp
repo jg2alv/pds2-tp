@@ -11,7 +11,6 @@ protected:
     Jogador _jogador2;
 
     bool dentroDosLimites(int linha, int coluna) const;
-    bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const;
     bool podeJogar(char simbolo, char oponente) const;
 
 public:
