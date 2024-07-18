@@ -11,9 +11,3 @@ void Jogo::set_char(int linhas, int colunas, char c) {
 
 Jogo::Jogo(int linhas, int colunas) : linhas(linhas), colunas(colunas), tabuleiro(linhas*colunas, ' ') {}
 
-Jogo:: Jogo(){}
-
-
-
-
-

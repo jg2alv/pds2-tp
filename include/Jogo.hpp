@@ -15,27 +15,14 @@ protected:
     void set_char(int i, int j, char c);
 
 public:
-     
     Jogo(int linhas, int colunas);
-    Jogo();
-    
-    virtual void imprimirTabuleiro() const=0;
+    virtual void imprimirTabuleiro() const = 0;
 
-     
     virtual void realizarJogada(int jogador, int linha, int coluna) = 0;
-
-     
     virtual bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const = 0;
-
-     
     virtual bool verificarVitoria() const = 0;
-
-     
     virtual bool verificarEmpate() const = 0;
-
-    
     virtual void reiniciarTabuleiro() = 0;
-
     virtual Jogada lerJogada(int jogador) = 0;
 };
 
