@@ -14,8 +14,8 @@ int Lig4::get_linha(int coluna)
     }
 }
 
-Lig4::Lig4(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2)
-    : Jogo(linhas, colunas, jogador1, jogador2) 
+Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
+    : Jogo(linhas, colunas, jogador1, jogador2)
 {
     this->simbolo_jogador1 = 'x';
     this->simbolo_jogador2 = 'o';
@@ -43,8 +43,10 @@ void Lig4::imprimirTabuleiro() const
 Jogada Lig4::lerJogada(int jogador)
 {
     std::cout << "Turno do jogador ";
-    if (this->jogador_atual == 1) std::cout << this->jogador1.getApelido();
-    else if (this->jogador_atual == 2) std::cout << this->jogador2.getApelido();
+    if (this->jogador_atual == 1)
+        std::cout << this->jogador1.getApelido();
+    else if (this->jogador_atual == 2)
+        std::cout << this->jogador2.getApelido();
     std::cout << ": ";
 
     int coluna;
@@ -56,7 +58,10 @@ Jogada Lig4::lerJogada(int jogador)
 
 bool Lig4::jogadaValida(int linha, int coluna, char simbolo, char oponente) const
 {
+}
 
+void Lig4::realizarJogada(Jogada jogada)
+{
 }
 
 bool Lig4::verificarVitoria() const
@@ -65,4 +70,10 @@ bool Lig4::verificarVitoria() const
 
 bool Lig4::verificarEmpate() const
 {
+}
+
+void Lig4::mudarTurno() 
+{
+    if (this->jogador_atual == 1) this->jogador_atual = 2;
+    else if (this->jogador_atual == 2) this->jogador_atual = 1;
 }

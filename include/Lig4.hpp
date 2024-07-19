@@ -19,8 +19,10 @@ public:
     void imprimirTabuleiro() const;
     Jogada lerJogada(int jogador) override;
     bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const override;
+    void realizarJogada(Jogada jogada);
     bool verificarVitoria() const override;
     bool verificarEmpate() const override;
+    void mudarTurno();
 };
 
 #endif
