@@ -6,22 +6,20 @@
 #include "Jogo.hpp"
 
 class Reversi : public Jogo {
-protected:
-    bool dentroDosLimites(int linha, int coluna) const;
-    bool podeJogar(char simbolo, char oponente) const;
+private:
+    char simbolo_jogador1;
+    char simbolo_jogador2;
 
 public:
-    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
-
-    void setJogadores(Jogador jogador1, Jogador jogador2);
-    void realizarJogada(int linha, int coluna, char simbolo, char oponente); 
-    bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const override;
-    bool verificarVitoria() const override;
-    Jogada lerJogada (int jogador) override;
-    bool verificarEmpate() const override;
-    void imprimirTabuleiro() const override;
-    void reiniciarTabuleiro()override;
-
+   Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
+    bool dentroDosLimites(const Jogada& jogada) const;
+    bool jogadaValida(const Jogada& jogada, char simbolo, char oponente) const;
+    void realizarJogada(const Jogada& jogada, char simbolo, char oponente);
+    bool verificarVitoria() const;
+    bool verificarEmpate() const;
+    bool podeJogar(char simbolo, char oponente) const;
+    void imprimirTabuleiro() const;
+    void reiniciarTabuleiro();
     ~Reversi();
 };
 

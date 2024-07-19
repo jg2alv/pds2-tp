@@ -8,12 +8,12 @@ Jogada::Jogada(int linha, int coluna)
     this->_coluna = (coluna - 1);
 }
 
-int Jogada::get_linha()
+int Jogada::get_linha()const
 {
     return this->_linha;
 }
 
-int Jogada::get_coluna()
+int Jogada::get_coluna()const
 {
     return this->_coluna;
 }

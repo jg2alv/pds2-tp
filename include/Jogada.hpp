@@ -10,8 +10,8 @@ private:
 public:
     Jogada(int coluna);
     Jogada(int linha, int coluna);
-    int get_linha();
-    int get_coluna();
+    int get_linha()const;
+    int get_coluna()const;
     void set_linha(int linha);
 };
 
