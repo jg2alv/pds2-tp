@@ -12,6 +12,7 @@ public:
     Jogada(int linha, int coluna);
     int get_linha();
     int get_coluna();
+    void set_linha(int linha);
 };
 
 #endif

@@ -17,3 +17,8 @@ int Jogada::get_coluna()
 {
     return this->_coluna;
 }
+
+void Jogada::set_linha(int linha)
+{
+    this->_linha = linha;
+}
