@@ -7,6 +7,10 @@
 class Lig4 : public Jogo
 {
 private:
+    int jogador_atual;
+    char simbolo_jogador1;
+    char simbolo_jogador2;
+
     int get_linha(int coluna);
 
 public:
@@ -14,8 +18,8 @@ public:
 
     void imprimirTabuleiro() const;
     Jogada lerJogada(int jogador) override;
-    bool jogadaValida(Jogada jogada) const override;
-    bool verificarVitoria(int jogador) const override;
+    bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const override;
+    bool verificarVitoria() const override;
     bool verificarEmpate() const override;
 };
 
