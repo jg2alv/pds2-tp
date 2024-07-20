@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 #include "Sistema.hpp"
 #include "Excecao.hpp"
@@ -55,42 +56,43 @@ void Sistema::listarJogadores(std::string criterio) {
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
+    this->recarregarArquivo();
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++) {
         this->__jogadores[i]->imprimirInformacoes();
     }
 }
 
-std::string Sistema::executarComando(Comando comando_analisado) {
+void Sistema::executarComando(Comando comando_analisado) {
     switch (comando_analisado) {
         case Comando::CadastrarJogador: {
             std::string apelido, nome, saida;
             std::cin >> apelido >> nome;
             this->cadastrarJogador(apelido, nome);
-            return "";
+            break;
         }
         
         case Comando::RemoverJogador: {
             std::string apelido, saida;
             std::cin >> apelido;
             this->removerJogador(apelido);
-            return "";
+            break;
         }
 
         case Comando::ListarJogadores: {
             std::string criterio, saida;
             std::cin >> criterio;
             this->listarJogadores(criterio);
-            return "";
+            break;
         }
 
         case Comando::ExecutarPartida: {
-            return "";
+            break;
         }
 
         case Comando::FinalizarSistema: {
             this->__sistema_finalizado = true;
-            return "";
+            break;
         }
 
         default: {
@@ -99,8 +101,43 @@ std::string Sistema::executarComando(Comando comando_analisado) {
     }
 }
 
-Sistema::~Sistema() {
+void Sistema::limparSistema() {
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++)
         delete this->__jogadores[i];
+}
+
+void Sistema::recarregarArquivo() {
+    if(!this->__arquivo) throw Excecao("falha na abertura do arquivo");
+
+    this->limparSistema();
+    int numjogadores; this->__arquivo >> numjogadores;
+    for(int i = 0; i < numjogadores; i++) {
+        std::string apelido, nome;
+        this->__arquivo >> apelido >> nome;
+        Jogador* jogador = new Jogador(apelido, nome);
+
+        int numjogos; this->__arquivo >> numjogos;
+        for(int j = 0; j < numjogos; j++) {
+            std::string jogo;
+            this->__arquivo >> jogo;
+            int vit, derr, emp;
+            this->__arquivo >> vit >> derr >> emp;
+            jogador->setPontuacao(jogo, Resultado::Vitorias, vit);
+            jogador->setPontuacao(jogo, Resultado::Derrotas, derr);
+            jogador->setPontuacao(jogo, Resultado::Empates, emp);
+        }
+
+        this->__jogadores.push_back(jogador);
+    }
+}
+
+Sistema::Sistema() {
+    this->__arquivo = std::fstream("./data/jogadores.txt");
+    
+}
+
+Sistema::~Sistema() {
+    this->__arquivo.close();
+    this->limparSistema();
 }

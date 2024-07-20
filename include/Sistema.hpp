@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "Jogador.hpp"
 
@@ -18,15 +19,19 @@ class Sistema {
     private:
         std::vector<Jogador*> __jogadores;
         bool __sistema_finalizado = false;
+        std::fstream __arquivo;
 
     public:
         bool isSistemaFinalizado();
         Comando analisarComando(std::string comando);
-        std::string executarComando(Comando comando_);
+        void executarComando(Comando comando_analisado);
         std::vector<Jogador *>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string criterio);
+        void recarregarArquivo();
+        void limparSistema();
+        Sistema();
         ~Sistema();
 };
 
