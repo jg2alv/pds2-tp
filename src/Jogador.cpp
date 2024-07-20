@@ -13,3 +13,6 @@ std::string Jogador::getNome() {
     return this->_nome;
 }
 
+int Jogador::getPontuacao(std::string jogo, Resultado resultado) {
+    return this->__pontuacao[jogo][resultado];
+}
