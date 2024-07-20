@@ -14,6 +14,9 @@ private:
     int get_linha(int coluna) const;
     bool jogadaValida(Jogada &jogada) const;
     bool linhaVazia(int linha);
+    bool tabuleiroCheio() const;
+    void imprimirVitoria() const;
+    void imprimirEmpate() const;
 
 public:
     Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
