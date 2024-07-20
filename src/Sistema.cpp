@@ -23,7 +23,7 @@ std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
     return jogador;
 }
 
-void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
+std::string Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_repetido = jogador != this->__jogadores.end();
     
@@ -31,18 +31,21 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     
     Jogador* novo_jogador = new Jogador(apelido, nome);
     this->__jogadores.push_back(novo_jogador);
+
+    return "Jogador " + apelido + " cadastrado com sucesso";
 }
 
-void Sistema::removerJogador(std::string apelido) {
+std::string Sistema::removerJogador(std::string apelido) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_inexistente = jogador == this->__jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente");
-
     this->__jogadores.erase(jogador);
+
+    return "Jogador " + apelido + " removido com sucesso";
 }
 
-void Sistema::listarJogadores(std::string criterio) {
+std::string Sistema::listarJogadores(std::string criterio) {
     auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
@@ -53,36 +56,40 @@ void Sistema::listarJogadores(std::string criterio) {
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
     int tam = this->__jogadores.size();
+    std::string saida = "";
+
     for(int i = 0; i < tam; i++) {
         std::string apelido = this->__jogadores[i]->getApelido();
         std::string nome = this->__jogadores[i]->getNome();
 
-        std::cout << apelido << " " << nome << std::endl; 
+        saida += apelido + " " + nome + "\n"; 
         // vitorias e derrotas
     }
+
+    return saida;
 }
 
 std::string Sistema::executarComando(Comando comando_analisado) {
     switch (comando_analisado) {
         case Comando::CadastrarJogador: {
-            std::string apelido, nome;
+            std::string apelido, nome, saida;
             std::cin >> apelido >> nome;
-            this->cadastrarJogador(apelido, nome);
-            return "Jogador " + apelido + " cadastrado com sucesso";
+            saida = this->cadastrarJogador(apelido, nome);
+            return saida;
         }
         
         case Comando::RemoverJogador: {
-            std::string apelido;
+            std::string apelido, saida;
             std::cin >> apelido;
-            this->removerJogador(apelido);
-            return "Jogador " + apelido + " removido com sucesso";
+            saida = this->removerJogador(apelido);
+            return saida;
         }
 
         case Comando::ListarJogadores: {
-            std::string criterio;
+            std::string criterio, saida;
             std::cin >> criterio;
-            this->listarJogadores(criterio);
-            return "";
+            saida = this->listarJogadores(criterio);
+            return saida;
         }
 
         case Comando::ExecutarPartida: {
