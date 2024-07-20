@@ -2,7 +2,7 @@
 #include "Jogo.hpp"
 #include "Lig4.hpp"
 
-int Lig4::get_linha(int coluna)
+int Lig4::get_linha(int coluna) const
 {
     if (get_char(0, coluna) != ' ')
         return -1;
@@ -12,6 +12,29 @@ int Lig4::get_linha(int coluna)
         if (get_char(i, coluna) == ' ')
             return i;
     }
+}
+
+bool Lig4::jogadaValida(Jogada &jogada) const
+{
+    int coluna = jogada.get_coluna();
+    int linha = this->get_linha(coluna);
+
+    if (coluna >= 1 && coluna <= this->colunas && linha != -1)
+    {
+        jogada.set_linha(linha);
+        return true;
+    }
+    else
+        return false;
+}
+
+bool Lig4::linhaVazia(int linha)
+{
+    for (int j = 0; j < this->colunas; j++)
+        if (get_char(linha, j) != ' ')
+            return false;
+
+    return true;
 }
 
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
@@ -56,12 +79,23 @@ Jogada Lig4::lerJogada(int jogador)
     return jogada;
 }
 
-bool Lig4::jogadaValida(int linha, int coluna, char simbolo, char oponente) const
+void Lig4::realizarJogada(Jogada &jogada)
 {
-}
+    if (jogadaValida(jogada) == true)
+    {
+        char simbolo;
+        if (this->jogador_atual == 1)
+            simbolo = this->simbolo_jogador1;
+        else if (this->jogador_atual == 2)
+            simbolo = this->simbolo_jogador2;
 
-void Lig4::realizarJogada(Jogada jogada)
-{
+        set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
+    }
+    else
+    {
+        std::cout << "ERRO: jogada invalida" << std::endl;
+        lerJogada(this->jogador_atual);
+    }
 }
 
 bool Lig4::verificarVitoria() const
@@ -72,8 +106,10 @@ bool Lig4::verificarEmpate() const
 {
 }
 
-void Lig4::mudarTurno() 
+void Lig4::mudarTurno()
 {
-    if (this->jogador_atual == 1) this->jogador_atual = 2;
-    else if (this->jogador_atual == 2) this->jogador_atual = 1;
+    if (this->jogador_atual == 1)
+        this->jogador_atual = 2;
+    else if (this->jogador_atual == 2)
+        this->jogador_atual = 1;
 }
