@@ -13,10 +13,7 @@ int main() {
         std::string comando; std::cin >> comando;
         Comando comando_analisado = sistema.analisarComando(comando);
         try {
-            std::string saida = sistema.executarComando(comando_analisado);
-            bool saida_vazia = (saida.length() == 0);
-
-            if(!saida_vazia) std::cout << saida << std::endl;
+            sistema.executarComando(comando_analisado);
         }
         catch(const std::exception& e) {
             std::cerr << "ERRO: " << e.what() << std::endl;
