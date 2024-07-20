@@ -26,6 +26,7 @@ public:
     void realizarJogada(Jogada &jogada);
     bool verificarVitoria() const override;
     bool verificarEmpate() const override;
+    void reiniciarTabuleiro() override;
     void mudarTurno();
 };
 

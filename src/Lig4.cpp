@@ -41,14 +41,15 @@ bool Lig4::tabuleiroCheio() const
 {
     for (int i = 0; i < this->linhas; i++)
         for (int j = 0; j < this->colunas; j++)
-            if (get_char(i, j) == ' ') return false;
+            if (get_char(i, j) == ' ')
+                return false;
 
     return true;
 }
 
 void Lig4::imprimirVitoria() const
 {
-    if (this->jogador_atual == 1) 
+    if (this->jogador_atual == 1)
         std::cout << jogador1.getApelido();
     else if (this->jogador_atual == 2)
         std::cout << jogador2.getApelido();
@@ -84,7 +85,8 @@ void Lig4::imprimirTabuleiro() const
     {
         std::cout << " " << i << " ";
     }
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl
+              << std::endl;
 }
 
 Jogada Lig4::lerJogada(int jogador)
@@ -128,11 +130,20 @@ bool Lig4::verificarVitoria() const
 
 bool Lig4::verificarEmpate() const
 {
-    if (tabuleiroCheio() == true) {
+    if (tabuleiroCheio() == true)
+    {
         imprimirEmpate();
         return true;
     }
-    else return false;
+    else
+        return false;
+}
+
+void Lig4::reiniciarTabuleiro()
+{
+    for (int i = 0; i < this->linhas; i++)
+        for (int j = 0; j < this->colunas; j++)
+            set_char(i, j, ' ');
 }
 
 void Lig4::mudarTurno()
