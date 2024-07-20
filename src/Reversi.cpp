@@ -172,6 +172,10 @@ void Reversi::partida() {
         
         if (verificarVitoria()) {
             std::cout << "Jogador 1 venceu" << std::endl;
+            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
+            jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
+            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
+            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
             break;
         }
 
@@ -204,6 +208,10 @@ void Reversi::partida() {
         
         if (verificarVitoria()) {
             std::cout << "Jogador 2 venceu" << std::endl;
+            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
+            jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
+            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
+            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
             break;
         }
 
@@ -224,11 +232,23 @@ void Reversi::partida() {
 
                 if (contador1 > contador2) {
                     std::cout << "Jogador 1 venceu" << std::endl;
+                    int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
+                    jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
+                    int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
+                    jogador2.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
                 } else {
                     std::cout << "Jogador 2 venceu" << std::endl;
+                    int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
+                    jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
+                    int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
+                    jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
                 }
             } else {
                 std::cout << "Jogo empatado" << std::endl;
+                int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Empates);
+                jogador1.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador1 + 1);
+                int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Empates);
+                jogador2.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador2 + 1);
             }
             break;
         }
