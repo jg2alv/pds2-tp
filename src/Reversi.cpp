@@ -3,8 +3,8 @@
 #include "Jogada.hpp"
 #include <iostream>
 
-Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) 
-    : Jogo(linhas, colunas, jogador1, jogador2) {
+Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) 
+{
     this->simbolo_jogador1 = 'x';
     this->simbolo_jogador2 = 'o';
     reiniciarTabuleiro();
@@ -148,5 +148,93 @@ void Reversi::reiniciarTabuleiro() {
     set_char(linhas / 2, colunas / 2 - 1, simbolo_jogador1);
     set_char(linhas / 2, colunas / 2, simbolo_jogador2);
 }
+
+void Reversi::partida() {
+    bool passouUltimaJogada = false;
+    int x, y;
+    int jogadas = 0;
+    const int MaxJogadas = linhas * colunas;
+
+    while (jogadas < MaxJogadas) {
+        imprimirTabuleiro();
+        std::cout << "Jogador 1 (" << simbolo_jogador1 << "), escolha uma coordenada no seguinte formato: (x y): ";
+        std::cin >> x >> y;
+        std::cout << "\n";
+
+        while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador1, simbolo_jogador2)) {
+            std::cout << "Jogada invalida. Digite uma coordenada valida dentro dos valores do tabuleiro: ";
+            std::cin >> x >> y;
+        }
+
+        realizarJogada(Jogada(x, y), simbolo_jogador1, simbolo_jogador2);
+        jogadas++;
+
+        
+        if (verificarVitoria()) {
+            std::cout << "Jogador 1 venceu" << std::endl;
+            break;
+        }
+
+        
+        if (!podeJogar(simbolo_jogador2, simbolo_jogador1)) {
+            if (passouUltimaJogada) {
+                break; 
+            } else {
+                passouUltimaJogada = true;
+                std::cout << "Jogador 2 passou a vez" << std::endl;
+                continue; 
+            }
+        } else {
+            passouUltimaJogada = false;
+        }
+
+        imprimirTabuleiro();
+        std::cout << "Jogador 2 (" << simbolo_jogador2 << "), escolha uma coordenada no seguinte formato: (x y): ";
+        std::cin >> x >> y;
+        std::cout << "\n";
+
+        while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador2, simbolo_jogador1)) {
+            std::cout << "Jogada invalida. Digite uma coordenada valida dentro dos valores do tabuleiro: ";
+            std::cin >> x >> y;
+        }
+
+        realizarJogada(Jogada(x, y), simbolo_jogador2, simbolo_jogador1);
+        jogadas++;
+
+        
+        if (verificarVitoria()) {
+            std::cout << "Jogador 2 venceu" << std::endl;
+            break;
+        }
+
+        if (jogadas == MaxJogadas) {
+            if (!verificarEmpate()) {
+                int contador1 = 0;
+                int contador2 = 0;
+
+                for (int i = 0; i < linhas; i++) {
+                    for (int j = 0; j < colunas; j++) {
+                        if (get_char(i, j) == simbolo_jogador1) {
+                            contador1++;
+                        } else if (get_char(i, j) == simbolo_jogador2) {
+                            contador2++;
+                        }
+                    }
+                }
+
+                if (contador1 > contador2) {
+                    std::cout << "Jogador 1 venceu" << std::endl;
+                } else {
+                    std::cout << "Jogador 2 venceu" << std::endl;
+                }
+            } else {
+                std::cout << "Jogo empatado" << std::endl;
+            }
+            break;
+        }
+    }
+    std::cout << "Fim de jogo!!!" << std::endl;
+}
+
 
 Reversi::~Reversi() {}
