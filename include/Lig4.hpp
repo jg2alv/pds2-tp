@@ -13,7 +13,8 @@ private:
 
     int get_linha(int coluna) const;
     bool jogadaValida(Jogada &jogada) const;
-    bool linhaVazia(int linha);
+    bool linhaVazia(int linha) const;
+    bool colunaVazia(int coluna) const;
     bool tabuleiroCheio() const;
     void imprimirVitoria() const;
     void imprimirEmpate() const;

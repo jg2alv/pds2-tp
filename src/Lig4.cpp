@@ -1,6 +1,8 @@
 #include <iostream>
-#include "Jogo.hpp"
 #include "Lig4.hpp"
+#include "Jogada.hpp"
+#include "Jogador.hpp"
+#include "Jogo.hpp"
 
 int Lig4::get_linha(int coluna) const
 {
@@ -28,10 +30,19 @@ bool Lig4::jogadaValida(Jogada &jogada) const
         return false;
 }
 
-bool Lig4::linhaVazia(int linha)
+bool Lig4::linhaVazia(int linha) const
 {
     for (int j = 0; j < this->colunas; j++)
         if (get_char(linha, j) != ' ')
+            return false;
+
+    return true;
+}
+
+bool Lig4::colunaVazia(int coluna) const
+{
+    for (int i = 0; i < this->linhas; i++)
+        if (get_char(i, colunas) != ' ')
             return false;
 
     return true;
@@ -49,10 +60,8 @@ bool Lig4::tabuleiroCheio() const
 
 void Lig4::imprimirVitoria() const
 {
-    if (this->jogador_atual == 1)
-        std::cout << jogador1.getApelido();
-    else if (this->jogador_atual == 2)
-        std::cout << jogador2.getApelido();
+    if (this->jogador_atual == 1) std::cout << jogador1.getApelido();
+    else if (this->jogador_atual == 2) std::cout << jogador2.getApelido();
     std::cout << " venceu a partida!" << std::endl;
 }
 
@@ -92,10 +101,8 @@ void Lig4::imprimirTabuleiro() const
 Jogada Lig4::lerJogada(int jogador)
 {
     std::cout << "Turno do jogador ";
-    if (this->jogador_atual == 1)
-        std::cout << this->jogador1.getApelido();
-    else if (this->jogador_atual == 2)
-        std::cout << this->jogador2.getApelido();
+    if (this->jogador_atual == 1) std::cout << this->jogador1.getApelido();
+    else if (this->jogador_atual == 2) std::cout << this->jogador2.getApelido();
     std::cout << ": ";
 
     int coluna;
@@ -110,10 +117,8 @@ void Lig4::realizarJogada(Jogada &jogada)
     if (jogadaValida(jogada) == true)
     {
         char simbolo;
-        if (this->jogador_atual == 1)
-            simbolo = this->simbolo_jogador1;
-        else if (this->jogador_atual == 2)
-            simbolo = this->simbolo_jogador2;
+        if (this->jogador_atual == 1) simbolo = this->simbolo_jogador1;
+        else if (this->jogador_atual == 2) simbolo = this->simbolo_jogador2;
 
         set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
     }
@@ -126,6 +131,66 @@ void Lig4::realizarJogada(Jogada &jogada)
 
 bool Lig4::verificarVitoria() const
 {
+    char simbolo;
+    if (this->jogador_atual == 1) simbolo = simbolo_jogador1;
+    if (this->jogador_atual == 2) simbolo = simbolo_jogador2;
+
+    for (int i = 0; i < this->linhas; i++) {
+        if (linhaVazia(i) == true) continue;
+
+        for (int j = 0; j < (this->colunas - 3); j++) {
+
+            int qntd = 0;
+            for (int k = j; k < j + 4; k++) {
+                if (get_char(i, k) == ' ') continue;
+                if (get_char(i, k) == simbolo) qntd++;
+            }
+
+            if (qntd == 4) return true;
+        }
+    }
+
+    for (int i = 0; i < (this->linhas - 3); i++) {
+        for (int j = 0; j < this->colunas; j++) {
+            if(colunaVazia(j) == true) continue;
+
+            int qntd = 0;
+            for (int k = i; k < i + 4; k++) {
+                if (get_char(k, j) == ' ') continue;
+                if (get_char(k, j) == simbolo) qntd++;
+            }
+
+            if (qntd == 4) return true;
+        }
+    }
+
+    for (int i = 0; i < (this->linhas - 3); i++) {
+        for (int j = 0; j < (this->colunas - 3); j++) {
+
+            int qntd = 0;
+            for (int k = i, l = j; k < i + 4; k++, l++) {
+                if (get_char(k, l) == ' ') continue;
+                if (get_char(k, l) == simbolo) qntd++;
+            }
+
+            if (qntd == 4) return true;
+        }
+    }
+
+    for (int i = 0; i < (this->linhas - 3); i++) {
+        for (int j = (this->colunas - 1); (j - 3) >= 0; j--) {
+
+            int qntd = 0;
+            for (int k = i, l = j; k < i + 4; k++, l--) {
+                if (get_char(k, l) == ' ') continue;
+                if (get_char(k, l) == simbolo) qntd++;
+            }
+
+            if (qntd == 4) return true;
+        }
+    }
+
+    return false;
 }
 
 bool Lig4::verificarEmpate() const
