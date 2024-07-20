@@ -23,7 +23,7 @@ std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
     return jogador;
 }
 
-std::string Sistema::cadastrarJogador(std::string apelido, std::string nome) {
+void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_repetido = jogador != this->__jogadores.end();
     
@@ -32,20 +32,20 @@ std::string Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     Jogador* novo_jogador = new Jogador(apelido, nome);
     this->__jogadores.push_back(novo_jogador);
 
-    return "Jogador " + apelido + " cadastrado com sucesso";
+    std::cout << "Jogador " << apelido << " cadastrado com sucesso" << std::endl;
 }
 
-std::string Sistema::removerJogador(std::string apelido) {
+void Sistema::removerJogador(std::string apelido) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_inexistente = jogador == this->__jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente");
     this->__jogadores.erase(jogador);
 
-    return "Jogador " + apelido + " removido com sucesso";
+    std::cout << "Jogador " << apelido << " removido com sucesso" << std::endl;
 }
 
-std::string Sistema::listarJogadores(std::string criterio) {
+void Sistema::listarJogadores(std::string criterio) {
     auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
@@ -56,17 +56,9 @@ std::string Sistema::listarJogadores(std::string criterio) {
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
     int tam = this->__jogadores.size();
-    std::string saida = "";
-
     for(int i = 0; i < tam; i++) {
-        std::string apelido = this->__jogadores[i]->getApelido();
-        std::string nome = this->__jogadores[i]->getNome();
-
-        saida += apelido + " " + nome + "\n"; 
-        // vitorias e derrotas
+        this->__jogadores[i]->imprimirInformacoes();
     }
-
-    return saida;
 }
 
 std::string Sistema::executarComando(Comando comando_analisado) {
@@ -74,22 +66,22 @@ std::string Sistema::executarComando(Comando comando_analisado) {
         case Comando::CadastrarJogador: {
             std::string apelido, nome, saida;
             std::cin >> apelido >> nome;
-            saida = this->cadastrarJogador(apelido, nome);
-            return saida;
+            this->cadastrarJogador(apelido, nome);
+            return "";
         }
         
         case Comando::RemoverJogador: {
             std::string apelido, saida;
             std::cin >> apelido;
-            saida = this->removerJogador(apelido);
-            return saida;
+            this->removerJogador(apelido);
+            return "";
         }
 
         case Comando::ListarJogadores: {
             std::string criterio, saida;
             std::cin >> criterio;
-            saida = this->listarJogadores(criterio);
-            return saida;
+            this->listarJogadores(criterio);
+            return "";
         }
 
         case Comando::ExecutarPartida: {

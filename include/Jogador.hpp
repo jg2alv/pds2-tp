@@ -21,6 +21,7 @@ public:
     std::string getApelido() const;
     std::string getNome();
     int getPontuacao(std::string jogo, Resultado resultado);
+    void imprimirInformacoes();
 };
 
 #endif

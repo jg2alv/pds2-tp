@@ -24,9 +24,9 @@ class Sistema {
         Comando analisarComando(std::string comando);
         std::string executarComando(Comando comando_);
         std::vector<Jogador *>::iterator acharJogador(std::string apelido);
-        std::string cadastrarJogador(std::string nome, std::string apelido);
-        std::string removerJogador(std::string apelido);
-        std::string listarJogadores(std::string criterio);
+        void cadastrarJogador(std::string nome, std::string apelido);
+        void removerJogador(std::string apelido);
+        void listarJogadores(std::string criterio);
         ~Sistema();
 };
 
