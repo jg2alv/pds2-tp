@@ -179,7 +179,8 @@ bool Lig4::verificarVitoria() const {
                     qntd++;
             }
 
-            if (qntd == 4) return true;
+            if (qntd == 4) 
+                return true;
         }
     }
 
@@ -287,5 +288,27 @@ void Lig4::reiniciarTabuleiro() {
 }
 
 void Lig4::partida() {
+    std::cout << "----------Lig4----------" << std::endl;
 
+    Jogada jogada(-1, -1);
+    while(1) {
+        imprimirTabuleiro();
+    
+        while(1) {
+            jogada = lerJogada();
+            if (jogadaValida(jogada)) break;
+        }
+
+        realizarJogada(jogada);
+
+        if (verificarVitoria()) {
+            imprimirVitoria();
+            break;
+
+        } else if (verificarEmpate()) {
+            imprimirEmpate();
+            break;
+
+        } else mudarTurno();
+    }
 }
