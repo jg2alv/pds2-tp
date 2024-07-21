@@ -305,18 +305,12 @@ void Lig4::partida() {
             imprimirVitoria();
 
             if (this->jogador_atual == 1) {
-                jogador1.setPontuacao("Lig4", Resultado::Vitorias, 
-                jogador1.getPontuacao("Lig4", Resultado::Vitorias) + 1);
-
-                jogador2.setPontuacao("Lig4", Resultado::Derrotas, 
-                jogador2.getPontuacao("Lig4", Resultado::Derrotas) + 1);
+                jogador1.incrementarVitorias("Lig4");
+                jogador2.incrementarDerrotas("Lig4");
 
             } else {
-                jogador1.setPontuacao("Lig4", Resultado::Derrotas, 
-                jogador1.getPontuacao("Lig4", Resultado::Derrotas) + 1);
-
-                jogador2.setPontuacao("Lig4", Resultado::Vitorias, 
-                jogador2.getPontuacao("Lig4", Resultado::Vitorias) + 1);
+                jogador1.incrementarDerrotas("Lig4");
+                jogador2.incrementarVitorias("Lig4");
             }
 
             break;
@@ -324,11 +318,8 @@ void Lig4::partida() {
         } else if (verificarEmpate()) {
             imprimirEmpate();
 
-            jogador1.setPontuacao("Lig4", Resultado::Empates, 
-            jogador1.getPontuacao("Lig4", Resultado::Empates) + 1);
-
-            jogador2.setPontuacao("Lig4", Resultado::Empates, 
-            jogador2.getPontuacao("Lig4", Resultado::Empates) + 1);
+            jogador1.incrementarEmpates("Lig4");
+            jogador2.incrementarEmpates("Lig4");
 
             break;
 
