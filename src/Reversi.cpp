@@ -203,7 +203,7 @@ void Reversi::partida() {
             std::cin >> x >> y;
 
             while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador1, simbolo_jogador2)) {
-                std::cout << "Digite uma coordenada válida: \n";
+                std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
@@ -225,7 +225,7 @@ void Reversi::partida() {
             std::cin >> x >> y;
 
             while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador2, simbolo_jogador1)) {
-                std::cout << "Digite uma coordenada válida: \n";
+                std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
