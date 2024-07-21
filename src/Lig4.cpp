@@ -96,6 +96,7 @@ Jogada Lig4::lerJogada() {
         std::cout << "Turno do jogador ";
         if (this->jogador_atual == 1) 
             std::cout << this->jogador1.getApelido();
+        
         else if (this->jogador_atual == 2) 
             std::cout << this->jogador2.getApelido();
         std::cout << ": ";
@@ -160,11 +161,11 @@ bool Lig4::verificarVitoria() const {
     if (this->jogador_atual == 1) 
         simbolo = simbolo_jogador1;
 
-    if (this->jogador_atual == 2) 
+    else if (this->jogador_atual == 2) 
         simbolo = simbolo_jogador2;
 
     for (int i = 0; i < this->linhas; i++) {
-        if (linhaVazia(i) == true) 
+        if (linhaVazia(i)) 
             continue;
 
         for (int j = 0; j < (this->colunas - 3); j++) {
@@ -182,10 +183,11 @@ bool Lig4::verificarVitoria() const {
         }
     }
 
-    for (int i = 0; i < (this->linhas - 3); i++) {
-        for (int j = 0; j < this->colunas; j++) {
-            if(colunaVazia(j) == true) 
-                continue;
+    for (int j = 0; j < this->colunas; j++) {
+        if(colunaVazia(j)) 
+            continue;
+
+        for (int i = 0; i < (this->linhas - 3); i++) {
 
             int qntd = 0;
             for (int k = i; k < i + 4; k++) {
@@ -225,7 +227,7 @@ bool Lig4::verificarVitoria() const {
             for (int k = i, l = j; k < i + 4; k++, l--) {
                 if (get_char(k, l) == ' ') 
                     continue;
-                    
+
                 if (get_char(k, l) == simbolo) 
                     qntd++;
             }
