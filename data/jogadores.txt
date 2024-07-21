@@ -1,11 +1,1 @@
-2
-marcos
-Marcos
-2
-REVERSI 10 10 10
-LIG4 10 10 10
-joao
-Joao
-2
-REVERSI 0 0 0
-LIG4 69 96 420
+0

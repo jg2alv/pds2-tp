@@ -56,7 +56,7 @@ void Sistema::listarJogadores(std::string criterio) {
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
-    this->recarregarArquivo();
+    this->carregarArquivo();
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++) {
         this->__jogadores[i]->imprimirInformacoes();
@@ -102,15 +102,13 @@ void Sistema::executarComando(Comando comando_analisado) {
 }
 
 void Sistema::limparSistema() {
-    int tam = this->__jogadores.size();
-    for(int i = 0; i < tam; i++)
-        delete this->__jogadores[i];
+    this->__jogadores.clear();
 }
 
-void Sistema::recarregarArquivo() {
+void Sistema::carregarArquivo() {
     if(!this->__arquivo) throw Excecao("falha na abertura do arquivo");
-
     this->limparSistema();
+
     int numjogadores; this->__arquivo >> numjogadores;
     for(int i = 0; i < numjogadores; i++) {
         std::string apelido, nome;
@@ -119,13 +117,12 @@ void Sistema::recarregarArquivo() {
 
         int numjogos; this->__arquivo >> numjogos;
         for(int j = 0; j < numjogos; j++) {
-            std::string jogo;
-            this->__arquivo >> jogo;
-            int vit, derr, emp;
-            this->__arquivo >> vit >> derr >> emp;
-            jogador->setPontuacao(jogo, Resultado::Vitorias, vit);
-            jogador->setPontuacao(jogo, Resultado::Derrotas, derr);
-            jogador->setPontuacao(jogo, Resultado::Empates, emp);
+            std::string jogo; this->__arquivo >> jogo;
+            int vit, derr, emp; this->__arquivo >> vit >> derr >> emp;
+
+            // jogador->setPontuacao(jogo, Resultado::Vitorias, vit);
+            // jogador->setPontuacao(jogo, Resultado::Derrotas, derr);
+            // jogador->setPontuacao(jogo, Resultado::Empates, emp);
         }
 
         this->__jogadores.push_back(jogador);
@@ -133,8 +130,17 @@ void Sistema::recarregarArquivo() {
 }
 
 Sistema::Sistema() {
-    this->__arquivo = std::fstream("./data/jogadores.txt");
-    
+    std::ifstream arquivo("./data/jogadores.txt");
+    bool arquivoexiste = arquivo.good();
+    arquivo.close();
+    this->__arquivo = std::fstream("./data/jogadores.txt", std::fstream::out);
+
+    if(!arquivoexiste) {
+        this->__arquivo << "0";
+        this->__arquivo.flush();
+    }
+
+    this->carregarArquivo();
 }
 
 Sistema::~Sistema() {

@@ -29,7 +29,7 @@ class Sistema {
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string criterio);
-        void recarregarArquivo();
+        void carregarArquivo();
         void limparSistema();
         Sistema();
         ~Sistema();
