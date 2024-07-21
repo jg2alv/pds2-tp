@@ -5,6 +5,8 @@
 
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) 
 {
+    this->simbolo_jogador1 = 'x';
+    this->simbolo_jogador2 = 'o';
     reiniciarTabuleiro();
 }
 
@@ -18,8 +20,6 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     
-    
-
     if (!dentroDosLimites(jogada)) {
         return false;
     }
@@ -36,21 +36,17 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
         int ncoluna = coluna + dcoluna[i];
         bool encontrouOponente = false;
 
-        while (dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == oponente) {
+        while (dentroDosLimites(Jogada(nlinha + 1, ncoluna + 1)) && get_char(nlinha, ncoluna) == oponente) {
             encontrouOponente = true;
             nlinha += dlinha[i];
             ncoluna += dcoluna[i];
         }
-        if (encontrouOponente && dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == simbolo) {
-           
+        if (encontrouOponente && dentroDosLimites(Jogada(nlinha + 1, ncoluna + 1)) && get_char(nlinha, ncoluna) == simbolo) {
             return true;
         }
     }
     return false;
 }
-
-
-
 
 void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) {
     int linha = jogada.get_linha();
@@ -64,13 +60,13 @@ void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) 
         int nlinha = linha + dlinha[i], ncoluna = coluna + dcoluna[i];
         bool encontrouOponente = false;
 
-        while (dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == oponente) {
+        while (dentroDosLimites(Jogada(nlinha + 1, ncoluna + 1)) && get_char(nlinha, ncoluna) == oponente) {
             encontrouOponente = true;
             nlinha += dlinha[i];
             ncoluna += dcoluna[i];
         }
 
-        if (encontrouOponente && dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == simbolo) {
+        if (encontrouOponente && dentroDosLimites(Jogada(nlinha + 1, ncoluna + 1)) && get_char(nlinha, ncoluna) == simbolo) {
             nlinha -= dlinha[i];
             ncoluna -= dcoluna[i];
 
@@ -82,7 +78,6 @@ void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) 
         }
     }
 }
-
 
 bool Reversi::verificarVitoria() const {
     int contador1 = 0;
@@ -116,7 +111,6 @@ bool Reversi::verificarVitoria() const {
     return false;
 }
 
-
 bool Reversi::verificarEmpate() const {
     int contador1 = 0;
     int contador2 = 0;
@@ -132,7 +126,6 @@ bool Reversi::verificarEmpate() const {
     }
 
     if (contador1 + contador2 == linhas * colunas) {
-        
         if (contador1 > contador2) {
             imprimirTabuleiro();
             std::cout << jogador1.getApelido() << " venceu" << std::endl;
@@ -155,12 +148,10 @@ bool Reversi::verificarEmpate() const {
     return false;
 }
 
-
-
 bool Reversi::podeJogar(char simbolo, char oponente) const {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (jogadaValida(Jogada(i, j), simbolo, oponente)) {
+            if (jogadaValida(Jogada(i + 1, j + 1), simbolo, oponente)) {
                 return true;
             }
         }
@@ -172,18 +163,17 @@ void Reversi::imprimirTabuleiro() const {
     std::cout << "---------Reversi---------" << std::endl;
     std::cout << "  ";
     for (int j = 0; j < colunas; j++) {
-        std::cout << " " << j << " ";
+        std::cout << " " << j + 1 << " ";
     }
-        std::cout << "\n";
+    std::cout << "\n";
     for (int i = 0; i < linhas; i++) {
-        std::cout << i << " "; 
+        std::cout << i + 1 << " "; 
         for (int j = 0; j < colunas; j++) {
             std::cout << "|" << get_char(i, j) << "|";
         }
         std::cout << "\n";
     }
 }
-
 
 void Reversi::reiniciarTabuleiro() {
     for (int i = 0; i < linhas; i++) {
@@ -197,7 +187,6 @@ void Reversi::reiniciarTabuleiro() {
     set_char(linhas / 2, colunas / 2 - 1, simbolo_jogador1);
     set_char(linhas / 2, colunas / 2, simbolo_jogador2);
 }
-
 
 void Reversi::partida() {
     bool passouUltimaJogada = false;
