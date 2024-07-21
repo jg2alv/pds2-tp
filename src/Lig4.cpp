@@ -74,8 +74,6 @@ void Lig4::imprimirEmpate() const
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
     : Jogo(linhas, colunas, jogador1, jogador2)
 {
-    this->simbolo_jogador1 = 'x';
-    this->simbolo_jogador2 = 'o';
     this->jogador_atual = 1;
 }
 

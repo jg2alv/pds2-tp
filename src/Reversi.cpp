@@ -5,8 +5,6 @@
 
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) 
 {
-    this->simbolo_jogador1 = 'x';
-    this->simbolo_jogador2 = 'o';
     reiniciarTabuleiro();
 }
 
