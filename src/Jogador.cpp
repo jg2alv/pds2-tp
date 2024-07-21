@@ -3,6 +3,13 @@
 
 #include "Jogador.hpp"
 
+
+Resultados::Resultados(int vitorias, int derrotas, int empates)
+    : vitorias(vitorias), derrotas(derrotas), empates(empates) {}
+
+Resultados::Resultados() : Resultados(0, 0, 0) {}
+
+
 Jogador::Jogador(std::string apelido, std::string nome) : _apelido(apelido), _nome(nome) {}
 
 std::string Jogador::getApelido() const {
@@ -13,12 +20,8 @@ std::string Jogador::getNome() {
     return this->_nome;
 }
 
-int Jogador::getPontuacao(std::string jogo, Resultado resultado) {
-    return this->__pontuacao[jogo][resultado];
-}
-
-void Jogador::setPontuacao(std::string jogo, Resultado resultado, int pontuacao) {
-    this->__pontuacao[jogo][resultado] = pontuacao;
+Resultados& Jogador::getResultados(std::string jogo) {
+    return __pontuacao[jogo];
 }
 
 void Jogador::imprimirInformacoes() {

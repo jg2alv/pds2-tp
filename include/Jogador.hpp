@@ -4,24 +4,31 @@
 #include <string>
 #include <map>
 
-enum class Resultado {
-    Vitorias,
-    Derrotas,
-    Empates
+struct Resultados {
+    int vitorias;
+    int derrotas;
+    int empates;
+
+    Resultados(int vitorias, int derrotas, int empates);
+    Resultados();
 };
 
 class Jogador {
 private:
     std::string _apelido;
     std::string _nome;
-    std::map<std::string, std::map<Resultado, int>> __pontuacao;
+    std::map<std::string, Resultados> __pontuacao;
 
 public:
     Jogador(std::string apelido, std::string nome);
     std::string getApelido() const;
     std::string getNome();
-    int getPontuacao(std::string jogo, Resultado resultado);
-    void setPontuacao(std::string jogo, Resultado resultado, int pontuacao);
+
+    Resultados& getResultados(std::string jogo);
+    void incrementarVitorias(std::string jogo);
+    void incrementarDerrotas(std::string jogo);
+    void incrementarEmpates(std::string jogo);
+
     void imprimirInformacoes();
 };
 
