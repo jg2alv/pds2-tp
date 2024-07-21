@@ -5,6 +5,8 @@
 
 #include "Sistema.hpp"
 #include "Excecao.hpp"
+#include "Lig4.hpp"
+#include "Reversi.hpp"
 
 bool Sistema::isSistemaFinalizado() { return this->__sistema_finalizado; }
 
@@ -87,6 +89,18 @@ void Sistema::executarComando(Comando comando_analisado) {
         }
 
         case Comando::ExecutarPartida: {
+            std::string jogo;
+            std::cin >> jogo;
+            if(jogo == "Lig4") {
+                
+
+            }
+            else if(jogo == "Reversi") {
+
+            }
+            else {
+                
+            }
             break;
         }
 
