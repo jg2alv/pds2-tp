@@ -4,8 +4,8 @@ Jogada::Jogada(int coluna) : Jogada(0, coluna) {}
 
 Jogada::Jogada(int linha, int coluna)
 {
-    this->_linha = (linha - 1);
-    this->_coluna = (coluna - 1);
+    this->_linha = (linha);
+    this->_coluna = (coluna);
 }
 
 int Jogada::get_linha()const

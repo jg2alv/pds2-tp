@@ -20,7 +20,13 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     
-    if (get_char(linha, coluna) != ' ') {
+    
+
+    if (!dentroDosLimites(jogada)) {
+        return false;
+    }
+
+    if (get_char(linha, coluna) != ' ') { 
         return false;
     }
 
@@ -28,7 +34,8 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
     int dcoluna[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
     for (int i = 0; i < 8; i++) {
-        int nlinha = linha + dlinha[i], ncoluna = coluna + dcoluna[i];
+        int nlinha = linha + dlinha[i];
+        int ncoluna = coluna + dcoluna[i];
         bool encontrouOponente = false;
 
         while (dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == oponente) {
@@ -36,14 +43,16 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
             nlinha += dlinha[i];
             ncoluna += dcoluna[i];
         }
-
         if (encontrouOponente && dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == simbolo) {
+           
             return true;
         }
     }
-
     return false;
 }
+
+
+
 
 void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) {
     int linha = jogada.get_linha();
@@ -76,6 +85,7 @@ void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) 
     }
 }
 
+
 bool Reversi::verificarVitoria() const {
     int contador1 = 0;
     int contador2 = 0;
@@ -90,7 +100,24 @@ bool Reversi::verificarVitoria() const {
         }
     }
 
-    return (contador1 + contador2 == linhas * colunas && contador1 != contador2);
+    if(contador2 == 0 && contador1 > 0){
+            imprimirTabuleiro();
+            std::cout << "Jogador 1 venceu" << std::endl;
+            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
+            jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
+            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
+            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
+            return true; 
+        }else if (contador1 == 0 && contador2 > 0){
+            imprimirTabuleiro();
+            std::cout << "Jogador 2 venceu" << std::endl;
+            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
+            jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
+            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
+            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
+            return true;
+           } 
+        return false;
 }
 
 bool Reversi::verificarEmpate() const {
@@ -107,7 +134,32 @@ bool Reversi::verificarEmpate() const {
         }
     }
 
-    return (contador1 + contador2 == linhas * colunas && contador1 == contador2);
+    if (contador1>contador2){
+        imprimirTabuleiro();
+        std::cout << "Jogador 1 venceu" << std::endl;
+        int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
+        jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
+        int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
+        jogador2.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
+        return true;
+    }else if(contador2 > contador1){
+        imprimirTabuleiro();
+        std::cout << "Jogador 2 venceu" << std::endl;
+        int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
+        jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
+        int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
+        jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
+        return true;
+    }else if(contador1==contador2){
+        imprimirTabuleiro();
+        std::cout << "Jogo empatado" << std::endl;
+        int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Empates);
+        jogador1.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador1 + 1);
+        int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Empates);
+        jogador2.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador2 + 1);
+        return true;
+    }
+    return false;
 }
 
 bool Reversi::podeJogar(char simbolo, char oponente) const {
@@ -122,24 +174,26 @@ bool Reversi::podeJogar(char simbolo, char oponente) const {
 }
 
 void Reversi::imprimirTabuleiro() const {
+    std::cout << "---------Reversi---------" << std::endl;
+    std::cout << "  ";
+    for (int j = 0; j < colunas; j++) {
+        std::cout << " " << j << " ";
+    }
+        std::cout << "\n";
     for (int i = 0; i < linhas; i++) {
-        std::cout << i << " ";
+        std::cout << i << " "; 
         for (int j = 0; j < colunas; j++) {
             std::cout << "|" << get_char(i, j) << "|";
         }
         std::cout << "\n";
     }
-    std::cout << "  ";
-    for (int j = 0; j < colunas; j++) {
-        std::cout << " " << j << " ";
-    }
-    std::cout << "\n";
 }
+
 
 void Reversi::reiniciarTabuleiro() {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            set_char(i, j, ' ');
+            set_char(i, j, ' '); 
         }
     }
 
@@ -148,6 +202,7 @@ void Reversi::reiniciarTabuleiro() {
     set_char(linhas / 2, colunas / 2 - 1, simbolo_jogador1);
     set_char(linhas / 2, colunas / 2, simbolo_jogador2);
 }
+
 
 void Reversi::partida() {
     bool passouUltimaJogada = false;
@@ -159,27 +214,19 @@ void Reversi::partida() {
         imprimirTabuleiro();
         std::cout << "Jogador 1 (" << simbolo_jogador1 << "), escolha uma coordenada no seguinte formato: (x y): ";
         std::cin >> x >> y;
-        std::cout << "\n";
 
         while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador1, simbolo_jogador2)) {
-            std::cout << "Jogada invalida. Digite uma coordenada valida dentro dos valores do tabuleiro: ";
+            std::cout << "Digite uma coordenada válida: \n";
             std::cin >> x >> y;
         }
 
         realizarJogada(Jogada(x, y), simbolo_jogador1, simbolo_jogador2);
         jogadas++;
 
-        
         if (verificarVitoria()) {
-            std::cout << "Jogador 1 venceu" << std::endl;
-            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
-            jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
-            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
-            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
             break;
         }
 
-        
         if (!podeJogar(simbolo_jogador2, simbolo_jogador1)) {
             if (passouUltimaJogada) {
                 break; 
@@ -195,66 +242,26 @@ void Reversi::partida() {
         imprimirTabuleiro();
         std::cout << "Jogador 2 (" << simbolo_jogador2 << "), escolha uma coordenada no seguinte formato: (x y): ";
         std::cin >> x >> y;
-        std::cout << "\n";
 
         while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador2, simbolo_jogador1)) {
-            std::cout << "Jogada invalida. Digite uma coordenada valida dentro dos valores do tabuleiro: ";
+            std::cout << "Digite uma coordenada válida: \n";
             std::cin >> x >> y;
         }
 
         realizarJogada(Jogada(x, y), simbolo_jogador2, simbolo_jogador1);
         jogadas++;
 
-        
         if (verificarVitoria()) {
-            std::cout << "Jogador 2 venceu" << std::endl;
-            int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
-            jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
-            int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
-            jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
             break;
         }
 
         if (jogadas == MaxJogadas) {
-            if (!verificarEmpate()) {
-                int contador1 = 0;
-                int contador2 = 0;
-
-                for (int i = 0; i < linhas; i++) {
-                    for (int j = 0; j < colunas; j++) {
-                        if (get_char(i, j) == simbolo_jogador1) {
-                            contador1++;
-                        } else if (get_char(i, j) == simbolo_jogador2) {
-                            contador2++;
-                        }
-                    }
-                }
-
-                if (contador1 > contador2) {
-                    std::cout << "Jogador 1 venceu" << std::endl;
-                    int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Vitorias);
-                    jogador1.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador1 + 1);
-                    int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Derrotas);
-                    jogador2.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador2 + 1);
-                } else {
-                    std::cout << "Jogador 2 venceu" << std::endl;
-                    int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Vitorias);
-                    jogador2.setPontuacao("Reversi", Resultado::Vitorias, pontuacaoJogador2 + 1);
-                    int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Derrotas);
-                    jogador1.setPontuacao("Reversi", Resultado::Derrotas, pontuacaoJogador1 + 1);
-                }
-            } else {
-                std::cout << "Jogo empatado" << std::endl;
-                int pontuacaoJogador1 = jogador1.getPontuacao("Reversi", Resultado::Empates);
-                jogador1.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador1 + 1);
-                int pontuacaoJogador2 = jogador2.getPontuacao("Reversi", Resultado::Empates);
-                jogador2.setPontuacao("Reversi", Resultado::Empates, pontuacaoJogador2 + 1);
-            }
-            break;
+            if(verificarEmpate()){
+                break;
+            };
         }
     }
     std::cout << "Fim de jogo!!!" << std::endl;
 }
-
 
 Reversi::~Reversi() {}

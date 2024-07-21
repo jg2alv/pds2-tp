@@ -27,6 +27,7 @@ public:
     virtual bool verificarVitoria() const = 0;
     virtual bool verificarEmpate() const = 0;
     virtual void reiniciarTabuleiro() = 0;
+    virtual void partida()=0;
     virtual Jogada lerJogada(int jogador) = 0;
 };
 
