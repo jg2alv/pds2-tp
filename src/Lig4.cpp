@@ -290,7 +290,7 @@ void Lig4::reiniciarTabuleiro() {
 void Lig4::partida() {
     std::cout << "----------Lig4----------" << std::endl;
 
-    Jogada jogada(-1, -1);
+    Jogada jogada(0, 0);
     while(1) {
         imprimirTabuleiro();
     
@@ -303,10 +303,33 @@ void Lig4::partida() {
 
         if (verificarVitoria()) {
             imprimirVitoria();
+
+            if (this->jogador_atual == 1) {
+                jogador1.setPontuacao("Lig4", Resultado::Vitorias, 
+                jogador1.getPontuacao("Lig4", Resultado::Vitorias) + 1);
+
+                jogador2.setPontuacao("Lig4", Resultado::Derrotas, 
+                jogador2.getPontuacao("Lig4", Resultado::Derrotas) + 1);
+
+            } else {
+                jogador1.setPontuacao("Lig4", Resultado::Derrotas, 
+                jogador1.getPontuacao("Lig4", Resultado::Derrotas) + 1);
+
+                jogador2.setPontuacao("Lig4", Resultado::Vitorias, 
+                jogador2.getPontuacao("Lig4", Resultado::Vitorias) + 1);
+            }
+
             break;
 
         } else if (verificarEmpate()) {
             imprimirEmpate();
+
+            jogador1.setPontuacao("Lig4", Resultado::Empates, 
+            jogador1.getPontuacao("Lig4", Resultado::Empates) + 1);
+
+            jogador2.setPontuacao("Lig4", Resultado::Empates, 
+            jogador2.getPontuacao("Lig4", Resultado::Empates) + 1);
+
             break;
 
         } else mudarTurno();
