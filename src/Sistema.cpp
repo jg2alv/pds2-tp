@@ -99,7 +99,7 @@ void Sistema::executarComando(Comando comando_analisado) {
 
             }
             else {
-                
+
             }
             break;
         }
@@ -133,10 +133,7 @@ void Sistema::carregarArquivo() {
         for(int j = 0; j < numjogos; j++) {
             std::string jogo; this->__arquivo >> jogo;
             int vit, derr, emp; this->__arquivo >> vit >> derr >> emp;
-
-            // jogador->setPontuacao(jogo, Resultado::Vitorias, vit);
-            // jogador->setPontuacao(jogo, Resultado::Derrotas, derr);
-            // jogador->setPontuacao(jogo, Resultado::Empates, emp);
+            jogador->adicionarResultados(jogo, Resultados(vit, derr, emp));
         }
 
         this->__jogadores.push_back(jogador);
