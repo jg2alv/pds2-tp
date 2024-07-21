@@ -24,6 +24,11 @@ Resultados& Jogador::getResultados(std::string jogo) {
     return __pontuacao[jogo];
 }
 
+void Jogador::adicionarResultados(std::string jogo, Resultados resultados) {
+    __pontuacao[jogo] = resultados;
+}
+
+
 void Jogador::imprimirInformacoes() {
     std::string apelido = this->getApelido();
     std::string nome = this->getNome();
