@@ -30,61 +30,35 @@ int Lig4::formatoCorreto(std::string entrada) {
     std::stringstream in;
     in.str(entrada);
 
-    int formatoCorreto = 1;
-    int qntdNumeros = 0;
+    int formato_correto = 1;
+    int qntd_numeros = 0;
     std::string aux;
-    std::string colunaStr;
+    std::string coluna_str;
 
     while (in >> aux) {
         for (int i = 0; i < aux.length(); i++) {
             if (aux[i] < 48 || aux[i] > 57) 
-                formatoCorreto = 0;
+                formato_correto = 0;
         }
 
-        if (formatoCorreto && (qntdNumeros == 0)) {
-            colunaStr = aux;
-            qntdNumeros++;
+        if (formato_correto && (qntd_numeros == 0)) {
+            coluna_str = aux;
+            qntd_numeros++;
 
         } else return -1;
     } 
 
-    int coluna = 0;
-    for (int i = (colunaStr.length() - 1), d = 1; i >= 0; i--, d *= 10) {
-        int inteiro;
-        
-        if (colunaStr[i] == '0') inteiro = 0;
-        else if (colunaStr[i] == '1') 
-            inteiro = 1;
-        else if (colunaStr[i] == '2') 
-            inteiro = 2;
-        else if (colunaStr[i] == '3') 
-            inteiro = 3;
-        else if (colunaStr[i] == '4') 
-            inteiro = 4;
-        else if (colunaStr[i] == '5') 
-            inteiro = 5;
-        else if (colunaStr[i] == '6') 
-            inteiro = 6;
-        else if (colunaStr[i] == '7') 
-            inteiro = 7;
-        else if (colunaStr[i] == '8') 
-            inteiro = 8;
-        else if (colunaStr[i] == '9') 
-            inteiro = 9;
-
-        coluna += inteiro * d;
-    }
-
+    int coluna = stoi(coluna_str);
     return coluna;
 }
 
-int Lig4::get_linha(int coluna) const {
+int Lig4::getLinhaTabuleiro(int coluna) const {
     if (get_char(0, coluna) != ' ') 
-        return -1;
+        return 0;
 
     for (int i = (this->linhas - 1); i >= 0; i--) {
         if (get_char(i, coluna) == ' ') 
-            return i;
+            return (i + 1);
     }
 }
 
@@ -110,7 +84,7 @@ Jogada Lig4::lerJogada() {
         else break;
     }
 
-    Jogada jogada(get_linha(coluna), coluna);
+    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
     return jogada;
 }
 

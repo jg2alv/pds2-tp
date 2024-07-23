@@ -12,7 +12,7 @@ private:
 
     void imprimirTabuleiro() const;
     int formatoCorreto(std::string entrada);
-    int get_linha(int coluna) const;
+    int getLinhaTabuleiro(int coluna) const;
     Jogada lerJogada() override;
     bool jogadaValida(Jogada &jogada) const;
     void realizarJogada(Jogada &jogada);
