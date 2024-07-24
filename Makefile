@@ -13,8 +13,11 @@ clean:
 	$(RM) ./obj/*.o ./bin/main ./bin/t_*
 
 
+# ./bin/main: ./src/main.cpp ./obj/Jogador.o ./obj/Sistema.o ./obj/Jogo.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o
+# 	$(GPP) ./src/main.cpp ./obj/Excecao.o ./obj/Jogador.o ./obj/Sistema.o ./obj/Jogo.o ./obj/Reversi.o ./obj/Lig4.o -o ./bin/main
+
 ./bin/main: ./src/main.cpp ./obj/Jogador.o ./obj/Sistema.o ./obj/Jogo.o ./obj/Excecao.o
-	$(GPP) ./src/main.cpp ./obj/Excecao.o ./obj/Jogador.o ./obj/Sistema.o -o ./bin/main
+	$(GPP) ./src/main.cpp ./obj/Excecao.o ./obj/Jogador.o ./obj/Sistema.o ./obj/Jogo.o -o ./bin/main
 
 ./obj/Jogador.o: ./src/Jogador.cpp ./include/Jogador.hpp
 	$(GPP) -c ./src/Jogador.cpp -o ./obj/Jogador.o
@@ -25,15 +28,18 @@ clean:
 ./obj/Jogo.o: ./src/Jogo.cpp ./include/Jogo.hpp
 	$(GPP) -c ./src/Jogo.cpp -o ./obj/Jogo.o
 
-./obj/Reversi.o: ./src/Reversi.cpp ./include/Reversi.hpp ./include/Jogador.hpp ./include/Jogo.hpp
+./obj/Reversi.o: ./src/Reversi.cpp ./include/Reversi.hpp ./include/Jogador.hpp ./include/Jogo.hpp ./include/Jogada.hpp
 	$(GPP) -c ./src/Reversi.cpp -o ./obj/Reversi.o
 
-./obj/Lig4.o: ./src/Lig4.cpp ./include/Lig4.hpp ./include/Jogador.hpp ./include/Jogo.hpp
+./obj/Lig4.o: ./src/Lig4.cpp ./include/Lig4.hpp ./include/Jogador.hpp ./include/Jogo.hpp ./include/Jogada.hpp
 	$(GPP) -c ./src/Lig4.cpp -o ./obj/Lig4.o
 
 ./obj/Excecao.o: ./src/Excecao.cpp ./include/Excecao.hpp
 	$(GPP) -c ./src/Excecao.cpp -o ./obj/Excecao.o
-	
+
+./obj/Jogada.o: ./src/Jogada.cpp ./include/Jogada.hpp
+	$(GPP) -c ./src/Jogada.cpp -o ./obj/Jogada.o
+
 ./bin/t_main: ./tests/t_main.cpp
 	$(GPP) ./tests/t_main.cpp -o ./bin/t_main
 
