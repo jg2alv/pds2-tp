@@ -13,6 +13,7 @@ protected:
 
     Jogador& jogador1;
     Jogador& jogador2;
+    std::map<std::string, char> jogadorSimboloMap;
     char simbolo_jogador1;
     char simbolo_jogador2;
 
@@ -22,8 +23,8 @@ protected:
 public:
     Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
     virtual void imprimirTabuleiro() const = 0;
-    virtual void realizarJogada(int jogador, int linha, int coluna) = 0;
-    virtual bool jogadaValida(int linha, int coluna, char simbolo, char oponente) const = 0;
+    virtual void realizarJogada(const Jogada& jogada, const std::string& jogador) = 0;
+    virtual bool jogadaValida(const Jogada& jogada, const std::string& jogador) const = 0;
     virtual bool verificarVitoria() const = 0;
     virtual bool verificarEmpate() const = 0;
     virtual void reiniciarTabuleiro() = 0;

@@ -6,6 +6,8 @@
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(8, 8, jogador1, jogador2){
     this->simbolo_jogador1 = 'x';
     this->simbolo_jogador2 = 'o';
+    jogadorSimboloMap["jogador1"] = simbolo_jogador1;
+    jogadorSimboloMap["jogador2"] = simbolo_jogador2;
     reiniciarTabuleiro();
 }
 
@@ -15,7 +17,9 @@ bool Reversi::dentroDosLimites(const Jogada& jogada) const {
     return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas;
 }
 
-bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) const {
+bool Reversi::jogadaValida(const Jogada& jogada, const std::string& jogador) const {
+    char simbolo = jogadorSimboloMap.at(jogador);
+    char oponente = (simbolo == simbolo_jogador1) ? simbolo_jogador2 : simbolo_jogador1;
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     
@@ -47,7 +51,9 @@ bool Reversi::jogadaValida(const Jogada& jogada, char simbolo, char oponente) co
     return false;
 }
 
-void Reversi::realizarJogada(const Jogada& jogada, char simbolo, char oponente) {
+void Reversi::realizarJogada(const Jogada& jogada, const std::string& jogador) {
+    char simbolo = jogadorSimboloMap.at(jogador);
+    char oponente = (simbolo == simbolo_jogador1) ? simbolo_jogador2 : simbolo_jogador1;
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     set_char(linha, coluna, simbolo);
@@ -147,10 +153,10 @@ bool Reversi::verificarEmpate() const {
     return false;
 }
 
-bool Reversi::podeJogar(char simbolo, char oponente) const {
+bool Reversi::podeJogar(const std::string& jogador) const {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (jogadaValida(Jogada(i +1, j +1), simbolo, oponente)) {
+            if (jogadaValida(Jogada(i +1, j +1), jogador)) {
                 return true;
             }
         }
@@ -195,18 +201,18 @@ void Reversi::partida() {
     while (jogadasSemMovimento < 2) { 
         imprimirTabuleiro();
 
-        if (podeJogar(simbolo_jogador1, simbolo_jogador2)) {
+        if (podeJogar("jogador1")) {
             jogadasSemMovimento = 0; 
             std::cout << jogador1.getApelido() << "(" << simbolo_jogador1 << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;
             std::cin >> x >> y;
 
-            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador1, simbolo_jogador2)) {
+            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), "jogador1")) {
                 std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
-            realizarJogada(Jogada(x, y), simbolo_jogador1, simbolo_jogador2);
+            realizarJogada(Jogada(x, y), "jogador1");
             if (verificarVitoria() || verificarEmpate()) {
                 return;
             }
@@ -217,18 +223,18 @@ void Reversi::partida() {
 
         imprimirTabuleiro();
 
-        if (podeJogar(simbolo_jogador2, simbolo_jogador1)) {
+        if (podeJogar("jogador2")) {
             jogadasSemMovimento = 0; 
             std::cout << jogador2.getApelido() << "(" << simbolo_jogador2 << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;
             std::cin >> x >> y;
 
-            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), simbolo_jogador2, simbolo_jogador1)) {
+            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), "jogador2")) {
                 std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
-            realizarJogada(Jogada(x, y), simbolo_jogador2, simbolo_jogador1);
+            realizarJogada(Jogada(x, y), "jogador2");
             if (verificarVitoria() || verificarEmpate()) {
                 return;
             }

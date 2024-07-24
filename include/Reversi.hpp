@@ -8,11 +8,11 @@
 class Reversi : public Jogo {
 private:
     bool dentroDosLimites(const Jogada& jogada) const;
-    bool jogadaValida(const Jogada& jogada, char simbolo, char oponente) const;
-    void realizarJogada(const Jogada& jogada, char simbolo, char oponente);
+    bool jogadaValida(const Jogada& jogada, const std::string& jogador) const;
+    void realizarJogada(const Jogada& jogada, const std::string& jogador);
     bool verificarVitoria() const;
     bool verificarEmpate() const;
-    bool podeJogar(char simbolo, char oponente) const;
+    bool podeJogar(const std::string& jogador) const;
     void reiniciarTabuleiro();
 
 public:
