@@ -58,7 +58,6 @@ void Sistema::listarJogadores(std::string criterio) {
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
-    this->carregarArquivo();
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++) {
         this->__jogadores[i]->imprimirInformacoes();
@@ -69,8 +68,9 @@ void Sistema::executarComando(Comando comando_analisado) {
     switch (comando_analisado) {
         case Comando::CadastrarJogador: {
             std::string apelido, nome, saida;
-            std::cin >> apelido >> nome;
-            this->cadastrarJogador(apelido, nome);
+            std::cin >> apelido;
+            std::getline(std::cin, nome);
+            this->cadastrarJogador(apelido, nome.erase(0, 1));
             break;
         }
         
@@ -115,46 +115,85 @@ void Sistema::executarComando(Comando comando_analisado) {
     }
 }
 
-void Sistema::limparSistema() {
-    this->__jogadores.clear();
-}
-
 void Sistema::carregarArquivo() {
-    if(!this->__arquivo) throw Excecao("falha na abertura do arquivo");
-    this->limparSistema();
+    std::ifstream arquivo("./data/jogadores.txt");
+    bool arquivo_existe = arquivo.good();
+    if(!arquivo_existe) throw new Excecao("falha na abertura do arquivo");
 
-    int numjogadores; this->__arquivo >> numjogadores;
+    int numjogadores;
+    arquivo >> numjogadores;
+
     for(int i = 0; i < numjogadores; i++) {
         std::string apelido, nome;
-        this->__arquivo >> apelido >> nome;
+        arquivo >> apelido;
+        std::getline(arquivo, nome); // necessario pra tirar o \n extra
+        std::getline(arquivo, nome);
         Jogador* jogador = new Jogador(apelido, nome);
 
-        int numjogos; this->__arquivo >> numjogos;
+        int numjogos;
+        arquivo >> numjogos;
         for(int j = 0; j < numjogos; j++) {
-            std::string jogo; this->__arquivo >> jogo;
-            int vit, derr, emp; this->__arquivo >> vit >> derr >> emp;
-            jogador->adicionarResultados(jogo, Resultados(vit, derr, emp));
+            std::string jogo;
+            int vitorias, derrotas, empates;
+
+            arquivo >> jogo >> vitorias >> derrotas >> empates;
+            jogador->adicionarResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
         this->__jogadores.push_back(jogador);
     }
 }
 
+void Sistema::salvarSistema() {
+    std::ofstream arquivo("./data/jogadores.txt");
+    int njogadores = this->__jogadores.size();
+    arquivo << njogadores << "\n";
+
+    for(int i = 0; i < njogadores; i++) {
+        Jogador* jogador = this->__jogadores[i];
+        arquivo << jogador->getApelido() << "\n";
+        arquivo << jogador->getNome() << "\n";
+
+        int njogos = jogador->getNumeroDeJogos();
+        arquivo << njogos << "\n";
+
+        if(njogos == 0) continue;
+        //for(int j = 0; j < njogos; j++) {}
+        arquivo << "Reversi ";
+        auto resultados1 = jogador->getResultados("Reversi");
+        arquivo << resultados1.vitorias << " ";
+        arquivo << resultados1.derrotas << " ";
+        arquivo << resultados1.empates << "\n";
+
+        arquivo << "Lig4 ";
+        auto resultados2 = jogador->getResultados("Lig4");
+        arquivo << resultados2.vitorias << " ";
+        arquivo << resultados2.derrotas << " ";
+        arquivo << resultados2.empates << "\n";
+    }
+
+    arquivo.close();
+}
+
+void Sistema::limparSistema() {
+    this->__jogadores.clear();
+}
+
 Sistema::Sistema() {
     std::ifstream arquivo("./data/jogadores.txt");
-    bool arquivoexiste = arquivo.good();
+    bool arquivo_existe = arquivo.good();
     arquivo.close();
-    this->__arquivo = std::fstream("./data/jogadores.txt", std::fstream::out);
-
-    if(!arquivoexiste) {
-        this->__arquivo << "0";
-        this->__arquivo.flush();
+    
+    if(!arquivo_existe) {
+        std::ofstream arquivo("./data/jogadores.txt");
+        arquivo << "0";
+        arquivo.close();
     }
 
     this->carregarArquivo();
 }
 
 Sistema::~Sistema() {
-    this->__arquivo.close();
+    this->salvarSistema();
     this->limparSistema();
 }
