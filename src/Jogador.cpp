@@ -28,6 +28,9 @@ void Jogador::adicionarResultados(std::string jogo, Resultados resultados) {
     __pontuacao[jogo] = resultados;
 }
 
+int Jogador::getNumeroDeJogos() {
+    return __pontuacao.size();
+}
 
 void Jogador::imprimirInformacoes() {
     std::string apelido = this->getApelido();

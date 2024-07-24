@@ -29,7 +29,7 @@ public:
     void incrementarVitorias(std::string jogo);
     void incrementarDerrotas(std::string jogo);
     void incrementarEmpates(std::string jogo);
-
+    int getNumeroDeJogos();
     void imprimirInformacoes();
 };
 
