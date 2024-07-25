@@ -158,18 +158,15 @@ void Sistema::salvarSistema() {
         arquivo << njogos << "\n";
 
         if(njogos == 0) continue;
-        //for(int j = 0; j < njogos; j++) {}
-        arquivo << "Reversi ";
-        auto resultados1 = jogador->getResultados("Reversi");
-        arquivo << resultados1.vitorias << " ";
-        arquivo << resultados1.derrotas << " ";
-        arquivo << resultados1.empates << "\n";
 
-        arquivo << "Lig4 ";
-        auto resultados2 = jogador->getResultados("Lig4");
-        arquivo << resultados2.vitorias << " ";
-        arquivo << resultados2.derrotas << " ";
-        arquivo << resultados2.empates << "\n";
+        std::vector<std::string> jogos = jogador->getJogosCadastrados();
+        for(int j = 0; j < njogos; j++) {
+            auto resultados = jogador->getResultados(jogos[j]);
+            arquivo << jogos[j] << " ";
+            arquivo << resultados.vitorias << " ";
+            arquivo << resultados.derrotas << " ";
+            arquivo << resultados.empates << "\n";
+        }
     }
 
     arquivo.close();
