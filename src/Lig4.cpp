@@ -239,14 +239,6 @@ Jogador* Lig4::getJogadorOponente() {
         return &jogador1;
 }
 
-void Lig4::reiniciarTabuleiro() {
-    for (int i = 0; i < this->linhas; i++) {
-        for (int j = 0; j < this->colunas; j++) {
-            set_char(i, j, ' ');
-        }
-    }
-}
-
 void Lig4::partida() {
     Jogada jogada(0, 0);
     while(1) {

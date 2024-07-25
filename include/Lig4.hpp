@@ -23,7 +23,6 @@ private:
     void imprimirEmpate() const;
     void mudarTurno();
     Jogador* getJogadorOponente();
-    void reiniciarTabuleiro() override;
 
 public:
     Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
