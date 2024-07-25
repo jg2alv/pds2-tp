@@ -35,6 +35,13 @@ int Jogador::getNumeroDeJogos() {
 void Jogador::imprimirInformacoes() {
     std::string apelido = this->getApelido();
     std::string nome = this->getNome();
+    Resultados resultadosReversi = this->getResultados("Reversi");
+    Resultados resultadosLig4= this->getResultados("Lig4");
     
     std::cout << apelido << " " << nome << std::endl; 
+    std::cout << "REVERSI - " << "V: " << resultadosReversi.vitorias;
+    std::cout << "D: " << resultadosReversi.derrotas << std::endl;
+    std::cout << "LIG4 - " << "V: " << resultadosLig4.vitorias;
+    std::cout << "D: " << resultadosLig4.derrotas << std::endl;
+
 }
