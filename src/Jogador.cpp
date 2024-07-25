@@ -51,7 +51,6 @@ void Jogador::imprimirInformacoes() {
     for (int i = 0; i < getNumeroDeJogos(); i++)
     {
         Resultados resultados = __pontuacao[jogos[i]];
-        std::cout << apelido << " " << nome << std::endl; 
         std::cout << jogos[i] << " - " << "V: " << resultados.vitorias << " ";
         std::cout << "D: " << resultados.derrotas << std::endl;
     }
