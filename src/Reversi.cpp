@@ -3,7 +3,7 @@
 #include "Jogada.hpp"
 #include <iostream>
 
-Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(8, 8, jogador1, jogador2)
+Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(linhas, colunas, jogador1, jogador2)
 {
     reiniciarTabuleiro();
 }
