@@ -8,8 +8,6 @@
 class Lig4 : public Jogo
 {
 private:
-    int jogador_atual;
-
     void imprimirTabuleiro() const;
     int formatoCorreto(std::string entrada);
     int getLinhaTabuleiro(int coluna) const;
@@ -18,12 +16,13 @@ private:
     void realizarJogada(Jogada &jogada);
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
-    bool verificarVitoria() const override;
+    bool verificarVitoria() override;
     bool tabuleiroCheio() const;
     bool verificarEmpate() const override;
     void imprimirVitoria() const;
     void imprimirEmpate() const;
     void mudarTurno();
+    Jogador* getJogadorOponente();
     void reiniciarTabuleiro() override;
 
 public:

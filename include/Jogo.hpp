@@ -13,9 +13,8 @@ protected:
 
     Jogador& jogador1;
     Jogador& jogador2;
-    std::map<std::string, char> jogadorSimboloMap;
-    char simbolo_jogador1;
-    char simbolo_jogador2;
+    Jogador *jogador_atual;
+    std::map<std::string, char> simbolos;
 
     char get_char(int i, int j) const;
     void set_char(int i, int j, char c);
@@ -25,7 +24,7 @@ public:
     virtual void imprimirTabuleiro() const = 0;
     virtual void realizarJogada(const Jogada& jogada, const std::string& jogador) = 0;
     virtual bool jogadaValida(const Jogada& jogada, const std::string& jogador) const = 0;
-    virtual bool verificarVitoria() const = 0;
+    virtual bool verificarVitoria() = 0;
     virtual bool verificarEmpate() const = 0;
     virtual void reiniciarTabuleiro() = 0;
     virtual void partida()=0;
