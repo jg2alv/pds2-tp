@@ -142,6 +142,8 @@ void Sistema::carregarArquivo() {
 
         this->__jogadores.push_back(jogador);
     }
+
+    arquivo.close();
 }
 
 void Sistema::salvarSistema() {
