@@ -12,8 +12,8 @@ private:
     int formatoCorreto(std::string entrada);
     int getLinhaTabuleiro(int coluna) const;
     Jogada lerJogada();
-    bool jogadaValida(Jogada &jogada) const;
-    void realizarJogada(Jogada &jogada);
+    bool jogadaValida(const Jogada &jogada) const;
+    void realizarJogada(const Jogada &jogada);
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
     bool verificarVitoria() const override;
@@ -26,7 +26,7 @@ private:
 
 public:
     Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
-    void partida();
+    void partida() override;
 
 };
 

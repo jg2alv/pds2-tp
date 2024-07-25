@@ -84,7 +84,7 @@ Jogada Lig4::lerJogada() {
     return jogada;
 }
 
-bool Lig4::jogadaValida(Jogada &jogada) const {
+bool Lig4::jogadaValida(const Jogada &jogada) const {
     int coluna = jogada.get_coluna();
     int linha = jogada.get_linha();
 
@@ -94,7 +94,7 @@ bool Lig4::jogadaValida(Jogada &jogada) const {
     else return false;
 }
 
-void Lig4::realizarJogada(Jogada &jogada) {
+void Lig4::realizarJogada(const Jogada &jogada) {
     std::string apelido = jogador_atual->getApelido();
     char simbolo = this->simbolos.at(apelido);
     set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
