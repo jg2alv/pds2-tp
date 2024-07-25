@@ -3,11 +3,8 @@
 #include "Jogada.hpp"
 #include <iostream>
 
-Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(8, 8, jogador1, jogador2){
-    this->simbolo_jogador1 = 'x';
-    this->simbolo_jogador2 = 'o';
-    jogadorSimboloMap["jogador1"] = simbolo_jogador1;
-    jogadorSimboloMap["jogador2"] = simbolo_jogador2;
+Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(8, 8, jogador1, jogador2)
+{
     reiniciarTabuleiro();
 }
 
@@ -17,9 +14,18 @@ bool Reversi::dentroDosLimites(const Jogada& jogada) const {
     return linha >= 0 && linha < linhas && coluna >= 0 && coluna < colunas;
 }
 
-bool Reversi::jogadaValida(const Jogada& jogada, const std::string& jogador) const {
-    char simbolo = jogadorSimboloMap.at(jogador);
-    char oponente = (simbolo == simbolo_jogador1) ? simbolo_jogador2 : simbolo_jogador1;
+void Reversi::trocarJogador() {
+    if (jogador_atual == &jogador1) {
+        jogador_atual = &jogador2;
+    } else {
+        jogador_atual = &jogador1;
+    }
+}
+
+bool Reversi::jogadaValida(const Jogada& jogada) const {
+    std::string apelido = jogador_atual->getApelido();
+    char simbolo = this->simbolos.at(apelido);
+    char oponente = (simbolo == 'X') ? 'O' : 'X';
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     
@@ -51,9 +57,10 @@ bool Reversi::jogadaValida(const Jogada& jogada, const std::string& jogador) con
     return false;
 }
 
-void Reversi::realizarJogada(const Jogada& jogada, const std::string& jogador) {
-    char simbolo = jogadorSimboloMap.at(jogador);
-    char oponente = (simbolo == simbolo_jogador1) ? simbolo_jogador2 : simbolo_jogador1;
+void Reversi::realizarJogada(const Jogada& jogada) {
+    std::string apelido = jogador_atual->getApelido();
+    char simbolo = this->simbolos.at(apelido);
+    char oponente = (simbolo == 'X') ? 'O' : 'X';
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     set_char(linha, coluna, simbolo);
@@ -90,9 +97,9 @@ bool Reversi::verificarVitoria() const {
 
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (get_char(i, j) == simbolo_jogador1) {
+            if (get_char(i, j) == 'X') {
                 contador1++;
-            } else if (get_char(i, j) == simbolo_jogador2) {
+            } else if (get_char(i, j) == 'O') {
                 contador2++;
             }
         }
@@ -122,9 +129,9 @@ bool Reversi::verificarEmpate() const {
 
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (get_char(i, j) == simbolo_jogador1) {
+            if (get_char(i, j) == 'X') {
                 contador1++;
-            } else if (get_char(i, j) == simbolo_jogador2) {
+            } else if (get_char(i, j) == 'O') {
                 contador2++;
             }
         }
@@ -156,7 +163,7 @@ bool Reversi::verificarEmpate() const {
 bool Reversi::podeJogar(const std::string& jogador) const {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (jogadaValida(Jogada(i +1, j +1), jogador)) {
+            if (jogadaValida(Jogada(i +1, j +1))) {
                 return true;
             }
         }
@@ -187,10 +194,10 @@ void Reversi::reiniciarTabuleiro() {
         }
     }
 
-    set_char(linhas / 2 - 1, colunas / 2 - 1, simbolo_jogador2);
-    set_char(linhas / 2 - 1, colunas / 2, simbolo_jogador1);
-    set_char(linhas / 2, colunas / 2 - 1, simbolo_jogador1);
-    set_char(linhas / 2, colunas / 2, simbolo_jogador2);
+    set_char(linhas / 2 - 1, colunas / 2 - 1, 'O');
+    set_char(linhas / 2 - 1, colunas / 2, 'X');
+    set_char(linhas / 2, colunas / 2 - 1, 'X');
+    set_char(linhas / 2, colunas / 2, 'O');
 }
 
 void Reversi::partida() {
@@ -201,46 +208,50 @@ void Reversi::partida() {
     while (jogadasSemMovimento < 2) { 
         imprimirTabuleiro();
 
-        if (podeJogar("jogador1")) {
+        if (podeJogar(jogador_atual->getApelido())) {
             jogadasSemMovimento = 0; 
-            std::cout << jogador1.getApelido() << "(" << simbolo_jogador1 << "), escolha uma coordenada no seguinte formato: (x y): ";
+            std::cout << jogador1.getApelido() << "(" << 'X' << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;
             std::cin >> x >> y;
 
-            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), "jogador1")) {
+            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y))) {
                 std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
-            realizarJogada(Jogada(x, y), "jogador1");
+            realizarJogada(Jogada(x, y));
             if (verificarVitoria() || verificarEmpate()) {
                 return;
             }
+            trocarJogador();
         } else {
             jogadasSemMovimento++;
             std::cout << jogador1.getApelido() << " passou a vez" << std::endl;
+             trocarJogador();
         }
 
         imprimirTabuleiro();
 
-        if (podeJogar("jogador2")) {
+        if (podeJogar(jogador_atual->getApelido())) {
             jogadasSemMovimento = 0; 
-            std::cout << jogador2.getApelido() << "(" << simbolo_jogador2 << "), escolha uma coordenada no seguinte formato: (x y): ";
+            std::cout << jogador2.getApelido() << "(" << 'O' << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;
             std::cin >> x >> y;
 
-            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y), "jogador2")) {
+            while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y))) {
                 std::cout << "Digite uma coordenada válida: ";
                 std::cin >> x >> y;
             }
 
-            realizarJogada(Jogada(x, y), "jogador2");
+            realizarJogada(Jogada(x, y));
             if (verificarVitoria() || verificarEmpate()) {
                 return;
             }
+            trocarJogador();
         } else {
             jogadasSemMovimento++;
             std::cout << jogador2.getApelido() << " passou a vez" << std::endl;
+            trocarJogador();
         }
     }
 
