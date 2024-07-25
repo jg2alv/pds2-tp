@@ -30,6 +30,7 @@ public:
     void incrementarDerrotas(std::string jogo);
     void incrementarEmpates(std::string jogo);
     int getNumeroDeJogos();
+    std::string* getJogosCadastrados();
     void imprimirInformacoes();
 };
 

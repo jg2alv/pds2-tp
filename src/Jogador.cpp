@@ -32,6 +32,17 @@ int Jogador::getNumeroDeJogos() {
     return __pontuacao.size();
 }
 
+std::string* Jogador::getJogosCadastrados()
+{
+    std::string* jogos = new std::string[__pontuacao.size()];
+    int i = 0;
+    for (auto it = __pontuacao.begin(); it != __pontuacao.end(); it++) {
+        jogos[i] = it->first;
+        i++;
+    }
+    return jogos;
+}
+
 void Jogador::imprimirInformacoes() {
     std::string apelido = this->getApelido();
     std::string nome = this->getNome();
@@ -43,5 +54,6 @@ void Jogador::imprimirInformacoes() {
     std::cout << "D: " << resultadosReversi.derrotas << std::endl;
     std::cout << "LIG4 - " << "V: " << resultadosLig4.vitorias;
     std::cout << "D: " << resultadosLig4.derrotas << std::endl;
-
 }
+
+
