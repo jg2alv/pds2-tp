@@ -11,7 +11,7 @@ private:
     void imprimirTabuleiro() const;
     int formatoCorreto(std::string entrada);
     int getLinhaTabuleiro(int coluna) const;
-    Jogada lerJogada() override;
+    Jogada lerJogada();
     bool jogadaValida(Jogada &jogada) const;
     void realizarJogada(Jogada &jogada);
     bool linhaVazia(int linha) const;

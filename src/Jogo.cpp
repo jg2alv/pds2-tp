@@ -1,11 +1,11 @@
 #include "Jogo.hpp"
 
-char Jogo::get_char(int linhas, int colunas) const {
-    return tabuleiro[linhas * colunas + colunas];
+char Jogo::get_char(int i, int j) const {
+    return tabuleiro[i * colunas + j];
 }
 
-void Jogo::set_char(int linhas, int colunas, char c) {
-    tabuleiro[linhas * colunas + colunas] = c;
+void Jogo::set_char(int i, int j, char c) {
+    tabuleiro[i * colunas + j] = c;
 }
 
 Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2)
