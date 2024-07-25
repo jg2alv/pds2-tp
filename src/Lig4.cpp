@@ -12,6 +12,8 @@ Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
 }
 
 void Lig4::imprimirTabuleiro() const {
+    std::cout << "----------Lig4----------" << std::endl;
+    
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
             std::cout << "|" << get_char(i, j) << "|";
@@ -95,11 +97,8 @@ bool Lig4::jogadaValida(Jogada &jogada) const {
 }
 
 void Lig4::realizarJogada(Jogada &jogada) {
-    if (jogadaValida(jogada)) {
-        char simbolo = simbolos[jogador_atual->getApelido()];
-        set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
-
-    } else std::cout << "ERRO: jogada invalida" << std::endl;
+    char simbolo = simbolos[jogador_atual->getApelido()];
+    set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
 }
 
 bool Lig4::linhaVazia(int linha) const {
@@ -249,8 +248,6 @@ void Lig4::reiniciarTabuleiro() {
 }
 
 void Lig4::partida() {
-    std::cout << "----------Lig4----------" << std::endl;
-
     Jogada jogada(0, 0);
     while(1) {
         imprimirTabuleiro();
@@ -258,6 +255,8 @@ void Lig4::partida() {
         while(1) {
             jogada = lerJogada();
             if (jogadaValida(jogada)) break;
+            else 
+                std::cout << "ERRO: jogada invalida" << std::endl;
         }
 
         realizarJogada(jogada);
