@@ -16,7 +16,7 @@ private:
     void realizarJogada(Jogada &jogada);
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
-    bool verificarVitoria() override;
+    bool verificarVitoria() const override;
     bool tabuleiroCheio() const;
     bool verificarEmpate() const override;
     void imprimirVitoria() const;

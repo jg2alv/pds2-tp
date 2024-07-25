@@ -7,9 +7,7 @@
 #include "Jogo.hpp"
 
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
-    : Jogo(linhas, colunas, jogador1, jogador2) {
-    this->jogador_atual = &jogador1;
-}
+    : Jogo(linhas, colunas, jogador1, jogador2) {}
 
 void Lig4::imprimirTabuleiro() const {
     std::cout << "----------Lig4----------" << std::endl;
@@ -97,7 +95,8 @@ bool Lig4::jogadaValida(Jogada &jogada) const {
 }
 
 void Lig4::realizarJogada(Jogada &jogada) {
-    char simbolo = simbolos[jogador_atual->getApelido()];
+    std::string apelido = jogador_atual->getApelido();
+    char simbolo = this->simbolos.at(apelido);
     set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
 }
 
@@ -119,8 +118,9 @@ bool Lig4::colunaVazia(int coluna) const {
     return true;
 }
 
-bool Lig4::verificarVitoria() {
-    char simbolo = simbolos[jogador_atual->getApelido()];
+bool Lig4::verificarVitoria() const {
+    std::string apelido = jogador_atual->getApelido();
+    char simbolo = this->simbolos.at(apelido);
 
     for (int i = 0; i < this->linhas; i++) {
         if (linhaVazia(i)) 
