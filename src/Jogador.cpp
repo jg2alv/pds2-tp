@@ -44,14 +44,13 @@ std::vector<std::string> Jogador::getJogosCadastrados()
 }
 
 void Jogador::imprimirInformacoes() {
-    
+    std::string apelido = this->getApelido();
+    std::string nome = this->getNome();
+    std::cout << apelido << " " << nome << std::endl;
     std::vector<std::string> jogos = getJogosCadastrados();
     for (int i = 0; i < getNumeroDeJogos(); i++)
     {
-        std::string apelido = this->getApelido();
-        std::string nome = this->getNome();
         Resultados resultados = __pontuacao[jogos[i]];
-
         std::cout << apelido << " " << nome << std::endl; 
         std::cout << jogos[i] << " - " << "V: " << resultados.vitorias << " ";
         std::cout << "D: " << resultados.derrotas << std::endl;
