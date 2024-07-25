@@ -30,7 +30,7 @@ public:
     void incrementarDerrotas(std::string jogo);
     void incrementarEmpates(std::string jogo);
     int getNumeroDeJogos();
-    std::string* getJogosCadastrados();
+    std::vector<std::string> getJogosCadastrados();
     void imprimirInformacoes();
 };
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Jogador.hpp"
 
@@ -32,14 +33,13 @@ int Jogador::getNumeroDeJogos() {
     return __pontuacao.size();
 }
 
-std::string* Jogador::getJogosCadastrados()
+std::vector<std::string> Jogador::getJogosCadastrados()
 {
-    std::string* jogos = new std::string[__pontuacao.size()];
-    int i = 0;
+    std::vector<std::string> jogos;
     for (auto it = __pontuacao.begin(); it != __pontuacao.end(); it++) {
-        jogos[i] = it->first;
-        i++;
+        jogos.push_back(it->first);
     }
+
     return jogos;
 }
 
