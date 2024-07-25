@@ -15,5 +15,4 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2)
       jogador1(jogador1), 
       jogador2(jogador2 ),
       jogador_atual(&jogador1),
-      simbolos {{jogador1.getApelido(), 'X'}, 
-      {jogador2.getApelido(), 'O'}} {}
+      simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
