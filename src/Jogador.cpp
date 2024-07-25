@@ -44,16 +44,18 @@ std::vector<std::string> Jogador::getJogosCadastrados()
 }
 
 void Jogador::imprimirInformacoes() {
-    std::string apelido = this->getApelido();
-    std::string nome = this->getNome();
-    Resultados resultadosReversi = this->getResultados("Reversi");
-    Resultados resultadosLig4= this->getResultados("Lig4");
     
-    std::cout << apelido << " " << nome << std::endl; 
-    std::cout << "REVERSI - " << "V: " << resultadosReversi.vitorias;
-    std::cout << "D: " << resultadosReversi.derrotas << std::endl;
-    std::cout << "LIG4 - " << "V: " << resultadosLig4.vitorias;
-    std::cout << "D: " << resultadosLig4.derrotas << std::endl;
+    std::vector<std::string> jogos = getJogosCadastrados();
+    for (int i = 0; i < getNumeroDeJogos(); i++)
+    {
+        std::string apelido = this->getApelido();
+        std::string nome = this->getNome();
+        Resultados resultados = __pontuacao[jogos[i]];
+
+        std::cout << apelido << " " << nome << std::endl; 
+        std::cout << jogos[i] << " - " << "V: " << resultados.vitorias << " ";
+        std::cout << "D: " << resultados.derrotas << std::endl;
+    }
 }
 
 
