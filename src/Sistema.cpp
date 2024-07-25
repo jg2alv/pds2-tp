@@ -175,6 +175,10 @@ void Sistema::salvarSistema() {
 }
 
 void Sistema::limparSistema() {
+    for (Jogador *jogador : __jogadores) {
+        delete jogador;
+    }
+
     this->__jogadores.clear();
 }
 
