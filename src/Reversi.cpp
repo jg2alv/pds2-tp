@@ -226,6 +226,7 @@ void Reversi::partida() {
             trocarJogador();
         } else {
             jogadasSemMovimento++;
+            std::cout << "Voce nao tem jogadas disponiveis" << std::endl;
             std::cout << jogador1.getApelido() << " passou a vez" << std::endl;
              trocarJogador();
         }
@@ -250,6 +251,7 @@ void Reversi::partida() {
             trocarJogador();
         } else {
             jogadasSemMovimento++;
+            std::cout << "Voce nao tem jogadas disponiveis" << std::endl;
             std::cout << jogador2.getApelido() << " passou a vez" << std::endl;
             trocarJogador();
         }
