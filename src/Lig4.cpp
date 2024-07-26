@@ -53,11 +53,11 @@ int Lig4::formatoCorreto(std::string entrada) {
 }
 
 int Lig4::getLinhaTabuleiro(int coluna) const {
-    if (get_char(0, coluna) != ' ') 
+    if (get_char(0, coluna - 1) != ' ') 
         return 0;
 
     for (int i = (this->linhas - 1); i >= 0; i--) {
-        if (get_char(i, coluna) == ' ') 
+        if (get_char(i, coluna - 1) == ' ') 
             return (i + 1);
     }
 }
@@ -88,7 +88,7 @@ bool Lig4::jogadaValida(const Jogada &jogada) const {
     int coluna = jogada.get_coluna();
     int linha = jogada.get_linha();
 
-    if (coluna >= 1 && coluna <= this->colunas && linha != -1) 
+    if (coluna >= 0 && coluna < this->colunas && linha != -1) 
         return true;
 
     else return false;
@@ -215,11 +215,13 @@ bool Lig4::verificarEmpate() const {
 }
 
 void Lig4::imprimirVitoria() const {
+    imprimirTabuleiro();
     std::cout << jogador_atual->getApelido();
     std::cout << " venceu a partida!" << std::endl;
 }
 
 void Lig4::imprimirEmpate() const {
+    imprimirTabuleiro();
     std::cout << jogador1.getApelido() << " e ";
     std::cout << jogador2.getApelido() << " empataram!" << std::endl;
 }
