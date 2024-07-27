@@ -226,11 +226,11 @@ void Lig4::imprimirEmpate() const {
     std::cout << jogador2.getApelido() << " empataram!" << std::endl;
 }
 
-void Lig4::mudarTurno() {
-    if (jogador_atual->getApelido() == jogador1.getApelido()) 
+void Lig4::trocarJogador() {
+    if (jogador_atual == &jogador1) 
         this->jogador_atual = &jogador2;
 
-    else if (jogador_atual->getApelido() == jogador2.getApelido()) 
+    else if (jogador_atual == &jogador2) 
         this->jogador_atual = &jogador1;
 }
 
@@ -271,6 +271,6 @@ void Lig4::partida() {
 
             break;
 
-        } else mudarTurno();
+        } else trocarJogador();
     }
 }

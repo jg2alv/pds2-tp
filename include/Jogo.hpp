@@ -26,7 +26,8 @@ public:
     virtual bool jogadaValida(const Jogada& jogada) const = 0;
     virtual bool verificarVitoria() const = 0;
     virtual bool verificarEmpate() const = 0;
-    virtual void partida()=0;
+    virtual void trocarJogador() = 0;
+    virtual void partida() = 0;
 };
 
 #endif

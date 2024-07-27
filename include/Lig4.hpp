@@ -8,12 +8,12 @@
 class Lig4 : public Jogo
 {
 private:
-    void imprimirTabuleiro() const;
+    void imprimirTabuleiro() const override;
     int formatoCorreto(std::string entrada);
     int getLinhaTabuleiro(int coluna) const;
     Jogada lerJogada();
-    bool jogadaValida(const Jogada &jogada) const;
-    void realizarJogada(const Jogada &jogada);
+    bool jogadaValida(const Jogada &jogada) const override;
+    void realizarJogada(const Jogada &jogada) override;
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
     bool verificarVitoria() const override;
@@ -21,13 +21,12 @@ private:
     bool verificarEmpate() const override;
     void imprimirVitoria() const;
     void imprimirEmpate() const;
-    void mudarTurno();
+    void trocarJogador() override;
     Jogador* getJogadorOponente();
 
 public:
     Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
     void partida() override;
-
 };
 
 #endif
