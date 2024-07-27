@@ -43,6 +43,9 @@ void Sistema::removerJogador(std::string apelido) {
     bool jogador_inexistente = jogador == this->__jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente");
+
+    delete *jogador;
+
     this->__jogadores.erase(jogador);
 
     std::cout << "Jogador " << apelido << " removido com sucesso" << std::endl;
