@@ -164,7 +164,7 @@ bool Reversi::verificarEmpate() const {
     return false;
 }
 
-bool Reversi::podeJogar(const std::string& jogador) const {
+bool Reversi::podeJogar() const {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
             if (jogadaValida(Jogada(i +1, j +1))) {
@@ -205,14 +205,12 @@ void Reversi::reiniciarTabuleiro() {
 }
 
 void Reversi::partida() {
-    bool passouUltimaJogada = false;
     int jogadasSemMovimento = 0;
-    const int MaxJogadas = linhas * colunas;
 
     while (jogadasSemMovimento < 2) { 
         imprimirTabuleiro();
 
-        if (podeJogar(jogador_atual->getApelido())) {
+        if (podeJogar()) {
             jogadasSemMovimento = 0; 
             std::cout << jogador1.getApelido() << "(" << 'X' << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;
@@ -237,7 +235,7 @@ void Reversi::partida() {
 
         imprimirTabuleiro();
 
-        if (podeJogar(jogador_atual->getApelido())) {
+        if (podeJogar()) {
             jogadasSemMovimento = 0; 
             std::cout << jogador2.getApelido() << "(" << 'O' << "), escolha uma coordenada no seguinte formato: (x y): ";
             int x, y;

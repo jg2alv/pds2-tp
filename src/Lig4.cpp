@@ -40,7 +40,7 @@ int Lig4::formatoCorreto(std::string entrada) {
     std::string coluna_str;
 
     while (in >> aux) {
-        for (int i = 0; i < aux.length(); i++) {
+        for (std::string::size_type i = 0; i < aux.length(); i++) {
             if (aux[i] < 48 || aux[i] > 57) 
                 formato_correto = 0;
         }
@@ -64,6 +64,8 @@ int Lig4::getLinhaTabuleiro(int coluna) const {
         if (get_char(i, coluna - 1) == ' ') 
             return (i + 1);
     }
+
+    return -1; // TODO: retornar o valor certo nesse caso
 }
 
 Jogada Lig4::lerJogada() {
@@ -115,7 +117,7 @@ bool Lig4::linhaVazia(int linha) const {
 
 bool Lig4::colunaVazia(int coluna) const {
     for (int i = 0; i < this->linhas; i++) {
-        if (get_char(i, colunas) != ' ') 
+        if (get_char(i, coluna) != ' ') 
             return false;
     }
 

@@ -5,8 +5,8 @@
 #include "Jogador.hpp"
 
 
-Resultados::Resultados(int vitorias, int derrotas, int empates)
-    : vitorias(vitorias), derrotas(derrotas), empates(empates) {}
+Resultados::Resultados(int vitorias, int derrotas, int empates) :
+    vitorias(vitorias), derrotas(derrotas), empates(empates) {}
 
 Resultados::Resultados() : Resultados(0, 0, 0) {}
 
@@ -21,12 +21,25 @@ std::string Jogador::getNome() {
     return this->_nome;
 }
 
+
 Resultados& Jogador::getResultados(std::string jogo) {
     return __pontuacao[jogo];
 }
 
 void Jogador::adicionarResultados(std::string jogo, Resultados resultados) {
     __pontuacao[jogo] = resultados;
+}
+
+void Jogador::incrementarVitorias(std::string jogo) {
+    __pontuacao[jogo].vitorias++;
+}
+
+void Jogador::incrementarDerrotas(std::string jogo) {
+    __pontuacao[jogo].derrotas++;
+}
+
+void Jogador::incrementarEmpates(std::string jogo) {
+    __pontuacao[jogo].empates++;
 }
 
 int Jogador::getNumeroDeJogos() {

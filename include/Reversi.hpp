@@ -10,7 +10,7 @@
 class Reversi : public Jogo {
 private:
     bool dentroDosLimites(const Jogada& jogada) const;
-    bool podeJogar(const std::string& jogador) const;
+    bool podeJogar() const;
     void reiniciarTabuleiro();
 
 public:
