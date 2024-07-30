@@ -2,8 +2,10 @@
 #define JOGO_HPP
 
 #include <vector>
+
 #include "Jogada.hpp"
 #include "Jogador.hpp"
+
 
 class Jogo {
 protected:
@@ -21,6 +23,8 @@ protected:
 
 public:
     Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
+    virtual ~Jogo();
+
     virtual void imprimirTabuleiro() const = 0;
     virtual void realizarJogada(const Jogada& jogada) = 0;
     virtual bool jogadaValida(const Jogada& jogada) const = 0;
@@ -29,5 +33,6 @@ public:
     virtual void trocarJogador() = 0;
     virtual void partida() = 0;
 };
+
 
 #endif

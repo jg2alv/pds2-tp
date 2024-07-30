@@ -6,8 +6,12 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
-Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2)
-    : Jogo(linhas, colunas, jogador1, jogador2) {}
+
+Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
+    Jogo(linhas, colunas, jogador1, jogador2) {}
+
+Lig4::~Lig4() {}
+
 
 void Lig4::imprimirTabuleiro() const {
     std::cout << "----------Lig4----------" << std::endl;

@@ -3,10 +3,14 @@
 #include "Jogada.hpp"
 #include <iostream>
 
-Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2): Jogo(linhas, colunas, jogador1, jogador2)
-{
+
+Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
+    Jogo(linhas, colunas, jogador1, jogador2) {
     reiniciarTabuleiro();
 }
+
+Reversi::~Reversi() {}
+
 
 bool Reversi::dentroDosLimites(const Jogada& jogada) const {
     int linha = jogada.get_linha();
@@ -264,4 +268,3 @@ void Reversi::partida() {
     std::cout << "Fim de jogo!!!" << std::endl;
 }
 
-Reversi::~Reversi() {}
