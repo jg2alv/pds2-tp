@@ -10,7 +10,7 @@ all: ./bin/main ./bin/t_main
 	./bin/t_main
 
 clean:
-	$(RM) ./obj/*.o ./bin/main ./bin/t_*
+	$(RM) ./obj/*.o ./bin/main ./bin/t_main
 
 
 # ./bin/main: ./src/main.cpp ./obj/Jogador.o ./obj/Sistema.o ./obj/Jogo.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o
@@ -40,7 +40,14 @@ clean:
 ./obj/Jogada.o: ./src/Jogada.cpp ./include/Jogada.hpp
 	$(GPP) -c ./src/Jogada.cpp -o ./obj/Jogada.o
 
-./bin/t_main: ./tests/t_main.cpp
-	$(GPP) ./tests/t_main.cpp -o ./bin/t_main
+
+./bin/t_main: ./tests/t_main.cpp ./obj/t_Lig4.o ./obj/t_Reversi.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Jogo.o ./obj/Lig4.o ./obj/Reversi.o
+	$(GPP) ./tests/t_main.cpp ./obj/t_Lig4.o ./obj/t_Reversi.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Jogo.o ./obj/Lig4.o ./obj/Reversi.o -o ./bin/t_main
+
+./obj/t_Lig4.o: ./tests/t_Lig4.cpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Jogo.hpp ./include/Lig4.hpp
+	$(GPP) -c ./tests/t_Lig4.cpp -o ./obj/t_Lig4.o
+
+./obj/t_Reversi.o: ./tests/t_Reversi.cpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Jogo.hpp ./include/Reversi.hpp
+	$(GPP) -c ./tests/t_Reversi.cpp -o ./obj/t_Reversi.o
 
 
