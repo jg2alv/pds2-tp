@@ -2,6 +2,8 @@
 #include "Jogador.hpp"
 #include "Jogada.hpp"
 #include <iostream>
+#include <sstream>
+#include <string>
 
 
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
@@ -213,12 +215,18 @@ void Reversi::partida() {
         if (podeJogar()) {
             jogadasSemMovimento = 0; 
             std::cout << jogador1.getApelido() << "(" << 'X' << "), escolha uma coordenada no seguinte formato: (x y): ";
+            std::string input;
+            std::getline(std::cin, input);
+            std::istringstream iss(input);
             int x, y;
-            std::cin >> x >> y;
+            iss >> x >> y;
 
             while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y))) {
                 std::cout << "Digite uma coordenada válida: ";
-                std::cin >> x >> y;
+                std::getline(std::cin, input);
+                iss.clear();
+                iss.str(input);
+                iss >> x >> y;
             }
 
             realizarJogada(Jogada(x, y));
@@ -238,12 +246,18 @@ void Reversi::partida() {
         if (podeJogar()) {
             jogadasSemMovimento = 0; 
             std::cout << jogador2.getApelido() << "(" << 'O' << "), escolha uma coordenada no seguinte formato: (x y): ";
+            std::string input;
+            std::getline(std::cin, input);
+            std::istringstream iss(input);
             int x, y;
-            std::cin >> x >> y;
+            iss >> x >> y;
 
             while (!dentroDosLimites(Jogada(x, y)) || !jogadaValida(Jogada(x, y))) {
                 std::cout << "Digite uma coordenada válida: ";
-                std::cin >> x >> y;
+                std::getline(std::cin, input);
+                iss.clear();
+                iss.str(input);
+                iss >> x >> y;
             }
 
             realizarJogada(Jogada(x, y));
