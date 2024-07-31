@@ -77,9 +77,7 @@ void Sistema::executarPartida(std::string jogo) {
     bool jogador1_existe = jogador1 != this->__jogadores.end();
     bool jogador2_existe = jogador2 != this->__jogadores.end();
 
-    this->out << apelido1 << " " << apelido2;
     if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
-    this->out << jogo;
 
     // if(jogo == "Lig4") {
     //     Lig4 lig4(4, 4, **jogador1, **jogador2);
