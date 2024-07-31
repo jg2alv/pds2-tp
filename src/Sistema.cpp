@@ -67,6 +67,30 @@ void Sistema::listarJogadores(std::string criterio) {
     }
 }
 
+void Sistema::executarPartida(std::string jogo) {
+    std::string apelido1, apelido2;
+    std::cin >> apelido1 >> apelido2;
+
+    auto jogador1 = this->acharJogador(apelido1);
+    auto jogador2 = this->acharJogador(apelido2);
+
+    bool jogador1_existe = jogador1 != this->__jogadores.end();
+    bool jogador2_existe = jogador2 != this->__jogadores.end();
+
+    if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
+    std::cout << jogo;
+
+    // if(jogo == "Lig4") {
+    //     Lig4 lig4(4, 4, **jogador1, **jogador2);
+    //     lig4.partida();
+    // } else if(jogo == "Reversi") {
+    //     Reversi reversi(4, 4, **jogador1, **jogador2);
+    //     reversi.partida();
+    // } else {
+
+    // }
+}
+
 void Sistema::executarComando(Comando comando_analisado) {
     switch (comando_analisado) {
         case Comando::CadastrarJogador: {
@@ -92,18 +116,9 @@ void Sistema::executarComando(Comando comando_analisado) {
         }
 
         case Comando::ExecutarPartida: {
-            std::string jogo;
+            std::string jogo, apelido1, apelido2;
             std::cin >> jogo;
-            if(jogo == "Lig4") {
-                
-
-            }
-            else if(jogo == "Reversi") {
-
-            }
-            else {
-
-            }
+            this->executarPartida(jogo);
             break;
         }
 

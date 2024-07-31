@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <iostream>
 
 #include "Jogador.hpp"
 
@@ -28,6 +29,7 @@ class Sistema {
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string criterio);
+        void executarPartida(std::string jogo);
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();
