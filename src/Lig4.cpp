@@ -27,7 +27,7 @@ void Lig4::imprimirTabuleiro() const {
         std::cout << " " << i << " ";
     }
 
-    std::cout << std::endl << std::endl;
+    std::cout << std::endl;
 }
 
 int Lig4::formatoCorreto(std::string entrada) {
@@ -37,7 +37,7 @@ int Lig4::formatoCorreto(std::string entrada) {
     int formato_correto = 1;
     int qntd_numeros = 0;
     std::string aux;
-    std::string coluna_str;
+    std::string coluna_str = "";
 
     while (in >> aux) {
         for (std::string::size_type i = 0; i < aux.length(); i++) {
@@ -51,6 +51,8 @@ int Lig4::formatoCorreto(std::string entrada) {
 
         } else return -1;
     } 
+
+    if(coluna_str == "") return -1;
 
     int coluna = stoi(coluna_str);
     return coluna;
@@ -278,5 +280,7 @@ void Lig4::partida() {
             break;
 
         } else trocarJogador();
+
+        std::cout << std::endl;
     }
 }
