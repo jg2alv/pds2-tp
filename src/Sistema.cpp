@@ -79,15 +79,15 @@ void Sistema::executarPartida(std::string jogo) {
 
     if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
 
-    // if(jogo == "Lig4") {
-    //     Lig4 lig4(4, 4, **jogador1, **jogador2);
-    //     lig4.partida();
-    // } else if(jogo == "Reversi") {
-    //     Reversi reversi(4, 4, **jogador1, **jogador2);
-    //     reversi.partida();
-    // } else {
+    if(jogo == "Lig4") {
+        Lig4 lig4(4, 4, **jogador1, **jogador2);
+        lig4.partida();
+    } else if(jogo == "Reversi") {
+        Reversi reversi(4, 4, **jogador1, **jogador2);
+        reversi.partida();
+    } else {
 
-    // }
+    }
 }
 
 void Sistema::executarComando(Comando comando_analisado) {
