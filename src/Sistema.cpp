@@ -135,7 +135,7 @@ void Sistema::executarComando(Comando comando_analisado) {
 void Sistema::carregarArquivo() {
     std::ifstream arquivo("./data/jogadores.txt");
     bool arquivo_existe = arquivo.good();
-    if(!arquivo_existe) throw new Excecao("falha na abertura do arquivo");
+    if(!arquivo_existe) throw Excecao("falha na abertura do arquivo");
 
     int numjogadores;
     arquivo >> numjogadores;
