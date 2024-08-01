@@ -5,7 +5,7 @@ GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./incl
 RM = rm -rf
 
 OBJs = ./obj/Jogo.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o ./obj/Sistema.o
-T_OBJs = ./obj/t_Jogador.o ./obj/t_Reversi.o ./obj/t_Lig4.o
+T_OBJs = ./obj/t_Jogador.o ./obj/t_Reversi.o ./obj/t_Lig4.o ./obj/t_Sistema.o
 
 
 all: ./bin/main ./bin/t_main
@@ -52,5 +52,8 @@ clean:
 
 ./obj/t_Jogador.o: ./tests/t_Jogador.cpp ./include/Jogador.hpp
 	$(GPP) -c ./tests/t_Jogador.cpp -o ./obj/t_Jogador.o
+
+./obj/t_Sistema.o: ./tests/t_Sistema.cpp ./include/Jogador.hpp ./include/Sistema.hpp
+	$(GPP) -c ./tests/t_Sistema.cpp -o ./obj/t_Sistema.o
 
 

@@ -1,0 +1,19 @@
+4
+A
+Alice
+2
+Reversi 2 1 0
+Lig4 0 1 2
+B
+Bruno
+1
+Lig4 5 0 0
+C
+Carol
+3
+JogoDaVelha 0 4 2
+Reversi 0 1 0
+Lig4 0 0 3
+D
+Diogo
+0
