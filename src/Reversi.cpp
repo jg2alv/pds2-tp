@@ -98,28 +98,30 @@ void Reversi::realizarJogada(const Jogada& jogada) {
 }
 
 bool Reversi::verificarVitoria() const {
-    int contador1 = 0;
-    int contador2 = 0;
+    int contadorX = 0;
+    int contadorO = 0;
 
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == 'X') {
-                contador1++;
+                contadorX++;
             } else if (get_char(i, j) == 'O') {
-                contador2++;
+                contadorO++;
             }
         }
     }
 
-    if (contador1 == 0 || contador2 == 0) {
-        if (contador1 > contador2) {
+    if (contadorX == 0 || contadorO == 0) {
+        if (contadorX > contadorO) {
             imprimirTabuleiro();
-            std::cout << jogador1.getApelido() << " venceu" << std::endl;
+            std::cout << jogador1.getApelido() << " venceu com " << contadorX << " peças." << std::endl;
+            std::cout << "Fim de jogo!!!" << std::endl;
             jogador1.incrementarVitorias("Reversi");
             jogador2.incrementarDerrotas("Reversi");
         } else {
             imprimirTabuleiro();
-            std::cout << jogador2.getApelido() << " venceu" << std::endl;
+            std::cout << jogador2.getApelido() << " venceu com " << contadorO << " peças." << std::endl;
+            std::cout << "Fim de jogo!!!" << std::endl;
             jogador2.incrementarVitorias("Reversi");
             jogador1.incrementarDerrotas("Reversi");
         }
@@ -130,33 +132,36 @@ bool Reversi::verificarVitoria() const {
 }
 
 bool Reversi::verificarEmpate() const {
-    int contador1 = 0;
-    int contador2 = 0;
+    int contadorX = 0;
+    int contadorO = 0;
 
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == 'X') {
-                contador1++;
+                contadorX++;
             } else if (get_char(i, j) == 'O') {
-                contador2++;
+                contadorO++;
             }
         }
     }
 
-    if (contador1 + contador2 == linhas * colunas) {
-        if (contador1 > contador2) {
+    if (contadorX + contadorO == linhas * colunas) {
+        if (contadorX > contadorO) {
             imprimirTabuleiro();
-            std::cout << jogador1.getApelido() << " venceu" << std::endl;
+            std::cout << jogador1.getApelido() << " venceu com " << contadorX << " peças." << std::endl;
+            std::cout << "Fim de jogo!!!" << std::endl;
             jogador1.incrementarVitorias("Reversi");
             jogador2.incrementarDerrotas("Reversi");
-        } else if (contador2 > contador1) {
+        } else if (contadorO > contadorX) {
             imprimirTabuleiro();
-            std::cout << jogador2.getApelido() << " venceu" << std::endl;
+            std::cout << jogador2.getApelido() << " venceu com " << contadorO << " peças." << std::endl;
+            std::cout << "Fim de jogo!!!" << std::endl;
             jogador2.incrementarVitorias("Reversi");
             jogador1.incrementarDerrotas("Reversi");
         } else {
             imprimirTabuleiro();
-            std::cout << "Jogo empatado" << std::endl;
+            std::cout << "Empate com " << contadorX << " peças de cada." << std::endl;
+            std::cout << "Fim de jogo!!!" << std::endl;
             jogador1.incrementarEmpates("Reversi");
             jogador2.incrementarEmpates("Reversi");
         }
@@ -274,9 +279,10 @@ void Reversi::partida() {
     }
 
     std::cout << "Nenhum jogador pode jogar." << std::endl;
-    if (!verificarEmpate()) {
-        verificarVitoria(); 
-    }
+        if(!verificarVitoria()){
+            verificarEmpate();
+        }
     std::cout << "Fim de jogo!!!" << std::endl;
-}
+    
+    }
 
