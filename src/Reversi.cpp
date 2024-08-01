@@ -282,7 +282,5 @@ void Reversi::partida() {
         if(!verificarVitoria()){
             verificarEmpate();
         }
-    std::cout << "Fim de jogo!!!" << std::endl;
-    
     }
 
