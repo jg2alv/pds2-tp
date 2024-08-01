@@ -22,6 +22,7 @@ public:
     bool jogadaValida(const Jogada &jogada) const override;
     bool verificarVitoria() const override;
     bool verificarEmpate() const override;
+    bool determinarResultadoFinal() const;
     void trocarJogador() override;
     void partida() override;
 };
