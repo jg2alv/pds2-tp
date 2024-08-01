@@ -1,4 +1,10 @@
-3
+4
+cleiton
+Cleiton Silva
+0
+eric
+Eric
+0
 joao
 Joao Vaz
 2
@@ -9,6 +15,3 @@ Marcos da Silva
 2
 Lig4 69 69 69
 Reversi 1 2 3
-cleiton
-Cleiton Silva
-0
