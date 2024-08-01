@@ -59,15 +59,12 @@ int Lig4::formatoCorreto(std::string entrada) {
 }
 
 int Lig4::getLinhaTabuleiro(int coluna) const {
-    if (get_char(0, coluna - 1) != ' ') 
-        return 0;
-
-    for (int i = (this->linhas - 1); i >= 0; i--) {
+    int i = this->linhas - 1;
+    for (; i >= 0; i--) {
         if (get_char(i, coluna - 1) == ' ') 
-            return (i + 1);
+            break;
     }
-
-    return -1; // TODO: retornar o valor certo nesse caso
+    return i;
 }
 
 Jogada Lig4::lerJogada() {
