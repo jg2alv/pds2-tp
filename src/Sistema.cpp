@@ -135,7 +135,7 @@ void Sistema::executarComando(Comando comando_analisado) {
 }
 
 void Sistema::carregarArquivo() {
-    std::ifstream arquivo("./data/jogadores.txt");
+    std::ifstream arquivo(this->__bancodedados);
     bool arquivo_existe = arquivo.good();
     if(!arquivo_existe) throw Excecao("falha na abertura do arquivo");
 
@@ -166,7 +166,7 @@ void Sistema::carregarArquivo() {
 }
 
 void Sistema::salvarSistema() {
-    std::ofstream arquivo("./data/jogadores.txt");
+    std::ofstream arquivo(this->__bancodedados);
     int njogadores = this->__jogadores.size();
     arquivo << njogadores << "\n";
 
