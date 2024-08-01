@@ -23,6 +23,7 @@ class Sistema {
         std::ostream& __out;
         std::istream& __in;
         std::string __bancodedados;
+        bool salvar_ao_sair;
 
     public:
         bool isSistemaFinalizado();
@@ -36,7 +37,7 @@ class Sistema {
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();
-        Sistema(std::ostream& out, std::istream& in, std::string bancodedados);
+        Sistema(std::ostream& out, std::istream& in, std::string bancodedados, bool salvar_ao_sair = true);
         ~Sistema();
 };
 
