@@ -36,7 +36,7 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     Jogador* novo_jogador = new Jogador(apelido, nome);
     this->__jogadores.push_back(novo_jogador);
 
-    this->out << "Jogador " << apelido << " cadastrado com sucesso" << std::endl;
+    this->__out << "Jogador " << apelido << " cadastrado com sucesso" << std::endl;
 }
 
 void Sistema::removerJogador(std::string apelido) {
@@ -49,7 +49,7 @@ void Sistema::removerJogador(std::string apelido) {
 
     this->__jogadores.erase(jogador);
 
-    this->out << "Jogador " << apelido << " removido com sucesso" << std::endl;
+    this->__out << "Jogador " << apelido << " removido com sucesso" << std::endl;
 }
 
 void Sistema::listarJogadores(std::string criterio) {
@@ -70,7 +70,7 @@ void Sistema::listarJogadores(std::string criterio) {
 
 void Sistema::executarPartida(std::string nome_do_jogo) {
     std::string apelido1, apelido2;
-    this->in >> apelido1 >> apelido2;
+    this->__in >> apelido1 >> apelido2;
 
     auto jogador1 = this->acharJogador(apelido1);
     auto jogador2 = this->acharJogador(apelido2);
@@ -88,6 +88,7 @@ void Sistema::executarPartida(std::string nome_do_jogo) {
     } else {
 
     }
+    this->__in.ignore();
     jogo->partida();
 }
 
@@ -95,29 +96,29 @@ void Sistema::executarComando(Comando comando_analisado) {
     switch (comando_analisado) {
         case Comando::CadastrarJogador: {
             std::string apelido, nome, saida;
-            this->in >> apelido;
-            std::getline(this->in, nome);
+            this->__in >> apelido;
+            std::getline(this->__in, nome);
             this->cadastrarJogador(apelido, nome.erase(0, 1));
             break;
         }
         
         case Comando::RemoverJogador: {
             std::string apelido, saida;
-            this->in >> apelido;
+            this->__in >> apelido;
             this->removerJogador(apelido);
             break;
         }
 
         case Comando::ListarJogadores: {
             std::string criterio, saida;
-            this->in >> criterio;
+            this->__in >> criterio;
             this->listarJogadores(criterio);
             break;
         }
 
         case Comando::ExecutarPartida: {
             std::string jogo, apelido1, apelido2;
-            this->in >> jogo;
+            this->__in >> jogo;
             this->executarPartida(jogo);
             break;
         }
@@ -144,7 +145,7 @@ void Sistema::carregarArquivo() {
     for(int i = 0; i < numjogadores; i++) {
         std::string apelido, nome;
         arquivo >> apelido;
-        std::getline(arquivo, nome); // necessario pra tirar o \n extra
+        arquivo.ignore();
         std::getline(arquivo, nome);
         Jogador* jogador = new Jogador(apelido, nome);
 
@@ -200,13 +201,13 @@ void Sistema::limparSistema() {
     this->__jogadores.clear();
 }
 
-Sistema::Sistema(std::ostream& out, std::istream& in) : out(out), in(in) {
-    std::ifstream arquivo("./data/jogadores.txt");
+Sistema::Sistema(std::ostream& out, std::istream& in, std::string bancodedados) : __out(out), __in(in), __bancodedados(bancodedados) {
+    std::ifstream arquivo(this->__bancodedados);
     bool arquivo_existe = arquivo.good();
     arquivo.close();
     
     if(!arquivo_existe) {
-        std::ofstream arquivo("./data/jogadores.txt");
+        std::ofstream arquivo(this->__bancodedados);
         arquivo << "0";
         arquivo.close();
     }

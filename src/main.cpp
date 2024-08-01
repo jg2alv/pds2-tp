@@ -7,7 +7,7 @@
 #include "Jogo.hpp"
 
 int main() {
-    Sistema sistema(std::cout, std::cin);
+    Sistema sistema(std::cout, std::cin, "./data/jogadores.txt");
 
     while (!sistema.isSistemaFinalizado()) {
         std::string comando; std::cin >> comando;
