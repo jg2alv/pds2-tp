@@ -1,14 +1,14 @@
 .vscode/
 
-./bin/*
-!./bin/.gitkeep
+bin/*
+!bin/.gitkeep
 
-./obj/*
-!./obj/.gitkeep
+obj/*
+!obj/.gitkeep
 
-./data/*
-!./data/.gitkeep
+data/*
+!data/.gitkeep
 
-./docs/*
-!./docs/.gitkeep
+docs/*
+!docs/.gitkeep
 
