@@ -1,2 +1,14 @@
 .vscode/
-./data/jogadores.txt
+
+./bin/*
+!./bin/.gitkeep
+
+./obj/*
+!./obj/.gitkeep
+
+./data/*
+!./data/.gitkeep
+
+./docs/*
+!./docs/.gitkeep
+
