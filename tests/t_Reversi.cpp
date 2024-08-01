@@ -16,7 +16,14 @@ TEST_CASE("Testes genericos para Reversi") {
     
     unique_ptr<Jogo> reversi(new Reversi(8, 8, jogador1, jogador2));
 
-    CHECK(reversi->jogadaValida(Jogada(5, 3)));
+    CHECK(reversi->jogadaValida(Jogada(3, 4)));
+    CHECK_FALSE(reversi->jogadaValida(Jogada(3, 5)));
+    CHECK_FALSE(reversi->jogadaValida(Jogada(4, 6)));
+    CHECK(reversi->jogadaValida(Jogada(5, 6)));
+    CHECK(reversi->jogadaValida(Jogada(6, 5)));
+    CHECK_FALSE(reversi->jogadaValida(Jogada(6, 4)));
+    CHECK_FALSE(reversi->jogadaValida(Jogada(5, 3)));
+    CHECK(reversi->jogadaValida(Jogada(4, 3)));
 }
 
 
