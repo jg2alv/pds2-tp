@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <memory>
 
 #include "Sistema.hpp"
 #include "Excecao.hpp"
@@ -67,7 +68,7 @@ void Sistema::listarJogadores(std::string criterio) {
     }
 }
 
-void Sistema::executarPartida(std::string jogo) {
+void Sistema::executarPartida(std::string nome_do_jogo) {
     std::string apelido1, apelido2;
     this->in >> apelido1 >> apelido2;
 
@@ -79,15 +80,15 @@ void Sistema::executarPartida(std::string jogo) {
 
     if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
 
-    if(jogo == "Lig4") {
-        Lig4 lig4(4, 4, **jogador1, **jogador2);
-        lig4.partida();
-    } else if(jogo == "Reversi") {
-        Reversi reversi(4, 4, **jogador1, **jogador2);
-        reversi.partida();
+    std::unique_ptr<Jogo> jogo;
+    if (nome_do_jogo == "Lig4") {
+        jogo.reset(new Lig4(6, 7, **jogador1, **jogador2));
+    } else if (nome_do_jogo == "Reversi") {
+        jogo.reset(new Reversi(8, 8, **jogador1, **jogador2));
     } else {
 
     }
+    jogo->partida();
 }
 
 void Sistema::executarComando(Comando comando_analisado) {
