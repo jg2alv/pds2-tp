@@ -2,6 +2,7 @@
 #define JOGADOR_HPP
 
 #include <string>
+#include <iostream>
 #include <map>
 #include <vector>
 
@@ -32,7 +33,7 @@ public:
     void incrementarEmpates(std::string jogo);
     int getNumeroDeJogos();
     std::vector<std::string> getJogosCadastrados();
-    void imprimirInformacoes();
+    void imprimirInformacoes(std::ostream& out);
 };
 
 #endif

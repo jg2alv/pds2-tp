@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <sstream>
 
 #include "doctest.h"
 #include "Jogador.hpp"
@@ -35,6 +36,13 @@ TEST_CASE("Testes para o Jogador") {
 
     CHECK(alice.getNumeroDeJogos() == 2);
     CHECK(alice.getJogosCadastrados() == vector<string>{"Lig4", "Reversi"}); 
+
+    stringstream saida;
+    alice.imprimirInformacoes(saida);
+    char const *saida_esperada = "A Alice\n"
+                                 "Lig4 - V: 1 D: 1\n"
+                                 "Reversi - V: 1 D: 3\n";
+    CHECK(saida.str() == saida_esperada);
 }
 
 

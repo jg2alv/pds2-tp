@@ -64,7 +64,7 @@ void Sistema::listarJogadores(std::string criterio) {
 
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++) {
-        this->__jogadores[i]->imprimirInformacoes();
+        this->__jogadores[i]->imprimirInformacoes(this->__out);
     }
 }
 
