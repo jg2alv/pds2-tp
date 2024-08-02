@@ -16,28 +16,29 @@ enum class Comando {
     FinalizarSistema
 };
 
+
+Comando identificar_comando(std::string candidato_a_comando);
+
+
 class Sistema {
     private:
         std::vector<Jogador*> __jogadores;
         bool __sistema_finalizado = false;
-        std::istream& __in;
-        std::ostream& __out;
         std::string __bancodedados;
         bool salvar_ao_sair;
 
     public:
         bool isSistemaFinalizado();
-        Comando analisarComando(std::string comando);
-        void executarComando(Comando comando_analisado);
         std::vector<Jogador *>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
-        void listarJogadores(std::string criterio);
-        void executarPartida(std::string nome_do_jogo);
+        void listarJogadores(std::string criterio, std::ostream& out);
+        void finalizarSistema();
+        void executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out);
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();
-        Sistema(std::istream& in, std::ostream& out, std::string bancodedados, bool salvar_ao_sair = true);
+        Sistema(std::string bancodedados, bool salvar_ao_sair = true);
         ~Sistema();
 };
 

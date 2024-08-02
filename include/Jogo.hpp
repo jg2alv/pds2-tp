@@ -2,6 +2,7 @@
 #define JOGO_HPP
 
 #include <vector>
+#include <iostream>
 
 #include "Jogada.hpp"
 #include "Jogador.hpp"
@@ -13,25 +14,36 @@ protected:
     int colunas; 
     std::vector<char> tabuleiro; 
 
+    bool jogo_finalizado;
+
     Jogador& jogador1;
     Jogador& jogador2;
-    Jogador *jogador_atual;
+
+    Jogador *jogador_da_vez;
+    Jogador *outro_jogador;
+
     std::map<std::string, char> simbolos;
+
 
     char get_char(int i, int j) const;
     void set_char(int i, int j, char c);
+
+    void passar_a_vez();
 
 public:
     Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
     virtual ~Jogo();
 
-    virtual void imprimirTabuleiro() const = 0;
-    virtual void realizarJogada(const Jogada& jogada) = 0;
-    virtual bool jogadaValida(const Jogada& jogada) const = 0;
-    virtual bool verificarVitoria() const = 0;
+    bool fimDeJogo() const;
+    void finalizarJogo();
+    Jogador *getJogadorDaVez() const;
+    Jogador *getOutroJogador() const;
+    virtual std::string getNome() const = 0;
+    virtual void imprimirTabuleiro(std::ostream& out) const = 0;
+    virtual bool jogadaValida(std::string possivel_jogada) const = 0;
+    virtual void realizarJogada(std::string possivel_jogada) = 0;
+    virtual bool verificarVitoria(Jogador const&) const = 0;
     virtual bool verificarEmpate() const = 0;
-    virtual void trocarJogador() = 0;
-    virtual void partida() = 0;
 };
 
 

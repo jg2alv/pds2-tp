@@ -9,15 +9,26 @@
 #include "Lig4.hpp"
 #include "Reversi.hpp"
 
-bool Sistema::isSistemaFinalizado() { return this->__sistema_finalizado; }
 
-Comando Sistema::analisarComando(std::string comando) {
-    if (comando == "CJ") return Comando::CadastrarJogador;
-    else if (comando == "RJ") return Comando::RemoverJogador;
-    else if (comando == "LJ") return Comando::ListarJogadores;
-    else if (comando == "EP") return Comando::ExecutarPartida;
-    else if (comando == "FS") return Comando::FinalizarSistema;
-    else throw Excecao("comando invalido");
+Comando identificar_comando(std::string candidato_a_comando) {
+    if (candidato_a_comando == "CJ") {
+        return Comando::CadastrarJogador;
+    } else if (candidato_a_comando == "RJ") {
+        return Comando::RemoverJogador;
+    } else if (candidato_a_comando == "LJ") {
+        return Comando::ListarJogadores;
+    } else if (candidato_a_comando == "EP") {
+        return Comando::ExecutarPartida;
+    } else if (candidato_a_comando == "FS") {
+        return Comando::FinalizarSistema;
+    } else {
+        throw Excecao("comando invalido");
+    }
+}
+
+
+bool Sistema::isSistemaFinalizado() {
+    return this->__sistema_finalizado;
 }
 
 std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
@@ -35,8 +46,6 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     
     Jogador* novo_jogador = new Jogador(apelido, nome);
     this->__jogadores.push_back(novo_jogador);
-
-    this->__out << "Jogador " << apelido << " cadastrado com sucesso" << std::endl;
 }
 
 void Sistema::removerJogador(std::string apelido) {
@@ -48,11 +57,9 @@ void Sistema::removerJogador(std::string apelido) {
     delete *jogador;
 
     this->__jogadores.erase(jogador);
-
-    this->__out << "Jogador " << apelido << " removido com sucesso" << std::endl;
 }
 
-void Sistema::listarJogadores(std::string criterio) {
+void Sistema::listarJogadores(std::string criterio, std::ostream& out) {
     auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
@@ -64,14 +71,11 @@ void Sistema::listarJogadores(std::string criterio) {
 
     int tam = this->__jogadores.size();
     for(int i = 0; i < tam; i++) {
-        this->__jogadores[i]->imprimirInformacoes(this->__out);
+        this->__jogadores[i]->imprimirInformacoes(out);
     }
 }
 
-void Sistema::executarPartida(std::string nome_do_jogo) {
-    std::string apelido1, apelido2;
-    this->__in >> apelido1 >> apelido2;
-
+void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out) {
     auto jogador1 = this->acharJogador(apelido1);
     auto jogador2 = this->acharJogador(apelido2);
 
@@ -86,52 +90,22 @@ void Sistema::executarPartida(std::string nome_do_jogo) {
     } else if (nome_do_jogo == "Reversi") {
         jogo.reset(new Reversi(8, 8, **jogador1, **jogador2));
     } else {
-
+        throw Excecao("jogo nao existe");
     }
-    this->__in.ignore();
-    jogo->partida();
-}
+    
+    while (!jogo->fimDeJogo()) {
+        try {
+            jogo->imprimirTabuleiro(out);
+            out << "Turno do jogador " << jogo->jogadorDaVez().getApelido() << ": ";
 
-void Sistema::executarComando(Comando comando_analisado) {
-    switch (comando_analisado) {
-        case Comando::CadastrarJogador: {
-            std::string apelido, nome, saida;
-            this->__in >> apelido;
-            std::getline(this->__in, nome);
-            this->cadastrarJogador(apelido, nome.erase(0, 1));
-            break;
-        }
-        
-        case Comando::RemoverJogador: {
-            std::string apelido, saida;
-            this->__in >> apelido;
-            this->removerJogador(apelido);
-            break;
-        }
-
-        case Comando::ListarJogadores: {
-            std::string criterio, saida;
-            this->__in >> criterio;
-            this->listarJogadores(criterio);
-            break;
-        }
-
-        case Comando::ExecutarPartida: {
-            std::string jogo, apelido1, apelido2;
-            this->__in >> jogo;
-            this->executarPartida(jogo);
-            break;
-        }
-
-        case Comando::FinalizarSistema: {
-            this->__sistema_finalizado = true;
-            break;
-        }
-
-        default: {
-            throw Excecao("comando invalido");
+            std::string possivel_jogada;
+            std::getline(in, possivel_jogada);
+            jogo->realizarJogada(possivel_jogada);
+        } catch (std::exception const& e) {
+            out << "ERRO: " << e.what() << std::endl;
         }
     }
+    jogo->finalizarPartida();
 }
 
 void Sistema::carregarArquivo() {
@@ -193,6 +167,16 @@ void Sistema::salvarSistema() {
     arquivo.close();
 }
 
+void Sistema::finalizarSistema() {
+    this->__sistema_finalizado = true;
+
+    if (salvar_ao_sair) {
+        this->salvarSistema();
+    }
+
+    this->limparSistema();
+}
+
 void Sistema::limparSistema() {
     for (Jogador *jogador : __jogadores) {
         delete jogador;
@@ -201,9 +185,7 @@ void Sistema::limparSistema() {
     this->__jogadores.clear();
 }
 
-Sistema::Sistema(std::istream& in, std::ostream& out, std::string bancodedados, bool salvar_ao_sair) :
-    __in(in),
-    __out(out),
+Sistema::Sistema(std::string bancodedados, bool salvar_ao_sair) :
     __bancodedados(bancodedados),
     salvar_ao_sair(salvar_ao_sair) {
     std::ifstream arquivo(this->__bancodedados);
@@ -220,9 +202,5 @@ Sistema::Sistema(std::istream& in, std::ostream& out, std::string bancodedados, 
 }
 
 Sistema::~Sistema() {
-    if (salvar_ao_sair) {
-        this->salvarSistema();
-    }
-
-    this->limparSistema();
+    this->finalizarSistema();
 }

@@ -13,21 +13,25 @@ Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
 Lig4::~Lig4() {}
 
 
-void Lig4::imprimirTabuleiro() const {
-    std::cout << "----------Lig4----------" << std::endl;
+std::string Lig4::getNome() const {
+    return "Lig4";
+}
+
+void Lig4::imprimirTabuleiro(std::ostream& out) const {
+    out << "----------Lig4----------\n";
     
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
             std::cout << "|" << get_char(i, j) << "|";
         }
-        std::cout << std::endl;
+        out << std::endl;
     }
 
     for (int i = 1; i <= this->colunas; i++) {
-        std::cout << " " << i << " ";
+        out << " " << i << " ";
     }
 
-    std::cout << std::endl;
+    out << std::endl;
 }
 
 int Lig4::formatoCorreto(std::string entrada) {
@@ -73,7 +77,7 @@ Jogada Lig4::lerJogada() {
 
     while (1) {
         std::cout << "Turno do jogador ";
-        std::cout << this->jogador_atual->getApelido();
+        std::cout << this->jogador_da_vez->getApelido();
         std::cout << ": ";
 
         getline(std::cin, entrada);
@@ -281,3 +285,4 @@ void Lig4::partida() {
         std::cout << std::endl;
     }
 }
+
