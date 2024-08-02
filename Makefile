@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all run test clean
 
 
 GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./include
@@ -10,6 +10,11 @@ T_OBJs = ./obj/t_Jogador.o ./obj/t_Reversi.o ./obj/t_Lig4.o ./obj/t_Sistema.o
 
 all: ./bin/main ./bin/t_main
 	doxygen ./Doxyfile
+
+run: ./bin/main
+	./bin/main
+
+test: ./bin/t_main
 	./bin/t_main
 
 clean:
