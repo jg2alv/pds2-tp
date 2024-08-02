@@ -20,8 +20,8 @@ class Sistema {
     private:
         std::vector<Jogador*> __jogadores;
         bool __sistema_finalizado = false;
-        std::ostream& __out;
         std::istream& __in;
+        std::ostream& __out;
         std::string __bancodedados;
         bool salvar_ao_sair;
 
@@ -37,7 +37,7 @@ class Sistema {
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();
-        Sistema(std::ostream& out, std::istream& in, std::string bancodedados, bool salvar_ao_sair = true);
+        Sistema(std::istream& in, std::ostream& out, std::string bancodedados, bool salvar_ao_sair = true);
         ~Sistema();
 };
 

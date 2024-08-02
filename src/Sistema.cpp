@@ -201,9 +201,9 @@ void Sistema::limparSistema() {
     this->__jogadores.clear();
 }
 
-Sistema::Sistema(std::ostream& out, std::istream& in, std::string bancodedados, bool salvar_ao_sair) :
-    __out(out),
+Sistema::Sistema(std::istream& in, std::ostream& out, std::string bancodedados, bool salvar_ao_sair) :
     __in(in),
+    __out(out),
     __bancodedados(bancodedados),
     salvar_ao_sair(salvar_ao_sair) {
     std::ifstream arquivo(this->__bancodedados);
