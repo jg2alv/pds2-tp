@@ -140,6 +140,26 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
         jogador->imprimirInformacoes(out);
 }
 
+/**
+ * \brief Executa uma partida entre dois jogadores cadastrados no sistema
+ *
+ * Essa funcao recebe tres strings e referencia a duas streams.
+ * As strings representam, respectivamente, o nome do jogo e o apelido (identificador
+ * unico) dos dois jogadores, que participarao da partida.
+ * As streams indicam de onde a entrada deve ser lida, e aonde ela deve ser impressa
+ * (em arquivos, para testes, ou na tela, para usufruto do usuario).
+ * Primeiro, a funcao checa se os jogadores existem e joga uma excecao caso nao existam.
+ * Entao, a funcao da inicio no event-loop do jogo: obtem a entrada a partir do `std::istream&`
+ * recebido por parametro; e imprime o tabuleiro e as outras informacoes do fluxo da partida.
+ * Os jogadores, entao, disputam a partida e, no final, a funcao imprime o resultado do jogo.
+ * 
+ * \param nome_do_jogo O nome de um jogo implementado no sistema.
+ * \param apelido1 O apelido do primeiro jogador.
+ * \param apelido2 O apelido do segundo jogador.
+ * \param in Onde pegar a entrada para o jogo.
+ * \param out Onde imprimir a saida do jogo.
+ * 
+*/
 void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out) {
     auto jogador1 = this->acharJogador(apelido1);
     auto jogador2 = this->acharJogador(apelido2);
