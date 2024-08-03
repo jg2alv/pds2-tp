@@ -10,6 +10,9 @@ data/*
 !data/.gitkeep
 !data/jogadores_teste*.txt
 
-docs/*
-!docs/.gitkeep
+docs/html/*
+!docs/html/.gitkeep
+
+docs/latex/*
+!docs/latex/.gitkeep
 

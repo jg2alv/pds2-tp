@@ -18,7 +18,7 @@ test: ./bin/t_main
 	./bin/t_main
 
 clean:
-	$(RM) ./obj/*.o ./bin/main ./bin/t_main
+	$(RM) ./obj/*.o ./bin/main ./bin/t_main ./docs/html/* ./docs/latex/*
 
 
 ./bin/main: ./src/main.cpp $(OBJs)
