@@ -10,7 +10,7 @@ using namespace std;
 
 TEST_CASE("Teste para Sistema") {
     SUBCASE("Arquivo de teste 1") {
-        Sistema sistema("./data/jogadores_teste1.txt", false);
+        Sistema sistema("./test_data/jogadores1.txt", false);
 
         string saida_esperada = "A Alice\n"
                                  "Lig4 - V: 0 D: 1\n"
@@ -34,7 +34,7 @@ TEST_CASE("Teste para Sistema") {
         CHECK(saida.str() == saida_esperada);
     }
     SUBCASE("Arquivo de teste 2") {
-        Sistema sistema("./data/jogadores_teste2.txt", false);
+        Sistema sistema("./test_data/jogadores2.txt", false);
 
         stringstream saida;
 
@@ -47,7 +47,7 @@ TEST_CASE("Teste para Sistema") {
         CHECK(saida.str() == "josue Abraao\ndavi Elias\n");
     }
     SUBCASE("Arquivo de teste 3") {
-        Sistema sistema("./data/jogadores_teste3.txt", false);
+        Sistema sistema("./test_data/jogadores3.txt", false);
         
         stringstream saida;
 

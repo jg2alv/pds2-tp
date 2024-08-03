@@ -8,7 +8,6 @@ obj/*
 
 data/*
 !data/.gitkeep
-!data/jogadores_teste*.txt
 
 docs/html/*
 !docs/html/.gitkeep
