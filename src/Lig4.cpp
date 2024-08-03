@@ -91,6 +91,7 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
         
         int coluna;
         in >> coluna;
+        coluna--;
 
         Jogada jogada(getLinhaTabuleiro(coluna), coluna);
         return jogada_valida(jogada);
@@ -113,6 +114,7 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     
     int coluna;
     in >> coluna;
+    coluna--;
 
     Jogada jogada(getLinhaTabuleiro(coluna), coluna);
     if (!jogada_valida(jogada)) {
@@ -120,6 +122,8 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     }
 
     realizar_jogada(jogada);
+
+    passar_a_vez();
 }
 
 void Lig4::realizar_jogada(const Jogada &jogada) {

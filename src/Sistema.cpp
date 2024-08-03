@@ -112,7 +112,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     if (jogo->verificarEmpate()) {
         out << "Empate!\n";
     } else {
-        out << "Jogador " << jogo->getOutroJogador() << " foi o vencedor!\n";
+        out << "Jogador " << jogo->getOutroJogador()->getApelido() << " foi o vencedor!\n";
     }
 }
 

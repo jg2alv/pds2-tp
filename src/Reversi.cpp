@@ -45,12 +45,12 @@ bool Reversi::jogada_valida(const Jogada& jogada, char simbolo) const {
         int ncoluna = coluna + dcoluna[i];
         bool encontrouOponente = false;
 
-        while (dentroDosLimites(Jogada(nlinha +1, ncoluna +1)) && get_char(nlinha, ncoluna) == oponente) {
+        while (dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == oponente) {
             encontrouOponente = true;
             nlinha += dlinha[i];
             ncoluna += dcoluna[i];
         }
-        if (encontrouOponente && dentroDosLimites(Jogada(nlinha +1, ncoluna +1)) && get_char(nlinha, ncoluna) == simbolo) {
+        if (encontrouOponente && dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == simbolo) {
             return true;
         }
     }
@@ -65,6 +65,8 @@ bool Reversi::jogadaValida(std::string possivel_jogada) const {
     std::stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
     jogada_stream >> linha >> coluna;
+    linha--;
+    coluna--;
     // TODO: excecoes
 
     std::string apelido = jogador_da_vez->getApelido();
@@ -80,6 +82,8 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
     std::stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
     jogada_stream >> linha >> coluna;
+    linha--;
+    coluna--;
     // TODO: excesoes
 
     std::string apelido = jogador_da_vez->getApelido();
@@ -106,13 +110,13 @@ void Reversi::realizar_jogada(const Jogada& jogada) {
         int nlinha = linha + dlinha[i], ncoluna = coluna + dcoluna[i];
         bool encontrouOponente = false;
 
-        while (dentroDosLimites(Jogada(nlinha +1, ncoluna +1)) && get_char(nlinha, ncoluna) == oponente) {
+        while (dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == oponente) {
             encontrouOponente = true;
             nlinha += dlinha[i];
             ncoluna += dcoluna[i];
         }
 
-        if (encontrouOponente && dentroDosLimites(Jogada(nlinha +1, ncoluna +1)) && get_char(nlinha, ncoluna) == simbolo) {
+        if (encontrouOponente && dentroDosLimites(Jogada(nlinha, ncoluna)) && get_char(nlinha, ncoluna) == simbolo) {
             nlinha -= dlinha[i];
             ncoluna -= dcoluna[i];
 
@@ -180,7 +184,7 @@ bool Reversi::podeJogar(const Jogador& jogador) const {
     char simbolo = this->simbolos.at(apelido);
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (jogada_valida(Jogada(i +1, j +1), simbolo)) {
+            if (jogada_valida(Jogada(i, j), simbolo)) {
                 return true;
             }
         }
