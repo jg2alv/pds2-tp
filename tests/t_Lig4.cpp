@@ -16,13 +16,13 @@ TEST_CASE("Testes genericos para Lig4") {
     
     unique_ptr<Jogo> lig4(new Lig4(6, 7, jogador1, jogador2));
 
-    CHECK(lig4->jogadaValida(Jogada(1, 1)));
-    CHECK(lig4->jogadaValida(Jogada(1, 2)));
-    CHECK(lig4->jogadaValida(Jogada(1, 3)));
-    CHECK(lig4->jogadaValida(Jogada(1, 4)));
-    CHECK(lig4->jogadaValida(Jogada(1, 5)));
-    CHECK(lig4->jogadaValida(Jogada(1, 6)));
-    CHECK(lig4->jogadaValida(Jogada(1, 7)));
+    CHECK(lig4->jogadaValida("1"));
+    CHECK(lig4->jogadaValida("2"));
+    CHECK(lig4->jogadaValida("3"));
+    CHECK(lig4->jogadaValida("4"));
+    CHECK(lig4->jogadaValida("5"));
+    CHECK(lig4->jogadaValida("6"));
+    CHECK(lig4->jogadaValida("7"));
 }
 
 

@@ -33,9 +33,7 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     perdedor(nullptr),
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
 
-Jogo::~Jogo() {
-    finalizarJogo();
-}
+Jogo::~Jogo() {}
 
 bool Jogo::fimDeJogo() const {
     if (jogo_finalizado) {

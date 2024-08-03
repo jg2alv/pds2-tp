@@ -10,8 +10,7 @@ using namespace std;
 
 TEST_CASE("Teste para Sistema") {
     SUBCASE("Arquivo de teste 1") {
-        stringstream entrada, saida;
-        Sistema sistema(entrada, saida, "./data/jogadores_teste1.txt", false);
+        Sistema sistema("./data/jogadores_teste1.txt", false);
 
         string saida_esperada = "A Alice\n"
                                  "Lig4 - V: 0 D: 1\n"
@@ -24,37 +23,41 @@ TEST_CASE("Teste para Sistema") {
                                  "Reversi - V: 0 D: 1\n"
                                  "D Diogo\n";
         
-        sistema.listarJogadores("A");
+        stringstream saida;
+
+        sistema.listarJogadores("A", saida);
         CHECK(saida.str() == saida_esperada);
 
         stringstream().swap(saida);
 
-        sistema.listarJogadores("N");
+        sistema.listarJogadores("N", saida);
         CHECK(saida.str() == saida_esperada);
     }
     SUBCASE("Arquivo de teste 2") {
-        stringstream entrada, saida;
-        Sistema sistema(entrada, saida, "./data/jogadores_teste2.txt", false);
-        
-        sistema.listarJogadores("A");
+        Sistema sistema("./data/jogadores_teste2.txt", false);
+
+        stringstream saida;
+
+        sistema.listarJogadores("A", saida);
         CHECK(saida.str() == "davi Elias\njosue Abraao\n");
 
         stringstream().swap(saida);
 
-        sistema.listarJogadores("N");
+        sistema.listarJogadores("N", saida);
         CHECK(saida.str() == "josue Abraao\ndavi Elias\n");
     }
     SUBCASE("Arquivo de teste 3") {
-        stringstream entrada, saida;
-        Sistema sistema(entrada, saida, "./data/jogadores_teste3.txt", false);
+        Sistema sistema("./data/jogadores_teste3.txt", false);
         
-        sistema.listarJogadores("A");
-        CHECK(saida.str() == " \n \n");  // Motivos desconhecidos
+        stringstream saida;
+
+        sistema.listarJogadores("A", saida);
+        CHECK(saida.str() == "");
 
         stringstream().swap(saida);
 
-        sistema.listarJogadores("N");
-        CHECK(saida.str() == " \n \n");
+        sistema.listarJogadores("N", saida);
+        CHECK(saida.str() == "");
     }
 }
 

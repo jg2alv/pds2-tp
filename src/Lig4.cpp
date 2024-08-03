@@ -35,30 +35,16 @@ void Lig4::imprimirTabuleiro(std::ostream& out) const {
     out << std::endl;
 }
 
-bool Lig4::formatoCorreto(std::string entrada) const {
-    std::stringstream in;
-    in.str(entrada);
+bool Lig4::formatoCorreto(std::string possivel_jogada) const {
+    std::stringstream jogada_stream(possivel_jogada);
+    int coluna;
+    std::string extra;
 
-    bool formato_correto = true;
-    int qntd_numeros = 0;
-    std::string aux;
-    std::string coluna_str = "";
+    if (!(jogada_stream >> coluna)) {
+        return false;
+    }
 
-    while (in >> aux) {
-        for (std::string::size_type i = 0; i < aux.length(); i++) {
-            if (aux[i] < 48 || aux[i] > 57) 
-                formato_correto = false;
-        }
-
-        if (formato_correto && (qntd_numeros == 0)) {
-            coluna_str = aux;
-            qntd_numeros++;
-
-        } else return false;
-    } 
-
-    if(coluna_str == "") return false;
-    else return true;
+    return !(jogada_stream >> extra);
 }
 
 int Lig4::getLinhaTabuleiro(int coluna) const {

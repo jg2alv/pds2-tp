@@ -148,7 +148,7 @@ void Sistema::carregarArquivo() {
             int vitorias, derrotas, empates;
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
-            jogador->adicionarResultados(jogo, Resultados(vitorias, derrotas, empates));
+            jogador->setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
         this->__jogadores.push_back(jogador);

@@ -35,7 +35,7 @@ Resultados Jogador::getResultados(std::string jogo) {
     return __pontuacao[jogo];
 }
 
-void Jogador::adicionarResultados(std::string jogo, Resultados resultados) {
+void Jogador::setResultados(std::string jogo, Resultados resultados) {
     __pontuacao[jogo] = resultados;
 }
 

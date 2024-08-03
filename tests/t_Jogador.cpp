@@ -14,12 +14,12 @@ TEST_CASE("Testes para o Jogador") {
     CHECK(alice.getApelido() == "A");
     CHECK(alice.getNome() == "Alice");
 
-    alice.adicionarResultados("Reversi", Resultados(0, 2, 1));
+    alice.setResultados("Reversi", Resultados(0, 2, 1));
     CHECK(alice.getResultados("Reversi").vitorias == 0);
     CHECK(alice.getResultados("Reversi").derrotas == 2);
     CHECK(alice.getResultados("Reversi").empates == 1);
 
-    alice.adicionarResultados("Lig4", Resultados(1, 1, 0));
+    alice.setResultados("Lig4", Resultados(1, 1, 0));
     CHECK(alice.getResultados("Lig4").vitorias == 1);
     CHECK(alice.getResultados("Lig4").derrotas == 1);
     CHECK(alice.getResultados("Lig4").empates == 0);
@@ -37,11 +37,11 @@ TEST_CASE("Testes para o Jogador") {
     CHECK(alice.getNumeroDeJogos() == 2);
     CHECK(alice.getJogosCadastrados() == vector<string>{"Lig4", "Reversi"}); 
 
+    string saida_esperada = "A Alice\n"
+                            "Lig4 - V: 1 D: 1\n"
+                            "Reversi - V: 1 D: 3\n";
     stringstream saida;
     alice.imprimirInformacoes(saida);
-    char const *saida_esperada = "A Alice\n"
-                                 "Lig4 - V: 1 D: 1\n"
-                                 "Reversi - V: 1 D: 3\n";
     CHECK(saida.str() == saida_esperada);
 }
 
