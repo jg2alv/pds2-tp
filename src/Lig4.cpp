@@ -5,6 +5,7 @@
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"
+#include "Excecao.hpp"
 
 
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
@@ -34,11 +35,11 @@ void Lig4::imprimirTabuleiro(std::ostream& out) const {
     out << std::endl;
 }
 
-int Lig4::formatoCorreto(std::string entrada) {
+bool Lig4::formatoCorreto(std::string entrada) const {
     std::stringstream in;
     in.str(entrada);
 
-    int formato_correto = 1;
+    bool formato_correto = true;
     int qntd_numeros = 0;
     std::string aux;
     std::string coluna_str = "";
@@ -46,54 +47,30 @@ int Lig4::formatoCorreto(std::string entrada) {
     while (in >> aux) {
         for (std::string::size_type i = 0; i < aux.length(); i++) {
             if (aux[i] < 48 || aux[i] > 57) 
-                formato_correto = 0;
+                formato_correto = false;
         }
 
         if (formato_correto && (qntd_numeros == 0)) {
             coluna_str = aux;
             qntd_numeros++;
 
-        } else return -1;
+        } else return false;
     } 
 
-    if(coluna_str == "") return -1;
-
-    int coluna = stoi(coluna_str);
-    return coluna;
+    if(coluna_str == "") return false;
+    else return true;
 }
 
 int Lig4::getLinhaTabuleiro(int coluna) const {
     int i = this->linhas - 1;
     for (; i >= 0; i--) {
-        if (get_char(i, coluna - 1) == ' ') 
+        if (get_char(i, coluna) == ' ') 
             break;
     }
     return i;
 }
 
-Jogada Lig4::lerJogada() {
-    std::string entrada;
-    int coluna;
-
-    while (1) {
-        std::cout << "Turno do jogador ";
-        std::cout << this->jogador_da_vez->getApelido();
-        std::cout << ": ";
-
-        getline(std::cin, entrada);
-        coluna = formatoCorreto(entrada);
-
-        if (coluna == -1) 
-            std::cout << "ERRO: formato incorreto" << std::endl;
-
-        else break;
-    }
-
-    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
-    return jogada;
-}
-
-bool Lig4::jogadaValida(const Jogada &jogada) const {
+bool Lig4::jogada_valida(const Jogada &jogada) const {
     int coluna = jogada.get_coluna();
     int linha = jogada.get_linha();
 
@@ -103,8 +80,50 @@ bool Lig4::jogadaValida(const Jogada &jogada) const {
     else return false;
 }
 
-void Lig4::realizarJogada(const Jogada &jogada) {
-    std::string apelido = jogador_atual->getApelido();
+bool Lig4::jogadaValida(std::string possivel_jogada) const {
+    if (fimDeJogo()) {
+        return false;
+    }
+
+    if (formatoCorreto(possivel_jogada)) {
+        std::stringstream in;
+        in.str(possivel_jogada);
+        
+        int coluna;
+        in >> coluna;
+
+        Jogada jogada(getLinhaTabuleiro(coluna), coluna);
+        return jogada_valida(jogada);
+    } else {
+        return false;
+    }
+}
+
+void Lig4::realizarJogada(std::string possivel_jogada) {
+    if (fimDeJogo()) {
+        throw Excecao("jogo ja acabou");
+    }
+
+    if (!formatoCorreto(possivel_jogada)) {
+        throw Excecao("formato incorreto");
+    }
+
+    std::stringstream in;
+    in.str(possivel_jogada);
+    
+    int coluna;
+    in >> coluna;
+
+    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
+    if (!jogada_valida(jogada)) {
+        throw Excecao("jogada invalida");
+    }
+
+    realizar_jogada(jogada);
+}
+
+void Lig4::realizar_jogada(const Jogada &jogada) {
+    std::string apelido = jogador_da_vez->getApelido();
     char simbolo = this->simbolos.at(apelido);
     set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
 }
@@ -127,8 +146,8 @@ bool Lig4::colunaVazia(int coluna) const {
     return true;
 }
 
-bool Lig4::verificarVitoria() const {
-    std::string apelido = jogador_atual->getApelido();
+bool Lig4::verificarVitoria(const Jogador& jogador) const {
+    std::string apelido = jogador.getApelido();
     char simbolo = this->simbolos.at(apelido);
 
     for (int i = 0; i < this->linhas; i++) {
@@ -221,68 +240,5 @@ bool Lig4::tabuleiroCheio() const {
 
 bool Lig4::verificarEmpate() const {
     return tabuleiroCheio();
-}
-
-void Lig4::imprimirVitoria() const {
-    imprimirTabuleiro();
-    std::cout << jogador_atual->getApelido();
-    std::cout << " venceu a partida!" << std::endl;
-}
-
-void Lig4::imprimirEmpate() const {
-    imprimirTabuleiro();
-    std::cout << jogador1.getApelido() << " e ";
-    std::cout << jogador2.getApelido() << " empataram!" << std::endl;
-}
-
-void Lig4::trocarJogador() {
-    if (jogador_atual == &jogador1) 
-        this->jogador_atual = &jogador2;
-
-    else if (jogador_atual == &jogador2) 
-        this->jogador_atual = &jogador1;
-}
-
-Jogador* Lig4::getJogadorOponente() {
-    if (jogador_atual->getApelido() == jogador1.getApelido()) 
-        return &jogador2;
-    else
-        return &jogador1;
-}
-
-void Lig4::partida() {
-    Jogada jogada(0, 0);
-    while(1) {
-        imprimirTabuleiro();
-    
-        while(1) {
-            jogada = lerJogada();
-            if (jogadaValida(jogada)) break;
-            else 
-                std::cout << "ERRO: jogada invalida" << std::endl;
-        }
-
-        realizarJogada(jogada);
-
-        if (verificarVitoria()) {
-            imprimirVitoria();
-
-            jogador_atual->incrementarVitorias("Lig4");
-            getJogadorOponente()->incrementarDerrotas("Lig4");
-
-            break;
-
-        } else if (verificarEmpate()) {
-            imprimirEmpate();
-
-            jogador1.incrementarEmpates("Lig4");
-            jogador2.incrementarEmpates("Lig4");
-
-            break;
-
-        } else trocarJogador();
-
-        std::cout << std::endl;
-    }
 }
 

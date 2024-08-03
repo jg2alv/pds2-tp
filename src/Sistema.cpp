@@ -92,20 +92,28 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     } else {
         throw Excecao("jogo nao existe");
     }
-    
+
+    jogo->imprimirTabuleiro(out);
     while (!jogo->fimDeJogo()) {
         try {
-            jogo->imprimirTabuleiro(out);
-            out << "Turno do jogador " << jogo->jogadorDaVez().getApelido() << ": ";
+            out << "Turno do jogador " << jogo->getJogadorDaVez()->getApelido() << ": ";
 
             std::string possivel_jogada;
             std::getline(in, possivel_jogada);
             jogo->realizarJogada(possivel_jogada);
+
+            jogo->imprimirTabuleiro(out);
         } catch (std::exception const& e) {
             out << "ERRO: " << e.what() << std::endl;
         }
     }
-    jogo->finalizarPartida();
+    jogo->finalizarJogo();
+
+    if (jogo->verificarEmpate()) {
+        out << "Empate!\n";
+    } else {
+        out << "Jogador " << jogo->getOutroJogador() << " foi o vencedor!\n";
+    }
 }
 
 void Sistema::carregarArquivo() {

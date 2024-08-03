@@ -10,15 +10,13 @@
 
 class Lig4 : public Jogo {
 private:
-    int formatoCorreto(std::string entrada);
+    bool formatoCorreto(std::string entrada) const;
     int getLinhaTabuleiro(int coluna) const;
-    Jogada lerJogada();
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
     bool tabuleiroCheio() const;
-    void imprimirVitoria() const;
-    void imprimirEmpate() const;
-    Jogador* getJogadorOponente();
+    bool jogada_valida(const Jogada &jogada) const;
+    void realizar_jogada(const Jogada &jogada);
 
 public:
     Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
