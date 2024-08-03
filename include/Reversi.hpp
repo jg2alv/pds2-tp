@@ -22,6 +22,7 @@ public:
     bool podeJogar(const Jogador& jogador) const;
     virtual std::string getNome() const override;
     virtual void imprimirTabuleiro(std::ostream& out) const override;
+    virtual bool formatoCorreto(std::string possivel_jogada) const override;
     virtual bool jogadaValida(std::string possivel_jogada) const override;
     virtual void realizarJogada(std::string possivel_jogada) override;
     virtual bool verificarVitoria(Jogador const&) const override;

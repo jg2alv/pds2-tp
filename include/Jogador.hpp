@@ -26,7 +26,10 @@ public:
     std::string getApelido() const;
     std::string getNome();
 
-    Resultados& getResultados(std::string jogo);
+    bool operator==(Jogador const& outro) const;
+    bool operator!=(Jogador const& outro) const;
+
+    Resultados getResultados(std::string jogo);
     void adicionarResultados(std::string jogo, Resultados resultados);
     void incrementarVitorias(std::string jogo);
     void incrementarDerrotas(std::string jogo);

@@ -10,7 +10,6 @@
 
 class Lig4 : public Jogo {
 private:
-    bool formatoCorreto(std::string entrada) const;
     int getLinhaTabuleiro(int coluna) const;
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
@@ -24,6 +23,7 @@ public:
 
     virtual std::string getNome() const override;
     virtual void imprimirTabuleiro(std::ostream& out) const override;
+    virtual bool formatoCorreto(std::string possivel_jogada) const override;
     virtual bool jogadaValida(std::string possivel_jogada) const override;
     virtual void realizarJogada(std::string possivel_jogada) override;
     virtual bool verificarVitoria(Jogador const&) const override;

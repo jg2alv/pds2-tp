@@ -3,6 +3,10 @@
 #include "Jogo.hpp"
 
 
+char Jogo::get_simbolo(const Jogador& jogador) const {
+    return this->simbolos.at(jogador.getApelido());
+}
+
 char Jogo::get_char(int i, int j) const {
     return tabuleiro[i * colunas + j];
 }
@@ -25,6 +29,8 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     jogador2(jogador2 ),
     jogador_da_vez(&jogador1),
     outro_jogador(&jogador2),
+    vencedor(nullptr),
+    perdedor(nullptr),
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
 
 Jogo::~Jogo() {
@@ -48,17 +54,37 @@ void Jogo::finalizarJogo() {
         jogador1.incrementarEmpates(getNome());
         jogador2.incrementarEmpates(getNome());
     } else {
-        Jogador *vencedor = verificarVitoria(jogador1) ? &jogador1 : &jogador2;
-        if (jogador_da_vez == vencedor) {
-            passar_a_vez();
+        if (verificarVitoria(jogador1)) {
+            vencedor = &jogador1;
+            perdedor = &jogador2;
+        } else {
+            vencedor = &jogador2;
+            perdedor = &jogador1;
         }
 
-        jogador_da_vez->incrementarDerrotas(getNome());
-        outro_jogador->incrementarVitorias(getNome());
+        vencedor->incrementarVitorias(getNome());
+        perdedor->incrementarDerrotas(getNome());
     }
 
+    jogador_da_vez = outro_jogador = nullptr;
     jogo_finalizado = true;
 }
+
+void Jogo::efetuarDesistencia() {
+    if (jogo_finalizado) {
+        return;
+    }
+
+    vencedor = outro_jogador;
+    perdedor = jogador_da_vez;
+
+    vencedor->incrementarVitorias(getNome());
+    perdedor->incrementarDerrotas(getNome());
+
+    jogador_da_vez = outro_jogador = nullptr;
+    jogo_finalizado = true;
+}
+
 
 Jogador *Jogo::getJogadorDaVez() const {
     return jogador_da_vez;
@@ -66,5 +92,13 @@ Jogador *Jogo::getJogadorDaVez() const {
 
 Jogador *Jogo::getOutroJogador() const {
     return outro_jogador;
+}
+
+Jogador *Jogo::getVencedor() const {
+    return vencedor;
+}
+
+Jogador *Jogo::getPerdedor() const {
+    return perdedor;
 }
 

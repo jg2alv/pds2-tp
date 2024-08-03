@@ -57,9 +57,29 @@ bool Reversi::jogada_valida(const Jogada& jogada, char simbolo) const {
     return false;
 }
 
+bool Reversi::formatoCorreto(std::string possivel_jogada) const {
+    std::stringstream jogada_stream(possivel_jogada);
+    int linha, coluna;
+    std::string extra;
+
+    if (!(jogada_stream >> linha)) {
+        return false;
+    }
+
+    if (!(jogada_stream >> coluna)) {
+        return false;
+    }
+
+    return !(jogada_stream >> extra);
+}
+
 bool Reversi::jogadaValida(std::string possivel_jogada) const {
     if (fimDeJogo()) {
         return false; 
+    }
+
+    if (!formatoCorreto(possivel_jogada)) {
+        throw Excecao("formato incorreto");
     }
 
     std::stringstream jogada_stream(possivel_jogada);
@@ -67,11 +87,8 @@ bool Reversi::jogadaValida(std::string possivel_jogada) const {
     jogada_stream >> linha >> coluna;
     linha--;
     coluna--;
-    // TODO: excecoes
 
-    std::string apelido = jogador_da_vez->getApelido();
-    char simbolo = this->simbolos.at(apelido);
-    return jogada_valida(Jogada(linha, coluna), simbolo);
+    return jogada_valida(Jogada(linha, coluna), get_simbolo(*jogador_da_vez));
 }
 
 void Reversi::realizarJogada(std::string possivel_jogada) {
@@ -79,16 +96,17 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
         throw Excecao("jogo ja acabou");
     }
 
+    if (!formatoCorreto(possivel_jogada)) {
+        throw Excecao("formato incorreto");
+    }
+
     std::stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
     jogada_stream >> linha >> coluna;
     linha--;
     coluna--;
-    // TODO: excesoes
 
-    std::string apelido = jogador_da_vez->getApelido();
-    char simbolo = this->simbolos.at(apelido);
-    if (!jogada_valida(Jogada(linha, coluna), simbolo)) {
+    if (!jogada_valida(Jogada(linha, coluna), get_simbolo(*jogador_da_vez))) {
         throw Excecao("jogada invalida");
     }
 
@@ -96,9 +114,8 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
 };
 
 void Reversi::realizar_jogada(const Jogada& jogada) {
-    std::string apelido = jogador_da_vez->getApelido();
-    char simbolo = this->simbolos.at(apelido);
-    char oponente = (simbolo == 'X') ? 'O' : 'X';
+    char simbolo = get_simbolo(*jogador_da_vez);
+    char oponente = get_simbolo(*outro_jogador);
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
     set_char(linha, coluna, simbolo);
@@ -162,9 +179,9 @@ bool Reversi::verificarVitoria(const Jogador& jogador) const {
     }
 
     int indicador = indicador_de_pontos();
-    if (indicador == 1 && (&jogador == &jogador1)) {
+    if (indicador == 1 && jogador == jogador1) {
         return true;
-    } else if (indicador == -1 && (&jogador == &jogador2)) {
+    } else if (indicador == -1 && jogador == jogador2) {
         return true;
     } else {
         return false;
@@ -180,11 +197,9 @@ bool Reversi::verificarEmpate() const {
 }
 
 bool Reversi::podeJogar(const Jogador& jogador) const {
-    std::string apelido = jogador.getApelido();
-    char simbolo = this->simbolos.at(apelido);
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            if (jogada_valida(Jogada(i, j), simbolo)) {
+            if (jogada_valida(Jogada(i, j), get_simbolo(jogador))) {
                 return true;
             }
         }

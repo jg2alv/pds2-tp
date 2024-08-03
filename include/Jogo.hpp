@@ -22,9 +22,12 @@ protected:
     Jogador *jogador_da_vez;
     Jogador *outro_jogador;
 
+    Jogador *vencedor;
+    Jogador *perdedor;
+
     std::map<std::string, char> simbolos;
 
-
+    char get_simbolo(const Jogador& jogador) const;
     char get_char(int i, int j) const;
     void set_char(int i, int j, char c);
 
@@ -36,10 +39,17 @@ public:
 
     bool fimDeJogo() const;
     void finalizarJogo();
+    void efetuarDesistencia();
+
     Jogador *getJogadorDaVez() const;
     Jogador *getOutroJogador() const;
+
+    Jogador *getVencedor() const;
+    Jogador *getPerdedor() const;
+
     virtual std::string getNome() const = 0;
     virtual void imprimirTabuleiro(std::ostream& out) const = 0;
+    virtual bool formatoCorreto(std::string possivel_jogada) const = 0;
     virtual bool jogadaValida(std::string possivel_jogada) const = 0;
     virtual void realizarJogada(std::string possivel_jogada) = 0;
     virtual bool verificarVitoria(Jogador const&) const = 0;

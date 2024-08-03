@@ -14,6 +14,8 @@ int main() {
     Sistema sistema("./data/jogadores.txt");
 
     while (!sistema.isSistemaFinalizado()) {
+        cout << "Entre um comando: ";
+
         string candidato_a_comando;
         cin >> candidato_a_comando;
         try {

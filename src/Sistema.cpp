@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 #include <fstream>
 #include <memory>
@@ -100,19 +101,28 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
 
             std::string possivel_jogada;
             std::getline(in, possivel_jogada);
-            jogo->realizarJogada(possivel_jogada);
+
+            std::stringstream jogada_stream(possivel_jogada);
+            std::string comando;
+            jogada_stream >> comando;
+            if (comando == "desisto") {
+                jogo->efetuarDesistencia();
+            } else {
+                jogo->realizarJogada(possivel_jogada);
+            }
 
             jogo->imprimirTabuleiro(out);
         } catch (std::exception const& e) {
             out << "ERRO: " << e.what() << std::endl;
         }
     }
+
     jogo->finalizarJogo();
 
-    if (jogo->verificarEmpate()) {
-        out << "Empate!\n";
+    if (Jogador *vencedor = jogo->getVencedor()) {
+        out << "Jogador " << vencedor->getApelido() << " foi o vencedor!\n";
     } else {
-        out << "Jogador " << jogo->getOutroJogador()->getApelido() << " foi o vencedor!\n";
+        out << "Empate!\n";
     }
 }
 
@@ -176,6 +186,10 @@ void Sistema::salvarSistema() {
 }
 
 void Sistema::finalizarSistema() {
+    if (this->__sistema_finalizado) {
+        return;
+    }
+
     this->__sistema_finalizado = true;
 
     if (salvar_ao_sair) {

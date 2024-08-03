@@ -85,19 +85,19 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
         return false;
     }
 
-    if (formatoCorreto(possivel_jogada)) {
-        std::stringstream in;
-        in.str(possivel_jogada);
-        
-        int coluna;
-        in >> coluna;
-        coluna--;
-
-        Jogada jogada(getLinhaTabuleiro(coluna), coluna);
-        return jogada_valida(jogada);
-    } else {
-        return false;
+    if (!formatoCorreto(possivel_jogada)) {
+        throw Excecao("formato incorreto");
     }
+
+    std::stringstream in;
+    in.str(possivel_jogada);
+    
+    int coluna;
+    in >> coluna;
+    coluna--;
+
+    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
+    return jogada_valida(jogada);
 }
 
 void Lig4::realizarJogada(std::string possivel_jogada) {
@@ -127,9 +127,7 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
 }
 
 void Lig4::realizar_jogada(const Jogada &jogada) {
-    std::string apelido = jogador_da_vez->getApelido();
-    char simbolo = this->simbolos.at(apelido);
-    set_char(jogada.get_linha(), jogada.get_coluna(), simbolo);
+    set_char(jogada.get_linha(), jogada.get_coluna(), get_simbolo(*jogador_da_vez));
 }
 
 bool Lig4::linhaVazia(int linha) const {
@@ -151,8 +149,7 @@ bool Lig4::colunaVazia(int coluna) const {
 }
 
 bool Lig4::verificarVitoria(const Jogador& jogador) const {
-    std::string apelido = jogador.getApelido();
-    char simbolo = this->simbolos.at(apelido);
+    char simbolo = get_simbolo(jogador);
 
     for (int i = 0; i < this->linhas; i++) {
         if (linhaVazia(i)) 

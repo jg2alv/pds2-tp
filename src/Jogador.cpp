@@ -22,7 +22,16 @@ std::string Jogador::getNome() {
 }
 
 
-Resultados& Jogador::getResultados(std::string jogo) {
+bool Jogador::operator==(Jogador const& outro) const {
+    return _apelido == outro._apelido;
+}
+
+bool Jogador::operator!=(Jogador const& outro) const {
+    return _apelido != outro._apelido;
+}
+
+
+Resultados Jogador::getResultados(std::string jogo) {
     return __pontuacao[jogo];
 }
 
