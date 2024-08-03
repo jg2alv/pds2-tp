@@ -11,7 +11,16 @@
 #include "Reversi.hpp"
 #include "Xadrez.hpp"
 
-
+/**
+ * \brief Analisa um comando da entrada
+ *
+ * Essa funcao recebe uma string da entrada, representando um comando,
+ * analisa-o e retorna o campo de um Enum que simboliza o comando recebido.
+ * Caso o comando seja invalido, joga uma Excecao de comando invalido.
+ * 
+ * \param candidato_a_comando A string da entrada.
+ * \return O campo do enum Comando.
+ */
 Comando identificar_comando(std::string candidato_a_comando) {
     if (candidato_a_comando == "CJ") {
         return Comando::CadastrarJogador;
@@ -28,10 +37,28 @@ Comando identificar_comando(std::string candidato_a_comando) {
     }
 }
 
+/**
+ * \brief Checa se o sistema finalizou
+ *
+ * Essa funcao retorna uma flag interna do sistema,
+ * que indica se o sistema foi encerrado.
+ * 
+ * \return O booleano que representa se o sistema foi ou nao encerrado.
+*/
 bool Sistema::isSistemaFinalizado() {
     return this->sistema_finalizado;
 }
 
+/**
+ * \brief Procura e retorna um jogador com base em seu apelido
+ *
+ * Essa funcao recebe o apelido de um jogador e retorna um iterador
+ * do vetor interno do sistema que armazena os jogadores cadastrados.
+ * Caso o jogador nao seja encontrado, retorna vector<Jogador*>::end().
+ * 
+ * \param apelido O apelido do jogador a ser encontrado.
+ * \return O iterador que aponta para o jogador.
+*/
 std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
     auto acharJogador = [apelido](Jogador* j) { return j->getApelido() == apelido; };
     auto jogador = std::find_if(this->jogadores.begin(), this->jogadores.end(), acharJogador);
