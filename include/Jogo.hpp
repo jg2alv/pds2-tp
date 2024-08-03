@@ -40,6 +40,7 @@ public:
     bool fimDeJogo() const;
     void finalizarJogo();
     void efetuarDesistencia();
+    bool isJogoFinalizado() const;
 
     Jogador *getJogadorDaVez() const;
     Jogador *getOutroJogador() const;

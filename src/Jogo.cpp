@@ -83,6 +83,9 @@ void Jogo::efetuarDesistencia() {
     jogo_finalizado = true;
 }
 
+bool Jogo::isJogoFinalizado() const {
+    return jogo_finalizado;
+}
 
 Jogador *Jogo::getJogadorDaVez() const {
     return jogador_da_vez;
