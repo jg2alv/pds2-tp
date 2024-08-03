@@ -1,3 +1,4 @@
+#include <vector>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -10,6 +11,9 @@
 
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
     Jogo(linhas, colunas, jogador1, jogador2) {}
+
+Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, std::vector<char> tabuleiro) :
+    Jogo(linhas,colunas, jogador1, jogador2, tabuleiro) {}
 
 Lig4::~Lig4() {}
 

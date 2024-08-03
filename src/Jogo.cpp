@@ -1,3 +1,4 @@
+#include <vector>
 #include <algorithm>
 
 #include "Jogo.hpp"
@@ -32,6 +33,20 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     vencedor(nullptr),
     perdedor(nullptr),
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
+
+Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro) :
+    linhas(linhas),
+    colunas(colunas),
+    tabuleiro(tabuleiro),
+    jogo_finalizado(false),
+    jogador1(jogador1),
+    jogador2(jogador2 ),
+    jogador_da_vez(&jogador1),
+    outro_jogador(&jogador2),
+    vencedor(nullptr),
+    perdedor(nullptr),
+    simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
+
 
 Jogo::~Jogo() {}
 

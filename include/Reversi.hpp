@@ -1,6 +1,7 @@
 #ifndef REVERSI_HPP
 #define REVERSI_HPP
 
+#include <vector>
 #include <iostream>
 
 #include "Jogador.hpp"
@@ -17,6 +18,7 @@ private:
 
 public:
     Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
+    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro);
     ~Reversi();
 
     bool podeJogar(const Jogador& jogador) const;

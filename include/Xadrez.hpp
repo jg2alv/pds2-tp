@@ -1,6 +1,7 @@
 #ifndef XADREZ_HPP
 #define XADREZ_HPP
 
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -15,6 +16,7 @@ private:
 
 public:
     Xadrez(Jogador &jogador1, Jogador &jogador2);
+    Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<char> tabuleiro);
     ~Xadrez();
 
     virtual std::string getNome() const override;
