@@ -107,6 +107,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
             jogada_stream >> comando;
             if (comando == "desisto") {
                 jogo->efetuarDesistencia();
+                break;
             } else {
                 jogo->realizarJogada(possivel_jogada);
             }
