@@ -9,6 +9,7 @@
 #include "Excecao.hpp"
 #include "Lig4.hpp"
 #include "Reversi.hpp"
+#include "Xadrez.hpp"
 
 
 Comando identificar_comando(std::string candidato_a_comando) {
@@ -26,7 +27,6 @@ Comando identificar_comando(std::string candidato_a_comando) {
         throw Excecao("comando invalido");
     }
 }
-
 
 bool Sistema::isSistemaFinalizado() {
     return this->__sistema_finalizado;
@@ -56,24 +56,21 @@ void Sistema::removerJogador(std::string apelido) {
     if(jogador_inexistente) throw Excecao("jogador inexistente");
 
     delete *jogador;
-
     this->__jogadores.erase(jogador);
 }
 
-void Sistema::listarJogadores(std::string criterio, std::ostream& out) {
+void Sistema::listarJogadores(std::string base, std::ostream& out) {
     auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
-    if(criterio == "A")
+    if(base == "A")
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorApelido);
-    else if(criterio == "N")
+    else if(base == "N")
         std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
-    int tam = this->__jogadores.size();
-    for(int i = 0; i < tam; i++) {
-        this->__jogadores[i]->imprimirInformacoes(out);
-    }
+    for(Jogador* jogador : this->__jogadores)
+        jogador->imprimirInformacoes(out);
 }
 
 void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out) {
@@ -90,6 +87,8 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
         jogo.reset(new Lig4(6, 7, **jogador1, **jogador2));
     } else if (nome_do_jogo == "Reversi") {
         jogo.reset(new Reversi(8, 8, **jogador1, **jogador2));
+    } else if (nome_do_jogo == "Xadrez") {
+        jogo.reset(new Xadrez(**jogador1, **jogador2));
     } else {
         throw Excecao("jogo nao existe");
     }
@@ -160,23 +159,19 @@ void Sistema::carregarArquivo() {
 
 void Sistema::salvarSistema() {
     std::ofstream arquivo(this->__bancodedados);
-    int njogadores = this->__jogadores.size();
-    arquivo << njogadores << "\n";
+    arquivo << this->__jogadores.size() << "\n";
 
-    for(int i = 0; i < njogadores; i++) {
-        Jogador* jogador = this->__jogadores[i];
+    for(Jogador* jogador: this->__jogadores) {
         arquivo << jogador->getApelido() << "\n";
         arquivo << jogador->getNome() << "\n";
 
         int njogos = jogador->getNumeroDeJogos();
         arquivo << njogos << "\n";
-
         if(njogos == 0) continue;
 
-        std::vector<std::string> jogos = jogador->getJogosCadastrados();
-        for(int j = 0; j < njogos; j++) {
-            auto resultados = jogador->getResultados(jogos[j]);
-            arquivo << jogos[j] << " ";
+        for(std::string jogo : jogador->getJogosCadastrados()) {
+            auto resultados = jogador->getResultados(jogo);
+            arquivo << jogo << " ";
             arquivo << resultados.vitorias << " ";
             arquivo << resultados.derrotas << " ";
             arquivo << resultados.empates << "\n";
