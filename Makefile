@@ -4,7 +4,7 @@
 GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./include
 RM = rm -rf
 
-OBJs = ./obj/Jogo.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o ./obj/Sistema.o
+OBJs = ./obj/Xadrez.o ./obj/Jogo.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o ./obj/Sistema.o
 T_OBJs = ./obj/t_Jogador.o ./obj/t_Reversi.o ./obj/t_Lig4.o ./obj/t_Sistema.o
 
 
@@ -38,6 +38,9 @@ clean:
 
 ./obj/Lig4.o: ./src/Lig4.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Lig4.hpp
 	$(GPP) -c ./src/Lig4.cpp -o ./obj/Lig4.o
+
+./obj/Xadrez.o: ./src/Xadrez.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Xadrez.hpp
+	$(GPP) -c ./src/Xadrez.cpp -o ./obj/Xadrez.o
 
 ./obj/Excecao.o: ./src/Excecao.cpp ./include/Excecao.hpp
 	$(GPP) -c ./src/Excecao.cpp -o ./obj/Excecao.o
