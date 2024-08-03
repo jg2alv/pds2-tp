@@ -66,6 +66,19 @@ std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
     return jogador;
 }
 
+/**
+ * \brief Cadastra um novo jogador no sistema
+ *
+ * Essa funcao recebe duas strings: o apelido e o nome do jogador.
+ * Como o apelido deve ser unico entre todos os jogadores,
+ * a funcao joga uma excessao caso exista um jogador ja cadastrado
+ * com o mesmo apelido.
+ * Caso contrario, a funcao cria o novo jogador dinamicamente e
+ * acrescenta-o na vetor de jogadores do sistema.
+ * 
+ * \param apelido O apelido do possivel novo jogador.
+ * \param nome O nome do possivel novo jogador.
+*/
 void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_repetido = jogador != this->jogadores.end();
@@ -76,6 +89,18 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     this->jogadores.push_back(novo_jogador);
 }
 
+/**
+ * \brief Remove um jogador existente no sistema
+ *
+ * Essa funcao recebe uma string representado
+ * o apelido do jogador a ser removido do sistema.
+ * A funcao joga uma excessao caso nao exista,
+ * no sistema, um jogador cadastrado com o apelido recebido.
+ * Caso contrario, a funcao limpa a area de memoria ocupada
+ * pelo jogador e deleta-o do vetor do sistema.
+ * 
+ * \param apelido O apelido do jogador a ser removido.
+*/
 void Sistema::removerJogador(std::string apelido) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_inexistente = jogador == this->jogadores.end();
@@ -86,6 +111,21 @@ void Sistema::removerJogador(std::string apelido) {
     this->jogadores.erase(jogador);
 }
 
+/**
+ * \brief Lista em ordem alfabetica os jogadores cadastrados no sistema
+ *
+ * Essa funcao recebe uma string, que representa o base na qual sera realizada a
+ * ordenacao: A (apelido) ou N (nome); e a referencia de um std::ostream,
+ * que indica onde o resultado da funcao deve ser impresso (em um arquivo,
+ * para testes ou na tela, para interacao com o ususario).
+ * Caso a base de ordenacao recebido seja invalido, a funcao joga uma excecao.
+ * Caso contrario, a funcao ordena o vetor de jogadores do sistema e imprime as informacoes
+ * de cada jogador cadastrado.
+ * 
+ * \param base A base de ordenacao :`A` ou `N` (apelido ou nome).
+ * \param out A stream na qual as informacoes do jogador serao impressas.
+ * 
+*/
 void Sistema::listarJogadores(std::string base, std::ostream& out) {
     auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
