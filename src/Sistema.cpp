@@ -29,34 +29,34 @@ Comando identificar_comando(std::string candidato_a_comando) {
 }
 
 bool Sistema::isSistemaFinalizado() {
-    return this->__sistema_finalizado;
+    return this->sistema_finalizado;
 }
 
 std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
     auto acharJogador = [apelido](Jogador* j) { return j->getApelido() == apelido; };
-    auto jogador = std::find_if(this->__jogadores.begin(), this->__jogadores.end(), acharJogador);
+    auto jogador = std::find_if(this->jogadores.begin(), this->jogadores.end(), acharJogador);
     
     return jogador;
 }
 
 void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     auto jogador = this->acharJogador(apelido);
-    bool jogador_repetido = jogador != this->__jogadores.end();
+    bool jogador_repetido = jogador != this->jogadores.end();
     
     if(jogador_repetido) throw Excecao("jogador repetido");
     
     Jogador* novo_jogador = new Jogador(apelido, nome);
-    this->__jogadores.push_back(novo_jogador);
+    this->jogadores.push_back(novo_jogador);
 }
 
 void Sistema::removerJogador(std::string apelido) {
     auto jogador = this->acharJogador(apelido);
-    bool jogador_inexistente = jogador == this->__jogadores.end();
+    bool jogador_inexistente = jogador == this->jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente");
 
     delete *jogador;
-    this->__jogadores.erase(jogador);
+    this->jogadores.erase(jogador);
 }
 
 void Sistema::listarJogadores(std::string base, std::ostream& out) {
@@ -64,12 +64,12 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
     auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
 
     if(base == "A")
-        std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorApelido);
+        std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorApelido);
     else if(base == "N")
-        std::sort(this->__jogadores.begin(), this->__jogadores.end(), ordenacaoPorNome);
+        std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
-    for(Jogador* jogador : this->__jogadores)
+    for(Jogador* jogador : this->jogadores)
         jogador->imprimirInformacoes(out);
 }
 
@@ -77,8 +77,8 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     auto jogador1 = this->acharJogador(apelido1);
     auto jogador2 = this->acharJogador(apelido2);
 
-    bool jogador1_existe = jogador1 != this->__jogadores.end();
-    bool jogador2_existe = jogador2 != this->__jogadores.end();
+    bool jogador1_existe = jogador1 != this->jogadores.end();
+    bool jogador2_existe = jogador2 != this->jogadores.end();
 
     if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
 
@@ -127,7 +127,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
 }
 
 void Sistema::carregarArquivo() {
-    std::ifstream arquivo(this->__bancodedados);
+    std::ifstream arquivo(this->banco_de_dados);
     bool arquivo_existe = arquivo.good();
     if(!arquivo_existe) throw Excecao("falha na abertura do arquivo");
 
@@ -151,17 +151,17 @@ void Sistema::carregarArquivo() {
             jogador->setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
-        this->__jogadores.push_back(jogador);
+        this->jogadores.push_back(jogador);
     }
 
     arquivo.close();
 }
 
 void Sistema::salvarSistema() {
-    std::ofstream arquivo(this->__bancodedados);
-    arquivo << this->__jogadores.size() << "\n";
+    std::ofstream arquivo(this->banco_de_dados);
+    arquivo << this->jogadores.size() << "\n";
 
-    for(Jogador* jogador: this->__jogadores) {
+    for(Jogador* jogador: this->jogadores) {
         arquivo << jogador->getApelido() << "\n";
         arquivo << jogador->getNome() << "\n";
 
@@ -182,11 +182,11 @@ void Sistema::salvarSistema() {
 }
 
 void Sistema::finalizarSistema() {
-    if (this->__sistema_finalizado) {
+    if (this->sistema_finalizado) {
         return;
     }
 
-    this->__sistema_finalizado = true;
+    this->sistema_finalizado = true;
 
     if (salvar_ao_sair) {
         this->salvarSistema();
@@ -196,22 +196,22 @@ void Sistema::finalizarSistema() {
 }
 
 void Sistema::limparSistema() {
-    for (Jogador *jogador : __jogadores) {
+    for (Jogador *jogador : this->jogadores) {
         delete jogador;
     }
 
-    this->__jogadores.clear();
+    this->jogadores.clear();
 }
 
-Sistema::Sistema(std::string bancodedados, bool salvar_ao_sair) :
-    __bancodedados(bancodedados),
+Sistema::Sistema(std::string banco_de_dados, bool salvar_ao_sair) :
+    banco_de_dados(banco_de_dados),
     salvar_ao_sair(salvar_ao_sair) {
-    std::ifstream arquivo(this->__bancodedados);
+    std::ifstream arquivo(this->banco_de_dados);
     bool arquivo_existe = arquivo.good();
     arquivo.close();
     
     if(!arquivo_existe) {
-        std::ofstream arquivo(this->__bancodedados);
+        std::ofstream arquivo(this->banco_de_dados);
         arquivo << "0";
         arquivo.close();
     }
