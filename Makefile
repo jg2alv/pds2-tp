@@ -33,16 +33,16 @@ clean:
 ./obj/Jogo.o: ./src/Jogo.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp
 	$(GPP) -c ./src/Jogo.cpp -o ./obj/Jogo.o
 
-./obj/Reversi.o: ./src/Reversi.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Reversi.hpp
+./obj/Reversi.o: ./src/Reversi.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Reversi.hpp ./include/Excecao.hpp
 	$(GPP) -c ./src/Reversi.cpp -o ./obj/Reversi.o
 
-./obj/Lig4.o: ./src/Lig4.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Lig4.hpp
+./obj/Lig4.o: ./src/Lig4.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Lig4.hpp ./include/Excecao.hpp
 	$(GPP) -c ./src/Lig4.cpp -o ./obj/Lig4.o
 
-./obj/JogoDaVelha.o: ./src/JogoDaVelha.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/JogoDaVelha.hpp
+./obj/JogoDaVelha.o: ./src/JogoDaVelha.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/JogoDaVelha.hpp ./include/Excecao.hpp
 	$(GPP) -c ./src/JogoDaVelha.cpp -o ./obj/JogoDaVelha.o
 
-./obj/Xadrez.o: ./src/Xadrez.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Xadrez.hpp
+./obj/Xadrez.o: ./src/Xadrez.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Xadrez.hpp ./include/Excecao.hpp
 	$(GPP) -c ./src/Xadrez.cpp -o ./obj/Xadrez.o
 
 ./obj/Excecao.o: ./src/Excecao.cpp ./include/Excecao.hpp

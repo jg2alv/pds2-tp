@@ -9,11 +9,11 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
-JogoDaVelha::JogoDaVelha(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
-    Jogo(linhas, colunas, jogador1, jogador2) {}
+JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
+    Jogo(3, 3, jogador1, jogador2) {}
 
-JogoDaVelha::JogoDaVelha(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) :
-    Jogo(linhas,colunas, jogador1, jogador2, tabuleiro) {}
+JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) :
+    Jogo(3, 3, jogador1, jogador2, tabuleiro) {}
 
 JogoDaVelha::~JogoDaVelha() {}
 

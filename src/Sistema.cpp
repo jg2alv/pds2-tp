@@ -173,10 +173,10 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
         jogo.reset(new Lig4(6, 7, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Reversi") {
         jogo.reset(new Reversi(8, 8, *jogador1, *jogador2));
+    } else if (nome_do_jogo == "JogoDaVelha") {
+        jogo.reset(new JogoDaVelha(*jogador1, *jogador2));
     } else if (nome_do_jogo == "Xadrez") {
         jogo.reset(new Xadrez(*jogador1, *jogador2));
-    } else if (nome_do_jogo == "JogoDaVelha") {
-        jogo.reset(new JogoDaVelha(3, 3, *jogador1, *jogador2));
     } else {
         throw Excecao("jogo nao existe");
     }

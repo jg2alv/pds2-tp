@@ -14,8 +14,8 @@ private:
     void realizar_jogada(const Jogada &jogada);
 
 public:
-    JogoDaVelha(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2);
-    JogoDaVelha(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro);
+    JogoDaVelha(Jogador &jogador1, Jogador &jogador2);
+    JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro);
     ~JogoDaVelha();
 
     virtual std::string getNome() const override;
