@@ -67,7 +67,7 @@ std::string Lig4::getNome() const {
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
  * 'Lig4' e indicando os indices de cada coluna.
  * 
- * \param out Uma stream de saída.
+ * \param out Um stream de saida.
  */
 void Lig4::imprimirTabuleiro(std::ostream& out) const {
     out << "---------Lig4--------\n";
@@ -95,7 +95,7 @@ void Lig4::imprimirTabuleiro(std::ostream& out) const {
  * Caso contrario, retorna falso.
  * 
  * \param possivel_jogada A string da entrada.
- * \return True ou false
+ * \return True ou false.
  */
 bool Lig4::formatoCorreto(std::string possivel_jogada) const {
     std::stringstream jogada_stream(possivel_jogada);
@@ -157,7 +157,7 @@ bool Lig4::jogada_valida(const Jogada &jogada) const {
  * caso nao tenha formato correto. Por fim, é criada uma jogada 
  * com a linha e coluna lida da entrada e chamada a funcao 
  * 'jogada_valida', retornando verdadeiro se a jogada for valida 
- * e falso, caso contrario.
+ * ou falso, caso contrario.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return True ou false.
@@ -395,7 +395,7 @@ bool Lig4::tabuleiroCheio() const {
  * cheio, houve empate e retorna verdadeiro. Caso 
  * contrario, nao houve empate e retorna falso.
  * 
- * \return True ou false
+ * \return True ou false.
  */
 bool Lig4::verificarEmpate() const {
     return tabuleiroCheio();
