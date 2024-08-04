@@ -113,11 +113,10 @@ bool JogoDaVelha::formatoCorreto(std::string possivel_jogada) const {
  * \brief Verifica se a jogada é valida
  *
  * Essa funcao recebe como parametro uma jogada e verifica se
- * a posicao dessa jogada está vazia no tabuleiro. Se não estiver
- * vazia, é retornado falso. Caso contrario, é verificado se a 
- * coluna e a linha dessa jogada estao dentro dos limites do 
- * tabuleiro. Se isso for atendido, retorna verdadeiro. Caso
- * contrário, retorna falso.
+ * a posicao dessa jogada está dentro dos limites do tabuleiro.
+ * Se não estiver, é retornado falso. Se estiver dentro dos limites,
+ * é verificado se a posiçao esta vazia e é retornado verdadeiro
+ * se estiver vazia ou falso se não estiver.
  * 
  * \param jogada Uma jogada lida.
  * \return True ou false.
@@ -126,8 +125,10 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
 
-    if (get_char(linha, coluna) != ' ') return false;
-    else return ((linha >= 0 && linha < this->linhas) && (coluna >= 0 && coluna < this->colunas));
+    if (!((linha >= 0 && linha < this->linhas) && (coluna >= 0 && coluna < this->colunas))) 
+        return false;
+    else 
+        return (get_char(linha, coluna) != ' ');
 }
 
 /**
