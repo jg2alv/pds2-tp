@@ -52,12 +52,12 @@ TEST_CASE("Teste para Sistema") {
         stringstream saida;
 
         sistema.listarJogadores("A", saida);
-        CHECK(saida.str() == "");
+        CHECK(saida.str() == "Nao existe jogadores cadastrados no sistema.\n");
 
         stringstream().swap(saida);
 
         sistema.listarJogadores("N", saida);
-        CHECK(saida.str() == "");
+        CHECK(saida.str() == "Nao existe jogadores cadastrados no sistema.\n");
     }
 }
 
