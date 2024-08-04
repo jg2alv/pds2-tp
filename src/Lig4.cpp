@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
 #include "Lig4.hpp"
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 #include "Excecao.hpp"
-
 
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
     Jogo(linhas, colunas, jogador1, jogador2) {}
@@ -17,13 +17,12 @@ Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, std::v
 
 Lig4::~Lig4() {}
 
-
 std::string Lig4::getNome() const {
     return "Lig4";
 }
 
 void Lig4::imprimirTabuleiro(std::ostream& out) const {
-    out << "----------Lig4----------\n";
+    out << "---------Lig4--------\n";
     
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
@@ -150,7 +149,7 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
             int qntd = 0;
             for (int k = j; k < j + 4; k++) {
                 if (get_char(i, k) == ' ') 
-                    continue;
+                    break;
 
                 if (get_char(i, k) == simbolo) 
                     qntd++;
@@ -170,7 +169,7 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
             int qntd = 0;
             for (int k = i; k < i + 4; k++) {
                 if (get_char(k, j) == ' ') 
-                    continue;
+                    break;
 
                 if (get_char(k, j) == simbolo) 
                     qntd++;
@@ -187,7 +186,7 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
             int qntd = 0;
             for (int k = i, l = j; k < i + 4; k++, l++) {
                 if (get_char(k, l) == ' ') 
-                    continue;
+                    break;
 
                 if (get_char(k, l) == simbolo) 
                     qntd++;
@@ -204,7 +203,7 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
             int qntd = 0;
             for (int k = i, l = j; k < i + 4; k++, l--) {
                 if (get_char(k, l) == ' ') 
-                    continue;
+                    break;
 
                 if (get_char(k, l) == simbolo) 
                     qntd++;
@@ -232,4 +231,3 @@ bool Lig4::tabuleiroCheio() const {
 bool Lig4::verificarEmpate() const {
     return tabuleiroCheio();
 }
-
