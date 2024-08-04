@@ -31,7 +31,7 @@ std::string Xadrez::getNome() const {
 }
 
 void Xadrez::imprimirTabuleiro(std::ostream& out) const {
-    out << "---------Xadrez---------\n";
+    out << "-----------Xadrez-----------\n";
 
     char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
     out << "   1  2  3  4  5  6  7  8 " << std::endl;
