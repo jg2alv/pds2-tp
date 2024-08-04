@@ -213,6 +213,14 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     }
 }
 
+/**
+ * \brief Le e carrega, para o sistema, os dados salvos no disco
+ *
+ * Essa funcao carrega os dados salvos em disco para o sistema.
+ * Esses dados consistem em uma lista de jogadores, com apelido, nome,
+ * e informacoes de vitorias, derrotas e empates daquele jogador em cada jogo.
+ * Caso o arquivo de banco de dados nao exista, a funcao joga uma excecao.
+*/
 void Sistema::carregarArquivo() {
     std::ifstream arquivo(this->banco_de_dados);
     bool arquivo_existe = arquivo.good();
@@ -244,6 +252,14 @@ void Sistema::carregarArquivo() {
     arquivo.close();
 }
 
+/**
+ * \brief Salva, no disco, os dados de jogadores do sistema
+ *
+ * Essa funcao salva, no disco, os dados dos jogadores no sistema.
+ * A padronizacao do arquivo segue o mesmo padrao definido pela funcao
+ * `Sistema::carregarArquivo()`. Caso o arquivo de banco de dados nao exista,
+ * essa funcao tambem joga uma excecao.
+*/
 void Sistema::salvarSistema() {
     std::ofstream arquivo(this->banco_de_dados);
     arquivo << this->jogadores.size() << "\n";
@@ -268,6 +284,13 @@ void Sistema::salvarSistema() {
     arquivo.close();
 }
 
+/**
+ * \brief Finaliza o sistema, definindo correatamente a flag interna
+ *
+ * Essa funcao finaliza o sistema, definindo a flag de `sistema_finalizado`,
+ * e chamando a funcao `Sistema::salvarSistema()` (caso necessario);
+ * por fim, ela limpa os dados salvos em memoria do sistema.
+*/
 void Sistema::finalizarSistema() {
     if (this->sistema_finalizado) {
         return;
@@ -282,6 +305,13 @@ void Sistema::finalizarSistema() {
     this->limparSistema();
 }
 
+/**
+ * \brief Limpa os dados do sistema salvos em memoria
+ *
+ * Essa funcao percorre o vetor de jogadores do sistema, deletando
+ * cada objeto. Alem disso, ela limpa todos os slots do vetor,
+ * zerando seu `vector<Jogador*>::size()`.
+*/
 void Sistema::limparSistema() {
     for (Jogador *jogador : this->jogadores) {
         delete jogador;
@@ -290,6 +320,20 @@ void Sistema::limparSistema() {
     this->jogadores.clear();
 }
 
+/**
+ * \brief Constroi o sistema
+ *
+ * Essa funcao pega, como parametro, uma string e um booleano.
+ * A string indica o caminho (relativo ou absoluto) para o arquivo
+ * de banco de dados do sistema. O booleano indica se deve-se ou
+ * nao salvar as modificacoes do banco de dados ao finalizar o sistema.
+ * A funcao checa pela existencia do arquivo de banco de dados.
+ * A nao existencia dele implica tambem a nao existencia de jogadores cadastrados
+ * previamente. Nesse caso, a funcao cria um novo arquivo e imprime o inteiro "0"
+ * dentro dele - indicando que ha zero jogadores.
+ * Caso contrario, a funcao carrega o arquivo para o sistema por meio de
+ * `Sistema::carregarArquivo()`.
+*/
 Sistema::Sistema(std::string banco_de_dados, bool salvar_ao_sair) :
     banco_de_dados(banco_de_dados),
     salvar_ao_sair(salvar_ao_sair) {
