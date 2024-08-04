@@ -33,43 +33,56 @@ std::string Xadrez::getNome() const {
 void Xadrez::imprimirTabuleiro(std::ostream& out) const {
     out << "---------Xadrez---------\n";
 
-    out << "   a  b  c  d  e  f  g  h " << std::endl;
+    char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+    out << "   1  2  3  4  5  6  7  8 " << std::endl;
     for (int i = 0; i < this->linhas; i++) {
-        out << i + 1 << " ";
+        out << alpha[i] << " ";
         for (int j = 0; j < this->colunas; j++) {
             std::cout << "|" << get_char(i, j) << "|";
         }
-        out << " " << i + 1 << std::endl;
+        out << " " << alpha[i] << std::endl;
     }
-    out << "   a  b  c  d  e  f  g  h " << std::endl;
+    out << "   1  2  3  4  5  6  7  8 " << std::endl;
 }
 
 bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
-    std::cout << possivel_jogada;
+    std::stringstream stream(possivel_jogada);
+    char linha_origem, linha_dest;
+    int coluna_origem, coluna_dest;
+    stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
+
+    linha_origem -= 97;
+    coluna_origem -= 1;
+    linha_dest -= 97;
+    coluna_dest -= 1;
+
+    auto linhaValida = [](char linha) { return  linha >= 0 && linha <= 7; };
+    auto colunaValida = [](int coluna) { return coluna >= 0 && coluna <= 7; };
+
+    bool linhasNoIntervaloCorreto = linhaValida(linha_origem) && linhaValida(linha_dest);
+    bool colunasNoIntervaloCorreto = colunaValida(coluna_origem) && colunaValida(coluna_dest);
+
+    if(!linhasNoIntervaloCorreto) throw Excecao("linha invalida (formato correto: [a-h])");
+    else if(!colunasNoIntervaloCorreto) throw Excecao("coluna invalida (formato correto: [1-8])");
+
     return true;
 }
 
 bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     int tam = possivel_jogada.size();
     std::string mensagem = "jogada '" + possivel_jogada + "' nao eh uma jogada valida";
-    if(tam != 2) throw Excecao(mensagem);
+    if(tam != 4) throw Excecao(mensagem);
+    this->formatoCorreto(possivel_jogada);
 
     std::stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
     int coluna_origem, coluna_dest;
     stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
 
-    std::string extra;
-    bool stream_acabou = !(stream >> extra);
-    if(!stream_acabou) throw Excecao(mensagem);
-
-    auto linhaValida = [](char linha) { return  linha >= 61 && linha <= 68; };
-    auto colunaValida = [](int coluna) { return coluna >= 1 && coluna <= 8; };
-    bool linhasNoIntervaloCorreto = linhaValida(linha_origem) && linhaValida(linha_dest);
-    bool colunasNoIntervaloCorreto = colunaValida(coluna_origem) && colunaValida(coluna_dest);
-
-    if(!linhasNoIntervaloCorreto) throw Excecao("linha invalida (formato correto: [a-h])");
-    else if(!colunasNoIntervaloCorreto) throw Excecao("coluna invalida (formato correto: [1-8])");
+    linha_origem -= 97;
+    coluna_origem -= 1;
+    linha_dest -= 97;
+    coluna_dest -= 1;
 
     bool maiuscula;
     std::string apelido1 = this->jogador1.getApelido();
@@ -78,11 +91,11 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     if(apelido_da_vez == apelido1) maiuscula = true;
     else maiuscula = false;
 
-    char selecionado = this->get_char(linha_origem - 61, coluna_origem);
+    char selecionado = this->get_char(linha_origem, coluna_origem);
     bool selecionadoEhMaiusculo = toupper(selecionado) == selecionado;
     bool charSelecionadoEhDoJogador = selecionadoEhMaiusculo == maiuscula;
  
-    if(!charSelecionadoEhDoJogador) throw Excecao("peca selecionada nao pertence ao jogador " + apelido_da_vez);
+    if(!charSelecionadoEhDoJogador || selecionado == ' ') throw Excecao("peca selecionada nao pertence ao jogador " + apelido_da_vez);
 
     return true;
 }
@@ -95,7 +108,68 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     int coluna_origem, coluna_dest;
     stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
 
-    
+    linha_origem -= 97;
+    coluna_origem -= 1;
+    linha_dest -= 97;
+    coluna_dest -= 1;
+
+    char selecionado = this->get_char(linha_origem, coluna_origem);
+    char peca_no_destino = this->get_char(linha_dest, coluna_dest);
+
+    auto ehPecaInimiga = [](char peca1, char peca2){
+        if(peca1 == ' ' || peca2 == ' ') return false;
+        bool peca1_eh_maiuscula = peca1 == toupper(peca1);
+        bool peca2_eh_maiuscula = peca2 == toupper(peca2);
+        return peca1_eh_maiuscula != peca2_eh_maiuscula;
+    }; 
+
+    switch(selecionado) {
+        case 'P':
+        case 'p': {
+            bool andou_para_tras = (selecionado == 'P' && linha_dest > linha_origem) || (selecionado == 'p' && linha_origem > linha_dest);
+            if(andou_para_tras) throw Excecao("peao nao anda para tras");
+
+            int diff_no_y = std::abs(linha_origem - linha_dest);
+            int diff_no_x = std::abs(coluna_origem - coluna_dest);
+
+            bool andou_mais_de_uma_casa = diff_no_y > 1;
+            if(andou_mais_de_uma_casa) throw Excecao("peao anda apenas uma casa");
+
+            bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
+            bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(selecionado, peca_no_destino);
+            if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao pode andar na diagonal");
+
+            this->set_char(linha_origem, coluna_origem, ' ');
+            this->set_char(linha_dest, coluna_dest, selecionado);
+            break;
+        }
+
+        case 'R':
+        case 'r': {
+            break;
+        }
+
+        case 'N':
+        case 'n': {
+            break;
+        }
+
+        case 'B':
+        case 'b': {
+            break;
+        }
+
+        case 'Q':
+        case 'q': {
+            break;
+        }
+
+        case 'K':
+        case 'k': {
+            break;
+        }
+    }
+    this->passar_a_vez();
 }
 
 bool Xadrez::verificarVitoria(Jogador const& jogador) const {
