@@ -152,8 +152,8 @@ int Jogador::getNumeroDeJogos() const {
 /**
  * \brief Retorna os jogos cadastrados
  * 
- * Função getJogosCadastrados que retorna os jogos em que o jogador está
- * cadastrado
+ * Função getJogosCadastrados que retorna os jogos que o jogador
+ * já jogou
  * 
  * \return Vetor de jogos cadastrados
  */
