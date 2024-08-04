@@ -60,7 +60,8 @@ std::string JogoDaVelha::getNome() const {
  *
  * Essa funcao recebe um stream de saida e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * 'Lig4' e indicando os indices de cada coluna.
+ * 'Jogo da Velha' e indicando os indices de cada linha e
+ * coluna.
  * 
  * \param out Um stream de saida.
  */
