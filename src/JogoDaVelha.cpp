@@ -128,7 +128,7 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     if (!((linha >= 0 && linha < this->linhas) && (coluna >= 0 && coluna < this->colunas))) 
         return false;
     else 
-        return (get_char(linha, coluna) != ' ');
+        return (get_char(linha, coluna) == ' ');
 }
 
 /**
