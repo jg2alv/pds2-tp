@@ -59,8 +59,8 @@ bool Sistema::isSistemaFinalizado() {
  * \param apelido O apelido do jogador a ser encontrado.
  * \return O iterador que aponta para o jogador.
 */
-std::vector<Jogador *>::iterator Sistema::acharJogador(std::string apelido) {
-    auto acharJogador = [apelido](Jogador* j) { return j->getApelido() == apelido; };
+std::vector<Jogador>::iterator Sistema::acharJogador(std::string apelido) {
+    auto acharJogador = [apelido](Jogador const& j) { return j.getApelido() == apelido; };
     auto jogador = std::find_if(this->jogadores.begin(), this->jogadores.end(), acharJogador);
     
     return jogador;
@@ -85,8 +85,7 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     
     if(jogador_repetido) throw Excecao("jogador repetido");
     
-    Jogador* novo_jogador = new Jogador(apelido, nome);
-    this->jogadores.push_back(novo_jogador);
+    this->jogadores.push_back(Jogador(apelido, nome));
 }
 
 /**
@@ -107,7 +106,6 @@ void Sistema::removerJogador(std::string apelido) {
 
     if(jogador_inexistente) throw Excecao("jogador inexistente");
 
-    delete *jogador;
     this->jogadores.erase(jogador);
 }
 
@@ -127,8 +125,8 @@ void Sistema::removerJogador(std::string apelido) {
  * 
 */
 void Sistema::listarJogadores(std::string base, std::ostream& out) {
-    auto ordenacaoPorNome = [](Jogador* j1, Jogador* j2) { return j1->getNome() < j2->getNome(); };
-    auto ordenacaoPorApelido = [](Jogador* j1, Jogador* j2) { return j1->getApelido() < j2->getApelido(); };
+    auto ordenacaoPorNome = [](Jogador const& j1, Jogador const& j2) { return j1.getNome() < j2.getNome(); };
+    auto ordenacaoPorApelido = [](Jogador const& j1, Jogador const& j2) { return j1.getApelido() < j2.getApelido(); };
 
     if(base == "A")
         std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorApelido);
@@ -136,8 +134,8 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
         std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
 
-    for(Jogador* jogador : this->jogadores)
-        jogador->imprimirInformacoes(out);
+    for(Jogador const& jogador : this->jogadores)
+        jogador.imprimirInformacoes(out);
 }
 
 /**
@@ -171,11 +169,11 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
 
     std::unique_ptr<Jogo> jogo;
     if (nome_do_jogo == "Lig4") {
-        jogo.reset(new Lig4(6, 7, **jogador1, **jogador2));
+        jogo.reset(new Lig4(6, 7, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Reversi") {
-        jogo.reset(new Reversi(8, 8, **jogador1, **jogador2));
+        jogo.reset(new Reversi(8, 8, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Xadrez") {
-        jogo.reset(new Xadrez(**jogador1, **jogador2));
+        jogo.reset(new Xadrez(*jogador1, *jogador2));
     } else {
         throw Excecao("jogo nao existe");
     }
@@ -206,7 +204,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
 
     jogo->finalizarJogo();
 
-    if (Jogador *vencedor = jogo->getVencedor()) {
+    if (Jogador const *vencedor = jogo->getVencedor()) {
         out << "Jogador " << vencedor->getApelido() << " foi o vencedor!\n";
     } else {
         out << "Empate!\n";
@@ -234,7 +232,8 @@ void Sistema::carregarArquivo() {
         arquivo >> apelido;
         arquivo.ignore();
         std::getline(arquivo, nome);
-        Jogador* jogador = new Jogador(apelido, nome);
+
+        Jogador jogador(apelido, nome);
 
         int numjogos;
         arquivo >> numjogos;
@@ -243,7 +242,7 @@ void Sistema::carregarArquivo() {
             int vitorias, derrotas, empates;
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
-            jogador->setResultados(jogo, Resultados(vitorias, derrotas, empates));
+            jogador.setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
         this->jogadores.push_back(jogador);
@@ -264,16 +263,16 @@ void Sistema::salvarSistema() {
     std::ofstream arquivo(this->banco_de_dados);
     arquivo << this->jogadores.size() << "\n";
 
-    for(Jogador* jogador: this->jogadores) {
-        arquivo << jogador->getApelido() << "\n";
-        arquivo << jogador->getNome() << "\n";
+    for(Jogador const& jogador : this->jogadores) {
+        arquivo << jogador.getApelido() << "\n";
+        arquivo << jogador.getNome() << "\n";
 
-        int njogos = jogador->getNumeroDeJogos();
+        int njogos = jogador.getNumeroDeJogos();
         arquivo << njogos << "\n";
         if(njogos == 0) continue;
 
-        for(std::string jogo : jogador->getJogosCadastrados()) {
-            auto resultados = jogador->getResultados(jogo);
+        for(std::string jogo : jogador.getJogosCadastrados()) {
+            auto resultados = jogador.getResultados(jogo);
             arquivo << jogo << " ";
             arquivo << resultados.vitorias << " ";
             arquivo << resultados.derrotas << " ";
@@ -313,10 +312,6 @@ void Sistema::finalizarSistema() {
  * zerando seu `vector<Jogador*>::size()`.
 */
 void Sistema::limparSistema() {
-    for (Jogador *jogador : this->jogadores) {
-        delete jogador;
-    }
-
     this->jogadores.clear();
 }
 

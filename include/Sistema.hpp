@@ -22,14 +22,14 @@ Comando identificar_comando(std::string candidato_a_comando);
 
 class Sistema {
     private:
-        std::vector<Jogador*> jogadores;
+        std::vector<Jogador> jogadores;
         bool sistema_finalizado = false;
         std::string banco_de_dados;
         bool salvar_ao_sair;
 
     public:
         bool isSistemaFinalizado();
-        std::vector<Jogador *>::iterator acharJogador(std::string apelido);
+        std::vector<Jogador>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string base, std::ostream& out);
