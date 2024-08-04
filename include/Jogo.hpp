@@ -12,7 +12,7 @@ class Jogo {
 protected:
     int linhas; 
     int colunas; 
-    std::vector<char> tabuleiro; 
+    std::vector<std::vector<char>> tabuleiro; 
 
     bool jogo_finalizado;
 
@@ -35,7 +35,7 @@ protected:
 
 public:
     Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
-    Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro);
+    Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro);
     virtual ~Jogo();
 
     bool fimDeJogo() const;

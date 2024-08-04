@@ -9,11 +9,11 @@ char Jogo::get_simbolo(const Jogador& jogador) const {
 }
 
 char Jogo::get_char(int i, int j) const {
-    return tabuleiro[i * colunas + j];
+    return tabuleiro[i][j];
 }
 
 void Jogo::set_char(int i, int j, char c) {
-    tabuleiro[i * colunas + j] = c;
+    tabuleiro[i][j] = c;
 }
 
 void Jogo::passar_a_vez() {
@@ -24,7 +24,7 @@ void Jogo::passar_a_vez() {
 Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     linhas(linhas),
     colunas(colunas),
-    tabuleiro(linhas*colunas, ' '),
+    tabuleiro(linhas, std::vector<char>(colunas, ' ')),
     jogo_finalizado(false),
     jogador1(jogador1),
     jogador2(jogador2 ),
@@ -34,7 +34,7 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     perdedor(nullptr),
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
 
-Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro) :
+Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro) :
     linhas(linhas),
     colunas(colunas),
     tabuleiro(tabuleiro),

@@ -13,7 +13,7 @@ Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) 
     reiniciarTabuleiro();
 }
 
-Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro) :
+Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro) :
     Jogo(linhas, colunas, jogador1, jogador2, tabuleiro) {}
 
 Reversi::~Reversi() {}

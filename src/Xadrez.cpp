@@ -8,7 +8,7 @@
 #include <string>
 
 Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) {}
-Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<char> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
+Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
 Xadrez::~Xadrez() {}
 
 std::string Xadrez::getNome() const {

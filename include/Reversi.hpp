@@ -18,7 +18,7 @@ private:
 
 public:
     Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
-    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<char> tabuleiro);
+    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro);
     ~Reversi();
 
     bool podeJogar(const Jogador& jogador) const;

@@ -16,7 +16,7 @@ private:
 
 public:
     Xadrez(Jogador &jogador1, Jogador &jogador2);
-    Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<char> tabuleiro);
+    Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro);
     ~Xadrez();
 
     virtual std::string getNome() const override;
