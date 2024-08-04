@@ -15,10 +15,10 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
     for(int i = 0; i < this->colunas; i++) {
         char peca = pecas[i];
         this->set_char(0, i, peca);
-        this->set_char(1, i, 'p');
+        // this->set_char(1, i, 'p');
 
         this->set_char(7, i, toupper(peca));
-        this->set_char(6, i, 'P');
+        // this->set_char(6, i, 'P');
     }
 }
 
@@ -62,17 +62,16 @@ bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
     bool linhasNoIntervaloCorreto = linhaValida(linha_origem) && linhaValida(linha_dest);
     bool colunasNoIntervaloCorreto = colunaValida(coluna_origem) && colunaValida(coluna_dest);
 
-    if(!linhasNoIntervaloCorreto) throw Excecao("linha invalida (formato correto: [a-h])");
-    else if(!colunasNoIntervaloCorreto) throw Excecao("coluna invalida (formato correto: [1-8])");
-
+    if(!linhasNoIntervaloCorreto || !colunasNoIntervaloCorreto) return false;
     return true;
 }
 
 bool Xadrez::jogadaValida(std::string possivel_jogada) const {
+    if(this->fimDeJogo()) return false;
+    if(!this->formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
+
     int tam = possivel_jogada.size();
-    std::string mensagem = "jogada '" + possivel_jogada + "' nao eh uma jogada valida";
-    if(tam != 4) throw Excecao(mensagem);
-    this->formatoCorreto(possivel_jogada);
+    if(tam != 4) return false;
 
     std::stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
@@ -95,13 +94,13 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     bool selecionadoEhMaiusculo = toupper(selecionado) == selecionado;
     bool charSelecionadoEhDoJogador = selecionadoEhMaiusculo == maiuscula;
  
-    if(!charSelecionadoEhDoJogador || selecionado == ' ') throw Excecao("peca selecionada nao pertence ao jogador " + apelido_da_vez);
-
+    if(!charSelecionadoEhDoJogador || selecionado == ' ') return false;
     return true;
 }
 
 void Xadrez::realizarJogada(std::string possivel_jogada) {
-    this->jogadaValida(possivel_jogada);
+    if(this->fimDeJogo()) throw Excecao("fim de jogo");
+    if(!this->jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
 
     std::stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
@@ -116,6 +115,9 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     char selecionado = this->get_char(linha_origem, coluna_origem);
     char peca_no_destino = this->get_char(linha_dest, coluna_dest);
 
+    int diff_no_x = std::abs(coluna_origem - coluna_dest);
+    int diff_no_y = std::abs(linha_origem - linha_dest);
+
     auto ehPecaInimiga = [](char peca1, char peca2){
         if(peca1 == ' ' || peca2 == ' ') return false;
         bool peca1_eh_maiuscula = peca1 == toupper(peca1);
@@ -129,23 +131,35 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
             bool andou_para_tras = (selecionado == 'P' && linha_dest > linha_origem) || (selecionado == 'p' && linha_origem > linha_dest);
             if(andou_para_tras) throw Excecao("peao nao anda para tras");
 
-            int diff_no_y = std::abs(linha_origem - linha_dest);
-            int diff_no_x = std::abs(coluna_origem - coluna_dest);
-
-            bool andou_mais_de_uma_casa = diff_no_y > 1;
+            bool andou_mais_de_uma_casa = diff_no_y > 1 || diff_no_x > 1;
             if(andou_mais_de_uma_casa) throw Excecao("peao anda apenas uma casa");
 
             bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
             bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(selecionado, peca_no_destino);
-            if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao pode andar na diagonal");
+            if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao anda na diagonal");
 
-            this->set_char(linha_origem, coluna_origem, ' ');
-            this->set_char(linha_dest, coluna_dest, selecionado);
+            if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao("peao so captura na diagonal");
+
             break;
         }
 
         case 'R':
         case 'r': {
+            bool andou_em_mais_de_uma_direcao = diff_no_x != 0 && diff_no_y != 0;
+            if(andou_em_mais_de_uma_direcao) throw Excecao("torre so anda em uma direcao");
+
+            if(diff_no_x != 0) {
+                for(int i = coluna_origem + 1; i < coluna_dest; i++) {
+                    char c = this->get_char(linha_origem, i);
+                    if(c != ' ') throw Excecao("torre nao pode pular pecas-1");
+                }
+            } else {
+                for(int i = linha_origem + 1; i < linha_dest; i++) {
+                    char c = this->get_char(i, coluna_origem);
+                    if(c != ' ') throw Excecao("torre nao pode pular pecas-2");
+                }
+            }
+
             break;
         }
 
@@ -169,6 +183,9 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
             break;
         }
     }
+
+    this->set_char(linha_origem, coluna_origem, ' ');
+    this->set_char(linha_dest, coluna_dest, selecionado);
     this->passar_a_vez();
 }
 
