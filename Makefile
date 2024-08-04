@@ -4,7 +4,7 @@
 GPP = g++ -Werror -Wall -Wextra -fsanitize=address -fsanitize=undefined -I./include
 RM = rm -rf
 
-OBJs = ./obj/Xadrez.o ./obj/Jogo.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Reversi.o ./obj/Lig4.o ./obj/Excecao.o ./obj/Sistema.o
+OBJs = ./obj/Jogo.o ./obj/Jogador.o ./obj/Jogada.o ./obj/Reversi.o ./obj/Lig4.o ./obj/JogoDaVelha.o ./obj/Xadrez.o ./obj/Excecao.o ./obj/Sistema.o
 T_OBJs = ./obj/t_Jogador.o ./obj/t_Reversi.o ./obj/t_Lig4.o ./obj/t_Sistema.o
 
 
@@ -27,7 +27,7 @@ clean:
 ./obj/Jogador.o: ./src/Jogador.cpp ./include/Jogador.hpp
 	$(GPP) -c ./src/Jogador.cpp -o ./obj/Jogador.o
 
-./obj/Sistema.o: ./src/Sistema.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Reversi.hpp ./include/Lig4.hpp ./include/Excecao.hpp ./include/Sistema.hpp
+./obj/Sistema.o: ./src/Sistema.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Reversi.hpp ./include/Lig4.hpp ./include/JogoDaVelha.hpp ./include/Xadrez.hpp ./include/Excecao.hpp ./include/Sistema.hpp
 	$(GPP) -c ./src/Sistema.cpp -o ./obj/Sistema.o
 
 ./obj/Jogo.o: ./src/Jogo.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp
@@ -38,6 +38,9 @@ clean:
 
 ./obj/Lig4.o: ./src/Lig4.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Lig4.hpp
 	$(GPP) -c ./src/Lig4.cpp -o ./obj/Lig4.o
+
+./obj/JogoDaVelha.o: ./src/JogoDaVelha.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/JogoDaVelha.hpp
+	$(GPP) -c ./src/JogoDaVelha.cpp -o ./obj/JogoDaVelha.o
 
 ./obj/Xadrez.o: ./src/Xadrez.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Xadrez.hpp
 	$(GPP) -c ./src/Xadrez.cpp -o ./obj/Xadrez.o

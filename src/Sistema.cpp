@@ -9,6 +9,7 @@
 #include "Excecao.hpp"
 #include "Lig4.hpp"
 #include "Reversi.hpp"
+#include "JogoDaVelha.hpp"
 #include "Xadrez.hpp"
 
 /**
@@ -174,6 +175,8 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
         jogo.reset(new Reversi(8, 8, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Xadrez") {
         jogo.reset(new Xadrez(*jogador1, *jogador2));
+    } else if (nome_do_jogo == "JogoDaVelha") {
+        jogo.reset(new JogoDaVelha(3, 3, *jogador1, *jogador2));
     } else {
         throw Excecao("jogo nao existe");
     }
