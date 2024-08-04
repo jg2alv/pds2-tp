@@ -14,7 +14,7 @@ int main() {
     Sistema sistema("./data/jogadores.txt");
 
     while (!sistema.isSistemaFinalizado()) {
-        cout << "Entre um comando: ";
+        cout << "Entre um comando ou digite ? para ajuda: ";
 
         string candidato_a_comando;
         cin >> candidato_a_comando;
@@ -51,6 +51,14 @@ int main() {
                 case Comando::FinalizarSistema: {
                     sistema.finalizarSistema();
                     break;
+                }
+                case Comando::Ajuda: {
+                    cout << "CJ [apelido] [nome]                   Cadastra um jogador com um apelido unico." << endl;
+                    cout << "RJ [apelido]                          Remove o jogador com o apelido recebido." << endl;
+                    cout << "LJ [A | N]                            Lista os jogadores cadastrados em ordem de apelido/ nome." << endl;
+                    cout << "EP [jogo] [apelido-1] [apelido-2]     Executa uma partida entre jogadores identificados por apelido (jogos: JogoDaVelha, Lig4, Reversi, Xadrez)." << endl;
+                    cout << "FS                                    Encerra a execucao do sistema, salvando as modificacoes em disco." << endl;
+                    cout << "?                                     Imprime essa mensagem de ajuda." << endl;
                 }
             }
         } catch (const std::exception& e) {

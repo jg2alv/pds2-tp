@@ -33,6 +33,8 @@ Comando identificar_comando(std::string candidato_a_comando) {
         return Comando::ExecutarPartida;
     } else if (candidato_a_comando == "FS") {
         return Comando::FinalizarSistema;
+    } else if(candidato_a_comando == "?") {
+        return Comando::Ajuda;
     } else {
         throw Excecao("comando invalido");
     }
@@ -134,6 +136,11 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
     else if(base == "N")
         std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
     else throw Excecao("criterio de ordenacao de jogadores invalido");
+
+    if(this->jogadores.size() == 0) {
+        out << "Nao existe jogadores cadastrados no sistema." << std::endl;
+        return;
+    }
 
     for(Jogador const& jogador : this->jogadores)
         jogador.imprimirInformacoes(out);

@@ -13,7 +13,8 @@ enum class Comando {
     RemoverJogador,
     ListarJogadores,
     ExecutarPartida,
-    FinalizarSistema
+    FinalizarSistema,
+    Ajuda
 };
 
 
