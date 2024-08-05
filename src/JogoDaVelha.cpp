@@ -294,7 +294,7 @@ bool JogoDaVelha::tabuleiro_cheio() const {
  * cheio. Se estiver, houve empate e é retornado 
  * verdadeiro e, se nao estiver, é retornado falso.
  * 
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::verificarEmpate() const {
     if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {
