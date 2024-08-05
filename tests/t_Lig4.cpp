@@ -33,7 +33,7 @@ TEST_CASE("Testando Lig4") {
             CHECK_THROWS(lig4->jogadaValida("teste"));
             CHECK_THROWS(lig4->jogadaValida("1 1"));
             CHECK_THROWS(lig4->jogadaValida("\n"));
-            CHECK_THROWS(lig4->jogadaValida("8"));
+            CHECK_FALSE(lig4->jogadaValida("8"));
 
             for (int i = 1; i <= 7; i++) {
                 CHECK_MESSAGE(lig4->jogadaValida(to_string(i)), "i: ", i);

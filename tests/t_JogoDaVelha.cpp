@@ -1,5 +1,7 @@
 #include <memory>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 #include "doctest.h"
 #include "Jogador.hpp"
@@ -14,13 +16,9 @@ TEST_CASE("Testando JogoDaVelha") {
     Jogador alice("A", "Alice");
     Jogador bruno("B", "Bruno");
     
-    SUBCASE("Testando tabuleiro inicial JogoDaVelha") {
-        unique_ptr<JogoDaVelha> jogo_da_velha(new JogoDaVelha(alice, bruno));
+    unique_ptr<JogoDaVelha> jogo_da_velha(new JogoDaVelha(alice, bruno));
 
-        CHECK_FALSE(jogo_da_velha->verificarVitoria(alice));
-        CHECK_FALSE(jogo_da_velha->verificarVitoria(bruno));
-        CHECK_FALSE(jogo_da_velha->verificarEmpate());
-
+    SUBCASE("Testando jogadas no tabuleiro inicial do JogoDaVelha") {
         SUBCASE("Testando realizarJogada do JogoDaVelha") {
             REQUIRE_THROWS(jogo_da_velha->realizarJogada("teste"));
             REQUIRE_THROWS(jogo_da_velha->realizarJogada("1 1 1"));
@@ -28,12 +26,11 @@ TEST_CASE("Testando JogoDaVelha") {
             REQUIRE_THROWS(jogo_da_velha->realizarJogada("4 4"));
             REQUIRE_NOTHROW(jogo_da_velha->realizarJogada("1 1"));
         };
-
         SUBCASE("Testando jogadaValida do JogoDaVelha") {
             CHECK_THROWS(jogo_da_velha->jogadaValida("teste"));
             CHECK_THROWS(jogo_da_velha->jogadaValida("1 1 1"));
             CHECK_THROWS(jogo_da_velha->jogadaValida("1"));
-            CHECK_THROWS(jogo_da_velha->jogadaValida("4 4"));
+            CHECK_FALSE(jogo_da_velha->jogadaValida("4 4"));
 
             for (int i = 1; i <= 3; i++) {
                 for (int j = 1; j <= 3; j++) {
@@ -42,13 +39,29 @@ TEST_CASE("Testando JogoDaVelha") {
                 }
             }
         }
-
         SUBCASE("Testando formatoCorreto do JogoDaVelha") {
             CHECK_FALSE(jogo_da_velha->formatoCorreto("teste"));
             CHECK_FALSE(jogo_da_velha->formatoCorreto("1 1 1"));
             CHECK_FALSE(jogo_da_velha->formatoCorreto("1"));
             CHECK(jogo_da_velha->formatoCorreto("4 4"));
         }
+    }
+
+    SUBCASE("Testando partida do JogoDaVelha") {
+        ifstream arquivo_de_jogadas("./test_data/jogadas_jogo_da_velha1.txt");
+        stringstream jogadas_stream;
+        jogadas_stream << arquivo_de_jogadas.rdbuf();
+        for (string jogada; getline(jogadas_stream, jogada); ) {
+            CHECK_FALSE(jogo_da_velha->verificarEmpate());
+            CHECK_FALSE(jogo_da_velha->verificarVitoria(alice));
+            CHECK_FALSE(jogo_da_velha->verificarVitoria(bruno));
+
+            REQUIRE_NOTHROW(jogo_da_velha->realizarJogada(jogada));
+        }
+
+        CHECK_FALSE(jogo_da_velha->verificarEmpate());
+        CHECK(jogo_da_velha->verificarVitoria(alice));
+        CHECK_FALSE(jogo_da_velha->verificarVitoria(bruno));
     }
 }
 
