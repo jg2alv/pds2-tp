@@ -20,6 +20,7 @@ struct Resultados {
 };
 
 /**
+ * \class Jogador
  * \brief Classe Jogador que controla os participantes dos jogos
  * 
  * Classe que possui apelido, nome, e um mapa que relaciona os Jogos e seus Resultados
