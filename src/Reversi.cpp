@@ -83,7 +83,7 @@ bool Reversi::jogadaValida(std::string possivel_jogada) const {
     }
 
     if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
+        throw Excecao("formato incorreto (formato correto: apenas [linha] [coluna])");
     }
 
     std::stringstream jogada_stream(possivel_jogada);
@@ -101,7 +101,7 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
     }
 
     if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
+        throw Excecao("formato incorreto (formato correto: apenas [linha] [coluna])");
     }
 
     std::stringstream jogada_stream(possivel_jogada);
@@ -111,7 +111,7 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
     coluna--;
 
     if (!jogada_valida(Jogada(linha, coluna), get_simbolo(*jogador_da_vez))) {
-        throw Excecao("jogada invalida (linha e/ ou coluna recebidas estao fora dos limites do tabuleiro)");
+        throw Excecao("jogada invalida (coordenada recebida esta fora dos limites do tabuleiro ou ja esta ocupada)");
     }
 
     realizar_jogada(Jogada(linha, coluna));
