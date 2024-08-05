@@ -203,7 +203,7 @@ void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
     linha --, coluna--;
 
     Jogada jogada(linha, coluna);
-    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (jogada valida: 1 <= linha, coluna <= 3)");
+    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (posicao informada ja esta ocupada ou esta fora dos limites do tabuleiro)");
     
     realizar_jogada(jogada);
     passar_a_vez();
