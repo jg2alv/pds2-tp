@@ -61,6 +61,19 @@ TEST_CASE("Testando Lig4") {
         CHECK_FALSE(lig4->verificarEmpate());
         CHECK_FALSE(lig4->verificarVitoria(alice));
         CHECK(lig4->verificarVitoria(bruno));
+
+        REQUIRE(lig4->fimDeJogo());
+        lig4->finalizarJogo();
+
+        CHECK(lig4->getVencedor() == &bruno);
+        CHECK(lig4->getPerdedor() == &alice);
+
+        CHECK(bruno.getResultados("Lig4").vitorias == 1);
+        CHECK(bruno.getResultados("Lig4").empates == 0);
+
+        CHECK(alice.getResultados("Lig4").derrotas == 1);
+        CHECK(alice.getResultados("Lig4").empates == 0);
+
     }
 }
 

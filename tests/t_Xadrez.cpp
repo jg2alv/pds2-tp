@@ -67,7 +67,19 @@ TEST_CASE("Testando Xadrez") {
         INFO("tabuleiro impresso: ", tabuleiro_impresso);
         CHECK_FALSE(xadrez->verificarEmpate());
         CHECK_FALSE(xadrez->verificarVitoria(alice));
-        CHECK_FALSE(xadrez->verificarVitoria(bruno));
+        CHECK(xadrez->verificarVitoria(bruno));
+
+        REQUIRE(xadrez->fimDeJogo());
+        xadrez->finalizarJogo();
+
+        CHECK(xadrez->getVencedor() == &bruno);
+        CHECK(xadrez->getPerdedor() == &alice);
+
+        CHECK(bruno.getResultados("Xadrez").vitorias == 1);
+        CHECK(bruno.getResultados("Xadrez").empates == 0);
+
+        CHECK(alice.getResultados("Xadrez").derrotas == 1);
+        CHECK(alice.getResultados("Xadrez").empates == 0);
     }
 
 }

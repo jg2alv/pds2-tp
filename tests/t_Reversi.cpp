@@ -66,6 +66,18 @@ TEST_CASE("Testando Reversi") {
         CHECK_FALSE(reversi->verificarEmpate());
         CHECK(reversi->verificarVitoria(alice));
         CHECK_FALSE(reversi->verificarVitoria(bruno));
+
+        REQUIRE(reversi->fimDeJogo());
+        reversi->finalizarJogo();
+
+        CHECK(reversi->getVencedor() == &alice);
+        CHECK(reversi->getPerdedor() == &bruno);
+
+        CHECK(alice.getResultados("Reversi").vitorias == 1);
+        CHECK(alice.getResultados("Reversi").empates == 0);
+
+        CHECK(bruno.getResultados("Reversi").derrotas == 1);
+        CHECK(bruno.getResultados("Reversi").empates == 0);
     }
 
 }

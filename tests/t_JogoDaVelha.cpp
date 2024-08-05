@@ -64,6 +64,18 @@ TEST_CASE("Testando JogoDaVelha") {
         CHECK_FALSE(jogo_da_velha->verificarEmpate());
         CHECK(jogo_da_velha->verificarVitoria(alice));
         CHECK_FALSE(jogo_da_velha->verificarVitoria(bruno));
+
+        REQUIRE(jogo_da_velha->fimDeJogo());
+        jogo_da_velha->finalizarJogo();
+
+        CHECK(jogo_da_velha->getVencedor() == &alice);
+        CHECK(jogo_da_velha->getPerdedor() == &bruno);
+
+        CHECK(alice.getResultados("JogoDaVelha").vitorias == 1);
+        CHECK(alice.getResultados("JogoDaVelha").empates == 0);
+
+        CHECK(bruno.getResultados("JogoDaVelha").derrotas == 1);
+        CHECK(bruno.getResultados("JogoDaVelha").empates == 0);
     }
 }
 
