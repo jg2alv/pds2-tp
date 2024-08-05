@@ -19,8 +19,8 @@ int main() {
         string candidato_a_comando;
         cin >> candidato_a_comando;
         try {
-            switch (identificar_comando(candidato_a_comando)) {
-                case Comando::CadastrarJogador: {
+            switch (Sistema::identificar_comando(candidato_a_comando)) {
+                case Sistema::Comando::CadastrarJogador: {
                     std::string apelido, nome;
                     cin >> apelido;
                     getline(cin, nome);
@@ -28,31 +28,31 @@ int main() {
                     cout << "Jogador " << apelido << " cadastrado com sucesso\n";
                     break;
                 }
-                case Comando::RemoverJogador: {
+                case Sistema::Comando::RemoverJogador: {
                     string apelido;
                     cin >> apelido;
                     sistema.removerJogador(apelido);
                     cout << "Jogador " << apelido << " removido com sucesso\n";
                     break;
                 }
-                case Comando::ListarJogadores: {
+                case Sistema::Comando::ListarJogadores: {
                     string criterio;
                     cin >> criterio;
                     sistema.listarJogadores(criterio, cout);
                     break;
                 }
-                case Comando::ExecutarPartida: {
+                case Sistema::Comando::ExecutarPartida: {
                     string nome_do_jogo, apelido1, apelido2;
                     cin >> nome_do_jogo >> apelido1 >> apelido2;
                     cin.ignore();
                     sistema.executarPartida(nome_do_jogo, apelido1, apelido2, cin, cout);
                     break;
                 }
-                case Comando::FinalizarSistema: {
+                case Sistema::Comando::FinalizarSistema: {
                     sistema.finalizarSistema();
                     break;
                 }
-                case Comando::Ajuda: {
+                case Sistema::Comando::Ajuda: {
                     cout << "CJ [apelido] [nome]                   Cadastra um jogador com um apelido unico." << endl;
                     cout << "RJ [apelido]                          Remove o jogador com o apelido recebido." << endl;
                     cout << "LJ [A | N]                            Lista os jogadores cadastrados em ordem de apelido/ nome." << endl;

@@ -8,18 +8,6 @@
 
 #include "Jogador.hpp"
 
-enum class Comando {
-    CadastrarJogador,
-    RemoverJogador,
-    ListarJogadores,
-    ExecutarPartida,
-    FinalizarSistema,
-    Ajuda
-};
-
-
-Comando identificar_comando(std::string candidato_a_comando);
-
 /**
  * \class Sistema
  * 
@@ -41,6 +29,15 @@ class Sistema {
         bool salvar_ao_sair;
 
     public:
+        enum class Comando {
+            CadastrarJogador,
+            RemoverJogador,
+            ListarJogadores,
+            ExecutarPartida,
+            FinalizarSistema,
+            Ajuda
+        };
+        static Sistema::Comando identificar_comando(std::string candidato_a_comando);
         bool isSistemaFinalizado();
         std::vector<Jogador>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);

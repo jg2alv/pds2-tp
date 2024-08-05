@@ -22,19 +22,19 @@
  * \param candidato_a_comando A string da entrada.
  * \return O campo do enum Comando.
  */
-Comando identificar_comando(std::string candidato_a_comando) {
+Sistema::Comando Sistema::identificar_comando(std::string candidato_a_comando) {
     if (candidato_a_comando == "CJ") {
-        return Comando::CadastrarJogador;
+        return Sistema::Comando::CadastrarJogador;
     } else if (candidato_a_comando == "RJ") {
-        return Comando::RemoverJogador;
+        return Sistema::Comando::RemoverJogador;
     } else if (candidato_a_comando == "LJ") {
-        return Comando::ListarJogadores;
+        return Sistema::Comando::ListarJogadores;
     } else if (candidato_a_comando == "EP") {
-        return Comando::ExecutarPartida;
+        return Sistema::Comando::ExecutarPartida;
     } else if (candidato_a_comando == "FS") {
-        return Comando::FinalizarSistema;
+        return Sistema::Comando::FinalizarSistema;
     } else if(candidato_a_comando == "?") {
-        return Comando::Ajuda;
+        return Sistema::Comando::Ajuda;
     } else {
         throw Excecao("comando invalido");
     }
