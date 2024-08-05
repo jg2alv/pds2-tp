@@ -21,7 +21,7 @@
  * o tabuleiro seja preenchido e nenhum jogador tenha conseguido colocar 
  * quatro peças consecutivas, os dois jogadores irao empatar e a partida 
  * termina.
- * Para jogar,o jogador da vez tera que digitar o numero de uma coluna do 
+ * Para jogar, o jogador da vez tera que digitar o numero de uma coluna do 
  * tabuleiro que deseja colocar sua peca. Caso a coluna nao exista ou esteja 
  * cheia, o jogador devera digitar outra coluna que seja valida.
  * Essa classe é responsavel por realizar uma partida do jogo Lig4. Ela tem
