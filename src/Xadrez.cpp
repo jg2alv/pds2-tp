@@ -203,7 +203,8 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
             if(!movimento_valido) throw Excecao("movimento invalido para o cavalo");
             
             bool no_destino_tem_inimigo = ehPecaInimiga(peca_selecionada, peca_no_destino);
-            if(peca_no_destino != ' ' && !no_destino_tem_inimigo) throw Excecao("peca no destino nao eh inimigo");
+            bool peca_no_destino_eh_espaco = peca_no_destino == ' ';
+            if(!peca_no_destino_eh_espaco && !no_destino_tem_inimigo) throw Excecao("peca no destino nao eh inimigo");
 
             break;
         }
