@@ -24,13 +24,17 @@
  * Para jogar,o jogador da vez tera que digitar o numero de uma coluna do 
  * tabuleiro que deseja colocar sua peca. Caso a coluna nao exista ou esteja 
  * cheia, o jogador devera digitar outra coluna que seja valida.
+ * Essa classe é responsavel por realizar uma partida do jogo Lig4. Ela tem
+ * metodos que imprime o tabuleiro do jogo, que le uma jogada de um jogador, 
+ * que verifica se a jogada esta no formato correto e é valida, que adiociona
+ * a nova peça no tabuleiro e que verifica se houve empate ou vitoria.
  */
 class Lig4 : public Jogo {
 private:
-    int getLinhaTabuleiro(int coluna) const;
-    bool linhaVazia(int linha) const;
-    bool colunaVazia(int coluna) const;
-    bool tabuleiroCheio() const;
+    int get_linha_tabuleiro(int coluna) const;
+    bool linha_vazia(int linha) const;
+    bool coluna_vazia(int coluna) const;
+    bool tabuleiro_cheio() const;
     bool jogada_valida(Jogada &jogada) const;
     void realizar_jogada(const Jogada &jogada);
 
