@@ -250,6 +250,9 @@ void Sistema::carregarArquivo() {
 
     int numjogadores;
     arquivo >> numjogadores;
+    
+    bool arquivo_corrompido = arquivo.fail();
+    if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
 
     for(int i = 0; i < numjogadores; i++) {
         std::string apelido, nome;
@@ -261,11 +264,17 @@ void Sistema::carregarArquivo() {
 
         int numjogos;
         arquivo >> numjogos;
+        bool arquivo_corrompido = arquivo.fail();
+        if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
+
         for(int j = 0; j < numjogos; j++) {
             std::string jogo;
             int vitorias, derrotas, empates;
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
+            bool arquivo_corrompido = arquivo.fail();
+            if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
+
             jogador.setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
