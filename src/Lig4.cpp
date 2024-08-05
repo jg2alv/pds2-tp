@@ -235,7 +235,7 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
 
     Jogada jogada(coluna);
     if (!jogada_valida(jogada)) {
-        throw Excecao("jogada invalida (coluna informada nao esta nos limites do tabuleiro)");
+        throw Excecao("jogada invalida (coluna informada esta cheia ou esta fora dos limites do tabuleiro)");
     }
 
     realizar_jogada(jogada);
