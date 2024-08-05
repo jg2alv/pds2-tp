@@ -193,7 +193,7 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  */
 void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
     if (fimDeJogo()) throw Excecao("jogo ja acabou");
-    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
 
     std::stringstream in;
     in.str(possivel_jogada);
