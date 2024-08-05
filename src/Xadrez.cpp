@@ -227,7 +227,9 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
 
         case 'K':
         case 'k': {
-            
+            bool andou_mais_de_uma_casa = diff_no_x > 1 || diff_no_y > 1;
+            if(andou_mais_de_uma_casa) throw Excecao("rei anda apenas uma casa");
+
             break;
         }
     }
