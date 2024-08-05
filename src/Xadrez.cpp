@@ -100,7 +100,7 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
 }
 
 void Xadrez::realizarJogada(std::string possivel_jogada) {
-    if(this->fimDeJogo()) throw Excecao("fim de jogo");
+    if(this->fimDeJogo()) throw Excecao("jogo ja acabou");
     if(!this->jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
 
     std::stringstream stream(possivel_jogada);

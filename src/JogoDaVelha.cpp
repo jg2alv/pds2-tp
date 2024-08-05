@@ -47,7 +47,7 @@ JogoDaVelha::~JogoDaVelha() {}
 /**
  * \brief Retorna uma string do nome do jogo
  *
- * Essa funcao retorna o nome do jogo, no caso 'JogoDaVelha'.
+ * Essa funcao retorna o nome do jogo, no caso "JogoDaVelha".
  * 
  * \return Uma string "JogoDaVelha".
  */
@@ -60,7 +60,7 @@ std::string JogoDaVelha::getNome() const {
  *
  * Essa funcao recebe um stream de saida e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * 'Jogo da Velha' e indicando os indices de cada linha e
+ * "Jogo da Velha" e indicando os indices de cada linha e
  * coluna.
  * 
  * \param out Um stream de saida.
@@ -91,7 +91,7 @@ void JogoDaVelha::imprimirTabuleiro(std::ostream& out) const {
  * Caso contrario, retorna falso.
  * 
  * \param possivel_jogada A string da entrada.
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::formatoCorreto(std::string possivel_jogada) const {
     std::stringstream jogada_stream(possivel_jogada);
@@ -119,7 +119,7 @@ bool JogoDaVelha::formatoCorreto(std::string possivel_jogada) const {
  * se estiver vazia ou falso se não estiver.
  * 
  * \param jogada Uma jogada lida.
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     int linha = jogada.get_linha();
@@ -144,7 +144,7 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
  * ou falso, caso contrario.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::jogadaValida(std::string possivel_jogada) const {
     if (fimDeJogo()) {
@@ -193,7 +193,7 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  */
 void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
     if (fimDeJogo()) throw Excecao("jogo ja acabou");
-    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
 
     std::stringstream in;
     in.str(possivel_jogada);
@@ -203,7 +203,7 @@ void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
     linha --, coluna--;
 
     Jogada jogada(linha, coluna);
-    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (jogada valida: 1 <= linha, coluna <= 3)");
+    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (posicao informada ja esta ocupada ou esta fora dos limites do tabuleiro)");
     
     realizar_jogada(jogada);
     passar_a_vez();
@@ -219,7 +219,7 @@ void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
  * desses casos, retorna verdadeiro. Caso contrario, retorna falso.
  * 
  * \param jogador Um jogador da partida.
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
     char simbolo = get_simbolo(jogador);
@@ -272,9 +272,9 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
  * estao cheias. Caso isso seja atendido, é retornado 
  * verdadeiro e, caso contrario, é retornado falso.
  * 
- * \return True ou false.
+ * \return true ou false
  */
-bool JogoDaVelha::tabuleiroCheio() const {
+bool JogoDaVelha::tabuleiro_cheio() const {
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
             if (get_char(i, j) == ' ') 
@@ -288,10 +288,11 @@ bool JogoDaVelha::tabuleiroCheio() const {
 /**
  * \brief Verifica o empate do jogo
  *
- * Essa funcao verifica se houve um empate retornando
- * a funcao 'tabuleiroCheio'. Caso o tabuleiro esteja 
- * cheio, houve empate e retorna verdadeiro. Caso 
- * contrario, nao houve empate e retorna falso.
+ * Essa funcao verifica se houve a vitora de algum
+ * jogador e, caso tenha, nao houve empate e é retornado
+ * falso. Caso contrario, verifica se o tabuleiro esta
+ * cheio. Se estiver, houve empate e é retornado 
+ * verdadeiro e, se nao estiver, é retornado falso.
  * 
  * \return True ou false.
  */
@@ -299,6 +300,6 @@ bool JogoDaVelha::verificarEmpate() const {
     if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {
         return false;
     } else {
-        return tabuleiroCheio();
+        return tabuleiro_cheio();
     }
 }

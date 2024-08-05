@@ -24,10 +24,14 @@
  * uma coluna do tabuleiro que deseja colocar sua peca. Caso as coordenadas
  * nao estejam dentro dos limites do tabuleiro ou a posicao esteja ocupada, 
  * o jogador devera digitar outra linha e outra coluna que sejam validas.
+ * Essa classe é responsavel por realizar uma partida do jogo da velha. Ela 
+ * tem metodos que imprime o tabuleiro do jogo, que le uma jogada de um jogador, 
+ * que verifica se a jogada esta no formato correto e é valida, que adiociona
+ * a nova peça no tabuleiro e que verifica se houve empate ou vitoria.
  */
 class JogoDaVelha : public Jogo {
 private:
-    bool tabuleiroCheio() const;
+    bool tabuleiro_cheio() const;
     bool jogada_valida(const Jogada &jogada) const;
     void realizar_jogada(const Jogada &jogada);
 

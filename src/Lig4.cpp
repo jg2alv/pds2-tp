@@ -52,7 +52,7 @@ Lig4::~Lig4() {}
 /**
  * \brief Retorna uma string do nome do jogo
  *
- * Essa funcao retorna o nome do jogo, no caso 'Lig4'.
+ * Essa funcao retorna o nome do jogo, no caso "Lig4".
  * 
  * \return Uma string "Lig4".
  */
@@ -65,7 +65,7 @@ std::string Lig4::getNome() const {
  *
  * Essa funcao recebe um stream de saida e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * 'Lig4' e indicando os indices de cada coluna.
+ * "Lig4" e indicando os indices de cada coluna.
  * 
  * \param out Um stream de saida.
  */
@@ -95,7 +95,7 @@ void Lig4::imprimirTabuleiro(std::ostream& out) const {
  * Caso contrario, retorna falso.
  * 
  * \param possivel_jogada A string da entrada.
- * \return True ou false.
+ * \return true ou false
  */
 bool Lig4::formatoCorreto(std::string possivel_jogada) const {
     std::stringstream jogada_stream(possivel_jogada);
@@ -120,7 +120,7 @@ bool Lig4::formatoCorreto(std::string possivel_jogada) const {
  * \param coluna Uma coluna do tabuleiro.
  * \return O indice da primeira linha vazia.
  */
-int Lig4::getLinhaTabuleiro(int coluna) const {
+int Lig4::get_linha_tabuleiro(int coluna) const {
     int i = this->linhas - 1;
     for (; i >= 0; i--) {
         if (get_char(i, coluna) == ' ') 
@@ -135,22 +135,22 @@ int Lig4::getLinhaTabuleiro(int coluna) const {
  * Essa funcao recebe como parametro uma jogada e verifica
  * se a coluna esta dentro dos limites do tabuleiro. Se isso 
  * for atendido, é mudada a linha da jogada com a funcao 
- * 'getLinhaTabuleiro' e entao e verificado o valor da linha.
- * Se foir diferente de -1, ou seja, a coluna nao esta cheia,
+ * 'get_linha_tabuleiro' e entao e verificado o valor da linha.
+ * Se for diferente de -1, ou seja, a coluna nao esta cheia,
  * retorna verdadeiro e, caso contrario, retorna falso.
  * 
  * \param jogada Uma jogada lida.
- * \return True ou false.
+ * \return true ou false
  */
 bool Lig4::jogada_valida(Jogada &jogada) const {
     int coluna = jogada.get_coluna();
 
-    if(!(coluna >= 0 && coluna < this->colunas))
+    if (!(coluna >= 0 && coluna < this->colunas))
         return false;
 
     else {
-        jogada.set_linha(getLinhaTabuleiro(coluna));
-        int linha = jogada.get_linha();
+        int linha = get_linha_tabuleiro(coluna);
+        jogada.set_linha(linha);
         return (linha != -1);
     }
 }
@@ -168,7 +168,7 @@ bool Lig4::jogada_valida(Jogada &jogada) const {
  * contrario.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
- * \return True ou false.
+ * \return true ou false
  */
 bool Lig4::jogadaValida(std::string possivel_jogada) const {
     if (fimDeJogo()) {
@@ -176,7 +176,7 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
     }
 
     if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
+        throw Excecao("formato incorreto (formato correto: [coluna])");
     }
 
     std::stringstream in;
@@ -218,13 +218,9 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
  * \param possivel_jogada Uma string com a entrada lida.
  */
 void Lig4::realizarJogada(std::string possivel_jogada) {
-    if (fimDeJogo()) {
-        throw Excecao("jogo ja acabou");
-    }
-
-    if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
-    }
+    if (fimDeJogo()) throw Excecao("jogo ja acabou");
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [coluna])");
+    
 
     std::stringstream in;
     in.str(possivel_jogada);
@@ -234,9 +230,8 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     coluna--;
 
     Jogada jogada(coluna);
-    if (!jogada_valida(jogada)) {
-        throw Excecao("jogada invalida");
-    }
+    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (coluna informada esta cheia ou esta fora dos limites do tabuleiro)");
+    
 
     realizar_jogada(jogada);
     passar_a_vez();
@@ -251,9 +246,9 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
  * nao, retorna falso.
  * 
  * \param linha Uma linha do tabuleiro.
- * \return True ou false.
+ * \return true ou false
  */
-bool Lig4::linhaVazia(int linha) const {
+bool Lig4::linha_vazia(int linha) const {
     for (int j = 0; j < this->colunas; j++) {
         if (get_char(linha, j) != ' ') 
             return false;
@@ -271,9 +266,9 @@ bool Lig4::linhaVazia(int linha) const {
  * nao, retorna falso.
  * 
  * \param coluna Uma coluna do tabuleiro.
- * \return True ou false.
+ * \return true ou false
  */
-bool Lig4::colunaVazia(int coluna) const {
+bool Lig4::coluna_vazia(int coluna) const {
     for (int i = 0; i < this->linhas; i++) {
         if (get_char(i, coluna) != ' ') 
             return false;
@@ -292,13 +287,13 @@ bool Lig4::colunaVazia(int coluna) const {
  * desses casos, retorna verdadeiro. Caso contrario, retorna falso.
  * 
  * \param jogador Um jogador da partida.
- * \return True ou false.
+ * \return true ou false
  */
 bool Lig4::verificarVitoria(const Jogador& jogador) const {
     char simbolo = get_simbolo(jogador);
 
     for (int i = 0; i < this->linhas; i++) {
-        if (linhaVazia(i)) 
+        if (linha_vazia(i)) 
             continue;
 
         for (int j = 0; j < (this->colunas - 3); j++) {
@@ -318,7 +313,7 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
     }
 
     for (int j = 0; j < this->colunas; j++) {
-        if(colunaVazia(j)) 
+        if(coluna_vazia(j)) 
             continue;
 
         for (int i = 0; i < (this->linhas - 3); i++) {
@@ -381,9 +376,9 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
  * estao cheias. Caso isso seja atendido, é retornado 
  * verdadeiro e, caso contrario, é retornado falso.
  * 
- * \return True ou false.
+ * \return true ou false
  */
-bool Lig4::tabuleiroCheio() const {
+bool Lig4::tabuleiro_cheio() const {
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
             if (get_char(i, j) == ' ') 
@@ -397,17 +392,18 @@ bool Lig4::tabuleiroCheio() const {
 /**
  * \brief Verifica o empate do jogo
  *
- * Essa funcao verifica se houve um empate retornando
- * a funcao 'tabuleiroCheio'. Caso o tabuleiro esteja 
- * cheio, houve empate e retorna verdadeiro. Caso 
- * contrario, nao houve empate e retorna falso.
+ * Essa funcao verifica se houve a vitora de algum
+ * jogador e, caso tenha, nao houve empate e é retornado
+ * falso. Caso contrario, verifica se o tabuleiro esta
+ * cheio. Se estiver, houve empate e é retornado 
+ * verdadeiro e, se nao estiver, é retornado falso.
  * 
- * \return True ou false.
+ * \return true ou false
  */
 bool Lig4::verificarEmpate() const {
     if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {
         return false;
     } else {
-        return tabuleiroCheio();
+        return tabuleiro_cheio();
     }
 }
