@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Excecao::Excecao(string mensagem) : mensagem(mensagem) {};
+Excecao::Excecao(string mensagem) : _mensagem(mensagem) {};
 const char* Excecao::what() const throw() {
-    return mensagem.c_str();
+    return _mensagem.c_str();
 }
