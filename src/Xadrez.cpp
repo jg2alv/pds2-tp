@@ -15,10 +15,10 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
     for(int i = 0; i < this->colunas; i++) {
         char peca = pecas[i];
         this->set_char(0, i, peca);
-        // this->set_char(1, i, 'p');
+        this->set_char(1, i, 'p');
 
         this->set_char(7, i, toupper(peca));
-        // this->set_char(6, i, 'P');
+        this->set_char(6, i, 'P');
     }
 }
 
@@ -90,12 +90,12 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     if(apelido_da_vez == apelido1) maiuscula = true;
     else maiuscula = false;
 
-    char selecionado = this->get_char(linha_origem, coluna_origem);
-    bool selecionadoEhMaiusculo = toupper(selecionado) == selecionado;
-    bool charSelecionadoEhDoJogador = selecionadoEhMaiusculo == maiuscula;
-    bool posicao_nao_muda = linha_origem == linha_dest && coluna_origem == coluna_dest;
+    char peca_selecionada = this->get_char(linha_origem, coluna_origem);
+    bool peca_selecionada_eh_maiuscula = toupper(peca_selecionada) == peca_selecionada;
+    bool peca_selecionada_eh_do_jogador = peca_selecionada_eh_maiuscula == maiuscula;
+    bool posicao_nao_mudou = linha_origem == linha_dest && coluna_origem == coluna_dest;
  
-    if(!charSelecionadoEhDoJogador || selecionado == ' ' || posicao_nao_muda) return false;
+    if(!peca_selecionada_eh_do_jogador || peca_selecionada == ' ' || posicao_nao_mudou) return false;
     return true;
 }
 
@@ -113,7 +113,7 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     linha_dest -= 97;
     coluna_dest -= 1;
 
-    char selecionado = this->get_char(linha_origem, coluna_origem);
+    char peca_selecionada = this->get_char(linha_origem, coluna_origem);
     char peca_no_destino = this->get_char(linha_dest, coluna_dest);
 
     int diff_no_x = std::abs(coluna_origem - coluna_dest);
@@ -124,94 +124,119 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
         bool peca1_eh_maiuscula = peca1 == toupper(peca1);
         bool peca2_eh_maiuscula = peca2 == toupper(peca2);
         return peca1_eh_maiuscula != peca2_eh_maiuscula;
-    }; 
+    };
 
-    switch(selecionado) {
+    auto movimentoValidoDoPeaoEDoRei = [peca_selecionada, linha_dest, linha_origem, diff_no_y, diff_no_x, ehPecaInimiga, peca_no_destino](std::string peca){
+        bool andou_para_tras = (peca_selecionada == 'P' && linha_dest > linha_origem) || (peca_selecionada == 'p' && linha_origem > linha_dest);
+        if(andou_para_tras) throw Excecao(peca + " nao anda para tras");
+
+        bool andou_mais_de_uma_casa = diff_no_x > 1 || diff_no_y > 1;
+        if(andou_mais_de_uma_casa) throw Excecao(peca + " anda apenas uma casa");
+
+        bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
+        bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(peca_selecionada, peca_no_destino);
+        if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao(peca + " nao anda na diagonal");
+
+        if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao(peca + " so captura na diagonal");
+    };
+
+    auto movimentoValidoDaTorre = [diff_no_x, diff_no_y, coluna_origem, coluna_dest, this, linha_origem, linha_dest](){
+        bool andou_em_mais_de_uma_direcao = diff_no_x != 0 && diff_no_y != 0;
+        if(andou_em_mais_de_uma_direcao) return "torre so anda em uma direcao";
+
+        if(diff_no_x != 0) {
+            for(int i = coluna_origem + 1; i < coluna_dest; i++) {
+                char c = this->get_char(linha_origem, i);
+                if(c != ' ') return "torre nao pula pecas";
+            }
+        } else {
+            for(int i = linha_origem + 1; i < linha_dest; i++) {
+                char c = this->get_char(i, coluna_origem);
+                if(c != ' ') return "torre nao pula pecas";
+            }
+        }
+
+        return "";
+    };
+
+    auto movimentoValidoDoBispo = [diff_no_x, diff_no_y, linha_dest, linha_origem, coluna_dest, coluna_origem, this](){
+        if(diff_no_x != diff_no_y) return "bispo so anda na diagonal";
+
+        if(linha_dest > linha_origem && coluna_dest > coluna_origem) {
+            for(int i = linha_origem + 1, j = coluna_origem + 1; i < linha_dest && j < coluna_dest; i++, j++) {
+                char c = this->get_char(i, j);
+                if(c != ' ') return "bispo nao pula pecas";
+            }
+        } else if(linha_dest < linha_origem && coluna_dest > coluna_origem) {
+            for(int i = linha_origem - 1, j = coluna_origem + 1; i > linha_dest && j < coluna_dest; i--, j++) {
+                char c = this->get_char(i, j);
+                if(c != ' ') return "bispo nao pula pecas";
+            }
+        } else if(linha_dest > linha_origem && coluna_dest < coluna_origem) {
+            for(int i = linha_origem + 1, j = coluna_origem - 1; i < linha_dest && j > coluna_dest; i++, j--) {
+                char c = this->get_char(i, j);
+                if(c != ' ') return "bispo nao pula pecas";
+            }
+        } else if(linha_dest < linha_origem && coluna_dest < coluna_origem) {
+            for(int i = linha_origem - 1, j = coluna_origem - 1; i > linha_dest && j > coluna_dest; i--, j--) {
+                char c = this->get_char(i, j);
+                if(c != ' ') return "bispo nao pula pecas";
+            }
+        }
+
+        return "";
+    };
+
+    switch(peca_selecionada) {
         case 'P':
         case 'p': {
-            bool andou_para_tras = (selecionado == 'P' && linha_dest > linha_origem) || (selecionado == 'p' && linha_origem > linha_dest);
-            if(andou_para_tras) throw Excecao("peao nao anda para tras");
-
-            bool andou_mais_de_uma_casa = diff_no_y > 1 || diff_no_x > 1;
-            if(andou_mais_de_uma_casa) throw Excecao("peao anda apenas uma casa");
-
-            bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
-            bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(selecionado, peca_no_destino);
-            if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao anda na diagonal");
-
-            if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao("peao so captura na diagonal");
-
+            movimentoValidoDoPeaoEDoRei("peao");
             break;
         }
 
         case 'R':
         case 'r': {
-            bool andou_em_mais_de_uma_direcao = diff_no_x != 0 && diff_no_y != 0;
-            if(andou_em_mais_de_uma_direcao) throw Excecao("torre so anda em uma direcao");
-
-            if(diff_no_x != 0) {
-                for(int i = coluna_origem + 1; i < coluna_dest; i++) {
-                    char c = this->get_char(linha_origem, i);
-                    if(c != ' ') throw Excecao("torre nao pula pecas");
-                }
-            } else {
-                for(int i = linha_origem + 1; i < linha_dest; i++) {
-                    char c = this->get_char(i, coluna_origem);
-                    if(c != ' ') throw Excecao("torre nao pula pecas");
-                }
-            }
-
+            std::string err = movimentoValidoDaTorre();
+            if(err != "") throw Excecao(err);
             break;
         }
 
         case 'N':
         case 'n': {
+            bool movimento_valido = (diff_no_x == 1 && diff_no_y == 2) || (diff_no_x == 2 && diff_no_y == 1);
+            if(!movimento_valido) throw Excecao("movimento invalido para o cavalo");
+            
+            bool no_destino_tem_inimigo = ehPecaInimiga(peca_selecionada, peca_no_destino);
+            if(!no_destino_tem_inimigo) throw Excecao("peca no destino nao eh inimigo");
+
             break;
         }
 
         case 'B':
         case 'b': {
-            if(diff_no_x != diff_no_y) throw Excecao("bispo so anda na diagonal");
-
-            if(linha_dest > linha_origem && coluna_dest > coluna_origem) {
-                for(int i = linha_origem + 1, j = coluna_origem + 1; i < linha_dest && j < coluna_dest; i++, j++) {
-                    char c = this->get_char(i, j);
-                    if(c != ' ') throw Excecao("bispo nao pula pecas");
-                }
-            } else if(linha_dest < linha_origem && coluna_dest > coluna_origem) {
-                for(int i = linha_origem - 1, j = coluna_origem + 1; i > linha_dest && j < coluna_dest; i--, j++) {
-                    char c = this->get_char(i, j);
-                    if(c != ' ') throw Excecao("bispo nao pula pecas");
-                }
-            } else if(linha_dest > linha_origem && coluna_dest < coluna_origem) {
-                for(int i = linha_origem + 1, j = coluna_origem - 1; i < linha_dest && j > coluna_dest; i++, j--) {
-                    char c = this->get_char(i, j);
-                    if(c != ' ') throw Excecao("bispo nao pula pecas");
-                }
-            } else if(linha_dest < linha_origem && coluna_dest < coluna_origem) {
-                for(int i = linha_origem - 1, j = coluna_origem - 1; i > linha_dest && j > coluna_dest; i--, j--) {
-                    char c = this->get_char(i, j);
-                    if(c != ' ') throw Excecao("bispo nao pula pecas");
-                }
-            } else throw Excecao("nao deveria cair aqui nunca");
-            
-
+            std::string err = movimentoValidoDoBispo();
+            if(err != "") throw Excecao(err);
             break;
         }
 
         case 'Q':
         case 'q': {
+            std::string err1 = movimentoValidoDaTorre();
+            std::string err2 = movimentoValidoDoBispo();
+            if(err1 != "" && err2 != "") throw Excecao("movimento invalido para a rainha");
+
             break;
         }
 
         case 'K':
         case 'k': {
+            movimentoValidoDoPeaoEDoRei("rei");
             break;
         }
     }
 
     this->set_char(linha_origem, coluna_origem, ' ');
-    this->set_char(linha_dest, coluna_dest, selecionado);
+    this->set_char(linha_dest, coluna_dest, peca_selecionada);
     this->passar_a_vez();
 }
 
