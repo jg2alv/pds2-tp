@@ -5,10 +5,26 @@
 #include <string>
 #include <iostream>
 
+#include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
-
+/**
+ * \class Lig4
+ * 
+ * \brief Classe que representa o jogo Lig4
+ * 
+ * Lig4 é um jogo de tabuleiro jogado por dois jogadores.
+ * O objetivo do jogo é que um jogador coloque no tabuleiro quatro peças
+ * consecutivas de seu simbolo, seja em uma linha, coluna ou diagonal.
+ * O primeiro jogador que completar esse objetivo vence o jogo. Caso todo 
+ * o tabuleiro seja preenchido e nenhum jogador tenha conseguido colocar 
+ * quatro peças consecutivas, os dois jogadores irao empatar e a partida 
+ * termina.
+ * Para jogar,o jogador da vez tera que digitar o numero de uma coluna do 
+ * tabuleiro que deseja colocar sua peca. Caso a coluna nao exista ou esteja 
+ * cheia, o jogador devera digitar outra coluna que seja valida.
+ */
 class Lig4 : public Jogo {
 private:
     int getLinhaTabuleiro(int coluna) const;
@@ -31,6 +47,5 @@ public:
     virtual bool verificarVitoria(Jogador const&) const override;
     virtual bool verificarEmpate() const override;
 };
-
 
 #endif
