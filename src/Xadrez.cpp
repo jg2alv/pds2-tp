@@ -126,20 +126,6 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
         return peca1_eh_maiuscula != peca2_eh_maiuscula;
     };
 
-    auto movimentoValidoDoPeaoEDoRei = [peca_selecionada, linha_dest, linha_origem, diff_no_y, diff_no_x, ehPecaInimiga, peca_no_destino](std::string peca){
-        bool andou_para_tras = (peca_selecionada == 'P' && linha_dest > linha_origem) || (peca_selecionada == 'p' && linha_origem > linha_dest);
-        if(andou_para_tras) throw Excecao(peca + " nao anda para tras");
-
-        bool andou_mais_de_uma_casa = diff_no_x > 1 || diff_no_y > 1;
-        if(andou_mais_de_uma_casa) throw Excecao(peca + " anda apenas uma casa");
-
-        bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
-        bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(peca_selecionada, peca_no_destino);
-        if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao(peca + " nao anda na diagonal");
-
-        if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao(peca + " so captura na diagonal");
-    };
-
     auto movimentoValidoDaTorre = [diff_no_x, diff_no_y, coluna_origem, coluna_dest, this, linha_origem, linha_dest](){
         bool andou_em_mais_de_uma_direcao = diff_no_x != 0 && diff_no_y != 0;
         if(andou_em_mais_de_uma_direcao) return "torre so anda em uma direcao";
@@ -190,7 +176,17 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     switch(peca_selecionada) {
         case 'P':
         case 'p': {
-            movimentoValidoDoPeaoEDoRei("peao");
+            bool andou_para_tras = (peca_selecionada == 'P' && linha_dest > linha_origem) || (peca_selecionada == 'p' && linha_origem > linha_dest);
+            if(andou_para_tras) throw Excecao("peao nao anda para tras");
+
+            bool andou_mais_de_uma_casa = diff_no_x > 1 || diff_no_y > 1;
+            if(andou_mais_de_uma_casa) throw Excecao("peao anda apenas uma casa");
+
+            bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
+            bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(peca_selecionada, peca_no_destino);
+            if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao anda na diagonal");
+
+            if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao("peao so captura na diagonal");
             break;
         }
 
@@ -230,7 +226,7 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
 
         case 'K':
         case 'k': {
-            movimentoValidoDoPeaoEDoRei("rei");
+            
             break;
         }
     }
