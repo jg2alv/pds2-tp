@@ -36,7 +36,7 @@ Sistema::Comando Sistema::identificar_comando(std::string candidato_a_comando) {
     } else if(candidato_a_comando == "?") {
         return Sistema::Comando::Ajuda;
     } else {
-        throw Excecao("comando invalido");
+        throw Excecao("comando invalido (digite ? para ajuda)");
     }
 }
 
@@ -86,7 +86,7 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_repetido = jogador != this->jogadores.end();
     
-    if(jogador_repetido) throw Excecao("jogador repetido");
+    if(jogador_repetido) throw Excecao("jogador repetido (cada jogador tem um apelido unico)");
     
     this->jogadores.push_back(Jogador(apelido, nome));
 }
@@ -107,7 +107,7 @@ void Sistema::removerJogador(std::string apelido) {
     auto jogador = this->acharJogador(apelido);
     bool jogador_inexistente = jogador == this->jogadores.end();
 
-    if(jogador_inexistente) throw Excecao("jogador inexistente");
+    if(jogador_inexistente) throw Excecao("jogador inexistente (jogador com o apelido '" + apelido + "' nao encontrado)");
 
     this->jogadores.erase(jogador);
 }
@@ -135,7 +135,7 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
         std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorApelido);
     else if(base == "N")
         std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
-    else throw Excecao("criterio de ordenacao de jogadores invalido");
+    else throw Excecao("base de ordenacao de jogadores invalido (bases validas: N, para nome; A, para apelido)");
 
     if(this->jogadores.size() == 0) {
         out << "Nao existe jogadores cadastrados no sistema." << std::endl;
@@ -173,7 +173,11 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     bool jogador1_existe = jogador1 != this->jogadores.end();
     bool jogador2_existe = jogador2 != this->jogadores.end();
 
-    if(!jogador1_existe || !jogador2_existe) throw Excecao("jogador nao existe");
+    
+    if(!jogador1_existe || !jogador2_existe) {
+        std::string apelido = jogador1_existe ? apelido2 : apelido1;
+        throw Excecao("jogador '" + apelido + "' nao encontrado");
+    }
 
     std::unique_ptr<Jogo> jogo;
     if (nome_do_jogo == "Lig4") {
@@ -185,7 +189,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
     } else if (nome_do_jogo == "Xadrez") {
         jogo.reset(new Xadrez(*jogador1, *jogador2));
     } else {
-        throw Excecao("jogo nao existe");
+        throw Excecao("jogo nao existe (jogos validos: Lig4, Reversi, JogoDaVelha, Xadrez)");
     }
 
     jogo->imprimirTabuleiro(out);
@@ -232,7 +236,7 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
 void Sistema::carregarArquivo() {
     std::ifstream arquivo(this->banco_de_dados);
     bool arquivo_existe = arquivo.good();
-    if(!arquivo_existe) throw Excecao("falha na abertura do arquivo");
+    if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' nao pode ser aberto");
 
     int numjogadores;
     arquivo >> numjogadores;
