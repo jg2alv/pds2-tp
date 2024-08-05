@@ -22,25 +22,8 @@ using namespace std;
  * \param jogador1 Primeiro jogador.
  * \param jogador2 Segundo jogador.
  */
-
 Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
     Jogo(linhas, colunas, jogador1, jogador2) {}
-
-/**
- * \brief Construtor da classe Lig4
- * 
- * Construtor da classe Lig4, que inicializa a quantidade de 
- * linhas e colunas do tabuleiro, os jogadores da partida e
- * o tabuleiro, chamando o construtor da classe Jogo.
- * 
- * \param linhas Quantidade de linhas.
- * \param colunas Quantidade de colunas.
- * \param jogador1 Primeiro jogador.
- * \param jogador2 Segundo jogador.
- * \param tabuleiro O tabuleiro do jogo.
- */
-Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) :
-    Jogo(linhas,colunas, jogador1, jogador2, tabuleiro) {}
 
 /**
  * \brief Destrutor da classe Lig4

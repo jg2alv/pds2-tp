@@ -36,19 +36,6 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
 }
 
 /**
- * \brief Construtor da classe Xadrez
- * 
- * Construtor da classe Xadrez, que inicializa os jogadores 
- * da partida, a linha e a coluna com tamanho 8, e o tabuleiro,
- * chamando o construtor da classe Jogo.
- * 
- * \param jogador1 Primeiro jogador.
- * \param jogador2 Segundo jogador.
- * \param tabuleiro O tabuleiro do jogo.
- */
-Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
-
-/**
  * \brief Destrutor da classe Xadrez
  * 
  * Destrutor da classe Xadrez. Como nao tem nenhum atributo

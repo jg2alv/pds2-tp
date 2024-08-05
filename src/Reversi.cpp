@@ -40,9 +40,6 @@ Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) 
  * \param tabuleiro Estado inicial do tabuleiro como uma matriz 2D.
  */
 
-Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro) :
-    Jogo(linhas, colunas, jogador1, jogador2, tabuleiro) {}
-
 /**
  * \brief Destrutor da classe Reversi.
  * 

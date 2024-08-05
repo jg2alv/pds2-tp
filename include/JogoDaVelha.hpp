@@ -37,7 +37,6 @@ private:
 
 public:
     JogoDaVelha(Jogador &jogador1, Jogador &jogador2);
-    JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro);
     ~JogoDaVelha();
 
     virtual std::string getNome() const override;

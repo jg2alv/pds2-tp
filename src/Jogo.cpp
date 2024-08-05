@@ -82,33 +82,6 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
 
 /**
-     * \brief Construtor da classe Jogo com um tabuleiro inicial.
-     * 
-     * Este construtor inicializa um jogo com o número de linhas e colunas do tabuleiro, 
-     * com dois jogadores, sendo o jogador 1 representado pelo símbolo X e o jogador 2 sendo representado
-     * pelo símbolo O e um estado inicial específico para o tabuleiro.
-     * 
-     * \param linhas Número de linhas do tabuleiro.
-     * \param colunas Número de colunas do tabuleiro.
-     * \param jogador1 Referência ao primeiro jogador.
-     * \param jogador2 Referência ao segundo jogador.
-     * \param tabuleiro Estado inicial do tabuleiro.
-     */
-
-Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro) :
-    linhas(linhas),
-    colunas(colunas),
-    tabuleiro(tabuleiro),
-    jogo_finalizado(false),
-    jogador1(jogador1),
-    jogador2(jogador2 ),
-    jogador_da_vez(&jogador1),
-    outro_jogador(&jogador2),
-    vencedor(nullptr),
-    perdedor(nullptr),
-    simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
-
-/**
      * \brief Destruidor da classe Jogo.
      * 
      * O destruidor da classe Jogo limpa e libera qualquer recurso alocado pela classe.

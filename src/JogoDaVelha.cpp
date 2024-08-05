@@ -24,20 +24,6 @@ JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
     Jogo(3, 3, jogador1, jogador2) {}
 
 /**
- * \brief Construtor da classe JogoDaVelha
- * 
- * Construtor da classe JogoDaVelha, que inicializa os jogadores 
- * da partida, a linha e a coluna com tamanho 3, e o tabuleiro
- * chamando o construtor da classe Jogo.
- * 
- * \param jogador1 Primeiro jogador.
- * \param jogador2 Segundo jogador.
- * \param tabuleiro O tabuleiro do jogo.
- */
-JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) :
-    Jogo(3, 3, jogador1, jogador2, tabuleiro) {}
-
-/**
  * \brief Destrutor da classe JogoDaVelha
  * 
  * Destrutor da classe JogoDaVelha. Como nao tem nenhum atributo
