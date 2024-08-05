@@ -8,7 +8,7 @@ using namespace std;
 
 class Excecao : public exception {
 private: 
-    string _mensagem; 
+    string mensagem; 
   
 public: 
     Excecao(string mensagem);
