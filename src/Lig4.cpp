@@ -8,6 +8,8 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
+using namespace std;
+
 /**
  * \brief Construtor da classe Lig4
  * 
@@ -37,7 +39,7 @@ Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
  * \param jogador2 Segundo jogador.
  * \param tabuleiro O tabuleiro do jogo.
  */
-Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) :
+Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) :
     Jogo(linhas,colunas, jogador1, jogador2, tabuleiro) {}
 
 /**
@@ -56,7 +58,7 @@ Lig4::~Lig4() {}
  * 
  * \return Uma string "Lig4".
  */
-std::string Lig4::getNome() const {
+string Lig4::getNome() const {
     return "Lig4";
 }
 
@@ -69,21 +71,21 @@ std::string Lig4::getNome() const {
  * 
  * \param out Um stream de saida.
  */
-void Lig4::imprimirTabuleiro(std::ostream& out) const {
+void Lig4::imprimirTabuleiro(ostream& out) const {
     out << "---------Lig4--------\n";
     
     for (int i = 0; i < this->linhas; i++) {
         for (int j = 0; j < this->colunas; j++) {
-            std::cout << "|" << get_char(i, j) << "|";
+            cout << "|" << get_char(i, j) << "|";
         }
-        out << std::endl;
+        out << endl;
     }
 
     for (int i = 1; i <= this->colunas; i++) {
         out << " " << i << " ";
     }
 
-    out << std::endl;
+    out << endl;
 }
 
 /**
@@ -97,10 +99,10 @@ void Lig4::imprimirTabuleiro(std::ostream& out) const {
  * \param possivel_jogada A string da entrada.
  * \return true ou false
  */
-bool Lig4::formatoCorreto(std::string possivel_jogada) const {
-    std::stringstream jogada_stream(possivel_jogada);
+bool Lig4::formatoCorreto(string possivel_jogada) const {
+    stringstream jogada_stream(possivel_jogada);
     int coluna;
-    std::string extra;
+    string extra;
 
     if (!(jogada_stream >> coluna)) {
         return false;
@@ -170,7 +172,7 @@ bool Lig4::jogada_valida(Jogada &jogada) const {
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
  */
-bool Lig4::jogadaValida(std::string possivel_jogada) const {
+bool Lig4::jogadaValida(string possivel_jogada) const {
     if (fimDeJogo()) {
         return false;
     }
@@ -179,7 +181,7 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
         throw Excecao("formato incorreto (formato correto: [coluna])");
     }
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int coluna;
@@ -217,12 +219,12 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
-void Lig4::realizarJogada(std::string possivel_jogada) {
+void Lig4::realizarJogada(string possivel_jogada) {
     if (fimDeJogo()) throw Excecao("jogo ja acabou");
     if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [coluna])");
     
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int coluna;

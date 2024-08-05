@@ -4,6 +4,8 @@
 
 #include "Jogador.hpp"
 
+using namespace std;
+
 /**
  * \brief Struct que armazena os resultados do jogador durante a execução
  * 
@@ -25,7 +27,7 @@ Resultados::Resultados() : Resultados(0, 0, 0) {}
  * \param nome Nome do jogador
  */
 
-Jogador::Jogador(std::string apelido, std::string nome) : _apelido(apelido), _nome(nome) {}
+Jogador::Jogador(string apelido, string nome) : _apelido(apelido), _nome(nome) {}
 
 /**
  * \brief Retorna o apelido do jogador
@@ -34,7 +36,7 @@ Jogador::Jogador(std::string apelido, std::string nome) : _apelido(apelido), _no
  * 
  * \return Apelido do jogador
  */
-std::string Jogador::getApelido() const {
+string Jogador::getApelido() const {
     return this->_apelido;
 }
 
@@ -45,7 +47,7 @@ std::string Jogador::getApelido() const {
  * 
  * \return Nome do jogador
  */
-std::string Jogador::getNome() const {
+string Jogador::getNome() const {
     return this->_nome;
 }
 
@@ -89,7 +91,7 @@ bool Jogador::operator!=(Jogador const& outro) const {
  * \param jogo Nome do jogo a ser consultado
  * \return Resultados do jogador no jogo
  */
-Resultados Jogador::getResultados(std::string jogo) const {
+Resultados Jogador::getResultados(string jogo) const {
     return __pontuacao.at(jogo);
 }
 
@@ -101,7 +103,7 @@ Resultados Jogador::getResultados(std::string jogo) const {
  * \param jogo Nome do jogo a ser definido
  * \param resultados Resultados do jogador no jogo
  */
-void Jogador::setResultados(std::string jogo, Resultados resultados) {
+void Jogador::setResultados(string jogo, Resultados resultados) {
     __pontuacao[jogo] = resultados;
 }
 
@@ -112,7 +114,7 @@ void Jogador::setResultados(std::string jogo, Resultados resultados) {
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
-void Jogador::incrementarVitorias(std::string jogo) {
+void Jogador::incrementarVitorias(string jogo) {
     __pontuacao[jogo].vitorias++;
 }
 
@@ -123,7 +125,7 @@ void Jogador::incrementarVitorias(std::string jogo) {
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
-void Jogador::incrementarDerrotas(std::string jogo) {
+void Jogador::incrementarDerrotas(string jogo) {
     __pontuacao[jogo].derrotas++;
 }
 
@@ -134,7 +136,7 @@ void Jogador::incrementarDerrotas(std::string jogo) {
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
-void Jogador::incrementarEmpates(std::string jogo) {
+void Jogador::incrementarEmpates(string jogo) {
     __pontuacao[jogo].empates++;
 }
 
@@ -157,8 +159,8 @@ int Jogador::getNumeroDeJogos() const {
  * 
  * \return Vetor de jogos cadastrados
  */
-std::vector<std::string> Jogador::getJogosCadastrados() const {
-    std::vector<std::string> jogos;
+vector<string> Jogador::getJogosCadastrados() const {
+    vector<string> jogos;
     for (auto it = __pontuacao.begin(); it != __pontuacao.end(); it++) {
         jogos.push_back(it->first);
     }
@@ -173,16 +175,16 @@ std::vector<std::string> Jogador::getJogosCadastrados() const {
  * 
  * \param out Stream de saída
  */
-void Jogador::imprimirInformacoes(std::ostream& out) const {
-    std::string apelido = this->getApelido();
-    std::string nome = this->getNome();
-    out << apelido << " " << nome << std::endl;
-    std::vector<std::string> jogos = getJogosCadastrados();
+void Jogador::imprimirInformacoes(ostream& out) const {
+    string apelido = this->getApelido();
+    string nome = this->getNome();
+    out << apelido << " " << nome << endl;
+    vector<string> jogos = getJogosCadastrados();
     for (int i = 0; i < getNumeroDeJogos(); i++)
     {
         Resultados resultados = __pontuacao.at(jogos[i]);
         out << jogos[i] << " - " << "V: " << resultados.vitorias << " ";
-        out << "D: " << resultados.derrotas << std::endl;
+        out << "D: " << resultados.derrotas << endl;
     }
 }
 

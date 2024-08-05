@@ -3,6 +3,7 @@
 
 #include "Jogo.hpp"
 
+using namespace std;
 
 char Jogo::get_simbolo(const Jogador& jogador) const {
     return this->simbolos.at(jogador.getApelido());
@@ -17,14 +18,14 @@ void Jogo::set_char(int i, int j, char c) {
 }
 
 void Jogo::passar_a_vez() {
-    std::swap(jogador_da_vez, outro_jogador);
+    swap(jogador_da_vez, outro_jogador);
 }
 
 
 Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     linhas(linhas),
     colunas(colunas),
-    tabuleiro(linhas, std::vector<char>(colunas, ' ')),
+    tabuleiro(linhas, vector<char>(colunas, ' ')),
     jogo_finalizado(false),
     jogador1(jogador1),
     jogador2(jogador2 ),
@@ -34,7 +35,7 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     perdedor(nullptr),
     simbolos{{jogador1.getApelido(), 'X'}, {jogador2.getApelido(), 'O'}} {}
 
-Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro) :
+Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro) :
     linhas(linhas),
     colunas(colunas),
     tabuleiro(tabuleiro),

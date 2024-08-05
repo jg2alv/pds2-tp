@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <sstream>
 
+using namespace std;
+
 /**
  * \brief Construtor da classe Xadrez
  * 
@@ -44,7 +46,7 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
  * \param jogador2 Segundo jogador.
  * \param tabuleiro O tabuleiro do jogo.
  */
-Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
+Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
 
 /**
  * \brief Destrutor da classe Xadrez
@@ -62,7 +64,7 @@ Xadrez::~Xadrez() {}
  * 
  * \return Uma string "Xadrez".
  */
-std::string Xadrez::getNome() const {
+string Xadrez::getNome() const {
     return "Xadrez";
 }
 
@@ -76,19 +78,19 @@ std::string Xadrez::getNome() const {
  * 
  * \param out Um stream de saida.
  */
-void Xadrez::imprimirTabuleiro(std::ostream& out) const {
+void Xadrez::imprimirTabuleiro(ostream& out) const {
     out << "-----------Xadrez-----------\n";
 
     char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-    out << "   1  2  3  4  5  6  7  8 " << std::endl;
+    out << "   1  2  3  4  5  6  7  8 " << endl;
     for (int i = 0; i < this->linhas; i++) {
         out << alpha[i] << " ";
         for (int j = 0; j < this->colunas; j++) {
-            std::cout << "|" << get_char(i, j) << "|";
+            cout << "|" << get_char(i, j) << "|";
         }
-        out << " " << alpha[i] << std::endl;
+        out << " " << alpha[i] << endl;
     }
-    out << "   1  2  3  4  5  6  7  8 " << std::endl;
+    out << "   1  2  3  4  5  6  7  8 " << endl;
 }
 
 /**
@@ -105,8 +107,8 @@ void Xadrez::imprimirTabuleiro(std::ostream& out) const {
  * \param possivel_jogada A string da entrada.
  * \return true ou false
  */
-bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
-    std::stringstream stream(possivel_jogada);
+bool Xadrez::formatoCorreto(string possivel_jogada) const {
+    stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
     int coluna_origem, coluna_dest;
     stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
@@ -139,14 +141,14 @@ bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
  */
-bool Xadrez::jogadaValida(std::string possivel_jogada) const {
+bool Xadrez::jogadaValida(string possivel_jogada) const {
     if(this->fimDeJogo()) return false;
     if(!this->formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
 
     int tam = possivel_jogada.size();
     if(tam != 4) return false;
 
-    std::stringstream stream(possivel_jogada);
+    stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
     int coluna_origem, coluna_dest;
     stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
@@ -157,8 +159,8 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     coluna_dest -= 1;
 
     bool maiuscula;
-    std::string apelido1 = this->jogador1.getApelido();
-    std::string apelido_da_vez = this->jogador_da_vez->getApelido();
+    string apelido1 = this->jogador1.getApelido();
+    string apelido_da_vez = this->jogador_da_vez->getApelido();
 
     if(apelido_da_vez == apelido1) maiuscula = true;
     else maiuscula = false;
@@ -184,11 +186,11 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
-void Xadrez::realizarJogada(std::string possivel_jogada) {
+void Xadrez::realizarJogada(string possivel_jogada) {
     if(this->fimDeJogo()) throw Excecao("jogo ja acabou");
     if(!this->jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
 
-    std::stringstream stream(possivel_jogada);
+    stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
     int coluna_origem, coluna_dest;
     stream >> linha_origem >> coluna_origem >> linha_dest >> coluna_dest;
@@ -201,8 +203,8 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     char peca_selecionada = this->get_char(linha_origem, coluna_origem);
     char peca_no_destino = this->get_char(linha_dest, coluna_dest);
 
-    int diff_no_x = std::abs(coluna_origem - coluna_dest);
-    int diff_no_y = std::abs(linha_origem - linha_dest);
+    int diff_no_x = abs(coluna_origem - coluna_dest);
+    int diff_no_y = abs(linha_origem - linha_dest);
 
     auto ehPecaInimiga = [](char peca1, char peca2){
         if(peca1 == ' ' || peca2 == ' ') return false;
@@ -283,7 +285,7 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
 
         case 'R':
         case 'r': {
-            std::string err = movimentoValidoDaTorre();
+            string err = movimentoValidoDaTorre();
             if(err != "") throw Excecao(err);
             break;
         }
@@ -302,15 +304,15 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
 
         case 'B':
         case 'b': {
-            std::string err = movimentoValidoDoBispo();
+            string err = movimentoValidoDoBispo();
             if(err != "") throw Excecao(err);
             break;
         }
 
         case 'Q':
         case 'q': {
-            std::string err1 = movimentoValidoDaTorre();
-            std::string err2 = movimentoValidoDoBispo();
+            string err1 = movimentoValidoDaTorre();
+            string err2 = movimentoValidoDoBispo();
             if(err1 != "" && err2 != "") throw Excecao("movimento invalido para a rainha");
 
             break;

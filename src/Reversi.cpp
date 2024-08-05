@@ -7,18 +7,19 @@
 #include <sstream>
 #include <string>
 
+using namespace std;
 
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
     Jogo(linhas, colunas, jogador1, jogador2) {
     reiniciarTabuleiro();
 }
 
-Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro) :
+Reversi::Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro) :
     Jogo(linhas, colunas, jogador1, jogador2, tabuleiro) {}
 
 Reversi::~Reversi() {}
 
-std::string Reversi::getNome() const {
+string Reversi::getNome() const {
     return "Reversi";
 }
 
@@ -61,10 +62,10 @@ bool Reversi::jogada_valida(const Jogada& jogada, char simbolo) const {
     return false;
 }
 
-bool Reversi::formatoCorreto(std::string possivel_jogada) const {
-    std::stringstream jogada_stream(possivel_jogada);
+bool Reversi::formatoCorreto(string possivel_jogada) const {
+    stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
-    std::string extra;
+    string extra;
 
     if (!(jogada_stream >> linha)) {
         return false;
@@ -77,7 +78,7 @@ bool Reversi::formatoCorreto(std::string possivel_jogada) const {
     return !(jogada_stream >> extra);
 }
 
-bool Reversi::jogadaValida(std::string possivel_jogada) const {
+bool Reversi::jogadaValida(string possivel_jogada) const {
     if (fimDeJogo()) {
         return false; 
     }
@@ -86,7 +87,7 @@ bool Reversi::jogadaValida(std::string possivel_jogada) const {
         throw Excecao("formato incorreto (formato correto: apenas [linha] [coluna])");
     }
 
-    std::stringstream jogada_stream(possivel_jogada);
+    stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
     jogada_stream >> linha >> coluna;
     linha--;
@@ -95,7 +96,7 @@ bool Reversi::jogadaValida(std::string possivel_jogada) const {
     return jogada_valida(Jogada(linha, coluna), get_simbolo(*jogador_da_vez));
 }
 
-void Reversi::realizarJogada(std::string possivel_jogada) {
+void Reversi::realizarJogada(string possivel_jogada) {
     if (fimDeJogo()) {
         throw Excecao("jogo ja acabou");
     }
@@ -104,7 +105,7 @@ void Reversi::realizarJogada(std::string possivel_jogada) {
         throw Excecao("formato incorreto (formato correto: apenas [linha] [coluna])");
     }
 
-    std::stringstream jogada_stream(possivel_jogada);
+    stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
     jogada_stream >> linha >> coluna;
     linha--;
@@ -211,17 +212,17 @@ bool Reversi::podeJogar(const Jogador& jogador) const {
     return false;
 }
 
-void Reversi::imprimirTabuleiro(std::ostream& out) const {
+void Reversi::imprimirTabuleiro(ostream& out) const {
     out << "---------Reversi---------\n";
     out << "  ";
     for (int j = 0; j < colunas; j++) {
-        std::cout << " " << j + 1 << " ";
+        cout << " " << j + 1 << " ";
     }
     out << "\n";
     for (int i = 0; i < linhas; i++) {
-        std::cout << i + 1 << " "; 
+        cout << i + 1 << " "; 
         for (int j = 0; j < colunas; j++) {
-            std::cout << "|" << get_char(i, j) << "|";
+            cout << "|" << get_char(i, j) << "|";
         }
         out << "\n";
     }

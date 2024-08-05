@@ -6,9 +6,7 @@
 #include "Sistema.hpp"
 #include "Jogo.hpp"
 
-
 using namespace std;
-
 
 int main() {
     try {

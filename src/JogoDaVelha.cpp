@@ -8,6 +8,8 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
+using namespace std;
+
 /**
  * \brief Construtor da classe JogoDaVelha
  * 
@@ -32,7 +34,7 @@ JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
  * \param jogador2 Segundo jogador.
  * \param tabuleiro O tabuleiro do jogo.
  */
-JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) :
+JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) :
     Jogo(3, 3, jogador1, jogador2, tabuleiro) {}
 
 /**
@@ -51,7 +53,7 @@ JogoDaVelha::~JogoDaVelha() {}
  * 
  * \return Uma string "JogoDaVelha".
  */
-std::string JogoDaVelha::getNome() const {
+string JogoDaVelha::getNome() const {
     return "JogoDaVelha";
 }
 
@@ -65,20 +67,20 @@ std::string JogoDaVelha::getNome() const {
  * 
  * \param out Um stream de saida.
  */
-void JogoDaVelha::imprimirTabuleiro(std::ostream& out) const {
+void JogoDaVelha::imprimirTabuleiro(ostream& out) const {
     out << "--Jogo da Velha--\n    ";
 
     for (int i = 1; i <= 3; i++) {
         out << " " << i << " ";
     }
-    out << std::endl;
+    out << endl;
   
     for (int i = 0; i < 3; i++) {
         out << "  " << i + 1 << " ";
         for (int j = 0; j < 3; j++) {
             out << "|" << get_char(i, j) << "|";
     }
-        out << std::endl;
+        out << endl;
   }
 }
 
@@ -93,10 +95,10 @@ void JogoDaVelha::imprimirTabuleiro(std::ostream& out) const {
  * \param possivel_jogada A string da entrada.
  * \return true ou false
  */
-bool JogoDaVelha::formatoCorreto(std::string possivel_jogada) const {
-    std::stringstream jogada_stream(possivel_jogada);
+bool JogoDaVelha::formatoCorreto(string possivel_jogada) const {
+    stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
-    std::string extra;
+    string extra;
 
     if (!(jogada_stream >> linha)) {
         return false;
@@ -146,14 +148,14 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
  */
-bool JogoDaVelha::jogadaValida(std::string possivel_jogada) const {
+bool JogoDaVelha::jogadaValida(string possivel_jogada) const {
     if (fimDeJogo()) {
         return false;
     }
 
     if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int linha, coluna;
@@ -191,11 +193,11 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
-void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
+void JogoDaVelha::realizarJogada(string possivel_jogada) {
     if (fimDeJogo()) throw Excecao("jogo ja acabou");
     if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int linha, coluna;
