@@ -266,8 +266,11 @@ void Xadrez::realizarJogada(string possivel_jogada) {
             bool andou_para_tras = (peca_selecionada == 'P' && linha_dest > linha_origem) || (peca_selecionada == 'p' && linha_origem > linha_dest);
             if(andou_para_tras) throw Excecao("peao nao anda para tras");
 
+            bool peao_eh_branco = linha_origem > linha_dest;
             bool andou_mais_de_uma_casa = diff_no_x > 1 || diff_no_y > 1;
-            if(andou_mais_de_uma_casa) throw Excecao("peao anda apenas uma casa");
+            bool primeiro_movimento_do_peao = peao_eh_branco ? (linha_origem == 6) : (linha_origem == 1);
+
+            if(andou_mais_de_uma_casa && !primeiro_movimento_do_peao) throw Excecao("peao anda apenas uma casa");
 
             bool andou_na_diagonal = diff_no_y == 1 && diff_no_x == 1;
             bool tem_peca_inimiga_na_diagonal = ehPecaInimiga(peca_selecionada, peca_no_destino);
@@ -275,9 +278,12 @@ void Xadrez::realizarJogada(string possivel_jogada) {
 
             if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao("peao so captura na diagonal");
 
-            if(linha_origem > linha_dest && linha_dest == 0)
+            bool peao_branco_vai_pro_final = peao_eh_branco && linha_dest == 0;
+            bool peao_preto_vai_pro_final = !peao_eh_branco && linha_dest == 7;
+
+            if(peao_branco_vai_pro_final)
                 peca_selecionada = 'Q';
-            else if(linha_origem < linha_dest && linha_dest == 7)
+            else if(peao_preto_vai_pro_final)
                 peca_selecionada = 'q';
             
             break;
