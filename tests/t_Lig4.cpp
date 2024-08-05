@@ -53,7 +53,7 @@ TEST_CASE("Testando Lig4") {
             CHECK_FALSE(lig4->verificarVitoria(alice));
             CHECK_FALSE(lig4->verificarVitoria(bruno));
 
-            REQUIRE_NOTHROW(lig4->realizarJogada(jogada));
+            REQUIRE_NOTHROW_MESSAGE(lig4->realizarJogada(jogada), "jogada: ", jogada);
         }
 
         stringstream tabuleiro_impresso;

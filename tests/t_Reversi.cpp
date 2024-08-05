@@ -49,7 +49,7 @@ TEST_CASE("Testando Reversi") {
         }
     }
 
-    SUBCASE("Testando partida do JogoDaVelha") {
+    SUBCASE("Testando partida do Reversi") {
         ifstream arquivo_de_jogadas("./test_data/jogadas_reversi1.txt");
         stringstream jogadas_stream;
         jogadas_stream << arquivo_de_jogadas.rdbuf();
@@ -58,7 +58,7 @@ TEST_CASE("Testando Reversi") {
             CHECK_FALSE(reversi->verificarVitoria(alice));
             CHECK_FALSE(reversi->verificarVitoria(bruno));
 
-            REQUIRE_NOTHROW(reversi->realizarJogada(jogada));
+            REQUIRE_NOTHROW_MESSAGE(reversi->realizarJogada(jogada), "jogada: ", jogada);
         }
 
         stringstream tabuleiro_impresso;
