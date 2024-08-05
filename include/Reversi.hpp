@@ -7,6 +7,25 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
+/**
+ * \class Reversi
+ * 
+ * \brief Classe que representa o jogo Reversi
+ * 
+ * Reversi é um jogo de tabuleiro jogado por dois jogadores. O objetivo do jogo é 
+ * obter o maior número possível de peças do seu símbolo no tabuleiro ao final da 
+ * partida. Os jogadores alternam turnos colocando peças em células vazias, com a 
+ * condição de que a peça colocada deve "capturar" peças adversárias que estejam 
+ * alinhadas entre a nova peça e outras peças do mesmo símbolo. A captura é feita 
+ * virando as peças adversárias para o símbolo do jogador que fez a jogada. O jogo 
+ * termina quando o tabuleiro está completamente preenchido ou quando nenhum dos 
+ * jogadores pode fazer uma jogada válida. O jogador com o maior número de peças 
+ * de seu símbolo no tabuleiro no final da partida é o vencedor.
+ * A classe Reversi é responsável por gerenciar uma partida do jogo Reversi. Ela 
+ * possui métodos para imprimir o tabuleiro do jogo, verificar se uma jogada é 
+ * válida, realizar uma jogada, verificar se houve vitória ou empate e analisar o formato de entrada.
+ * 
+ */
 
 class Reversi : public Jogo {
 private:
