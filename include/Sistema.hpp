@@ -8,8 +8,6 @@
 
 #include "Jogador.hpp"
 
-using namespace std;
-
 /**
  * \class Sistema
  * 
@@ -25,9 +23,9 @@ using namespace std;
 */
 class Sistema {
     private:
-        vector<Jogador> jogadores;
+        std::vector<Jogador> jogadores;
         bool sistema_finalizado = false;
-        string banco_de_dados;
+        std::string banco_de_dados;
         bool salvar_ao_sair;
 
     public:
@@ -39,18 +37,18 @@ class Sistema {
             FinalizarSistema,
             Ajuda
         };
-        static Sistema::Comando identificar_comando(string candidato_a_comando);
+        static Sistema::Comando identificar_comando(std::string candidato_a_comando);
         bool isSistemaFinalizado();
-        vector<Jogador>::iterator acharJogador(string apelido);
-        void cadastrarJogador(string nome, string apelido);
-        void removerJogador(string apelido);
-        void listarJogadores(string base, ostream& out);
+        std::vector<Jogador>::iterator acharJogador(std::string apelido);
+        void cadastrarJogador(std::string nome, std::string apelido);
+        void removerJogador(std::string apelido);
+        void listarJogadores(std::string base, std::ostream& out);
         void finalizarSistema();
-        void executarPartida(string nome_do_jogo, string apelido1, string apelido2, istream& in, ostream& out);
+        void executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out);
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();
-        Sistema(string banco_de_dados, bool salvar_ao_sair = true);
+        Sistema(std::string banco_de_dados, bool salvar_ao_sair = true);
         ~Sistema();
 };
 

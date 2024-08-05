@@ -6,8 +6,6 @@
 #include <map>
 #include <vector>
 
-using namespace std;
-
 /**
  * \brief struct que armazena os resultados
  * 
@@ -31,26 +29,26 @@ struct Resultados {
  */
 class Jogador {
 private:
-    string _apelido;
-    string _nome;
-    map<string, Resultados> __pontuacao;
+    std::string _apelido;
+    std::string _nome;
+    std::map<std::string, Resultados> __pontuacao;
 
 public:
-    Jogador(string apelido, string nome);
-    string getApelido() const;
-    string getNome() const;
+    Jogador(std::string apelido, std::string nome);
+    std::string getApelido() const;
+    std::string getNome() const;
 
     bool operator==(Jogador const& outro) const;
     bool operator!=(Jogador const& outro) const;
 
-    Resultados getResultados(string jogo) const;
-    void setResultados(string jogo, Resultados resultados);
-    void incrementarVitorias(string jogo);
-    void incrementarDerrotas(string jogo);
-    void incrementarEmpates(string jogo);
+    Resultados getResultados(std::string jogo) const;
+    void setResultados(std::string jogo, Resultados resultados);
+    void incrementarVitorias(std::string jogo);
+    void incrementarDerrotas(std::string jogo);
+    void incrementarEmpates(std::string jogo);
     int getNumeroDeJogos() const;
-    vector<string> getJogosCadastrados() const;
-    void imprimirInformacoes(ostream& out) const;
+    std::vector<std::string> getJogosCadastrados() const;
+    void imprimirInformacoes(std::ostream& out) const;
 };
 
 #endif
