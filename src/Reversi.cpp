@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 
+using namespace std;
 /**
  * \brief Construtor da classe Reversi
  * 
@@ -20,7 +21,6 @@
  * \param jogador1 Referência ao primeiro jogador.
  * \param jogador2 Referência ao segundo jogador.
  */
-using namespace std;
 
 Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
     Jogo(linhas, colunas, jogador1, jogador2) {
