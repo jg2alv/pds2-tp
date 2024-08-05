@@ -9,6 +9,17 @@
 #include <algorithm>
 #include <sstream>
 
+/**
+ * \brief Construtor da classe Xadrez
+ * 
+ * Construtor da classe Xadrez, que inicializa os jogadores
+ * da partida, a linha e a coluna do tabuleiro com tamanho
+ * 8, chamando o construtor da classe Jogo, e coloca os peoes
+ * de cada jogador na posicao inicial do jogo.
+ * 
+ * \param jogador1 Primeiro jogador.
+ * \param jogador2 Segundo jogador.
+ */
 Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) {
     char pecas[] = { 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' };
 
@@ -22,14 +33,49 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
     }
 }
 
+/**
+ * \brief Construtor da classe Xadrez
+ * 
+ * Construtor da classe Xadrez, que inicializa os jogadores 
+ * da partida, a linha e a coluna com tamanho 8, e o tabuleiro,
+ * chamando o construtor da classe Jogo.
+ * 
+ * \param jogador1 Primeiro jogador.
+ * \param jogador2 Segundo jogador.
+ * \param tabuleiro O tabuleiro do jogo.
+ */
 Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) : Jogo(8, 8, jogador1, jogador2, tabuleiro) {}
 
+/**
+ * \brief Destrutor da classe Xadrez
+ * 
+ * Destrutor da classe Xadrez. Como nao tem nenhum atributo
+ * alocado dinamicamente, nao é preciso desalocar nenhuma
+ * memoria manualmente.
+ */
 Xadrez::~Xadrez() {}
 
+/**
+ * \brief Retorna uma string do nome do jogo
+ *
+ * Essa funcao retorna o nome do jogo, no caso "Xadrez".
+ * 
+ * \return Uma string "Xadrez".
+ */
 std::string Xadrez::getNome() const {
     return "Xadrez";
 }
 
+/**
+ * \brief Imprime o tabuleiro do jogo
+ *
+ * Essa funcao recebe um stream de saida e imprime, nesse
+ * stream, o tabuleiro do jogo, com uma cabeçalho escrito
+ * "Xadrez" e indicando os indices de cada coluna e as 
+ * letras de cada linha.
+ * 
+ * \param out Um stream de saida.
+ */
 void Xadrez::imprimirTabuleiro(std::ostream& out) const {
     out << "-----------Xadrez-----------\n";
 
@@ -45,6 +91,20 @@ void Xadrez::imprimirTabuleiro(std::ostream& out) const {
     out << "   1  2  3  4  5  6  7  8 " << std::endl;
 }
 
+/**
+ * \brief Analisa o formato da entrada recebida
+ *
+ * Essa funcao recebe como parametro uma string da entrada lida 
+ * e analisa se existe exatamente uma letra e um numero para uma
+ * posicao inicial da peca e para uma posicao final. É lido da 
+ * entrada essas letra e numeros, transformado as letras em numeros
+ * da linha do tabuleiro e, então, é verificado se as coordenadas
+ * recebidas estao dentro do limite do tabuleiro. Se isso for atendido,
+ * é retornado verdadeiro e, caso contrario, é retornado falso.
+ * 
+ * \param possivel_jogada A string da entrada.
+ * \return true ou false
+ */
 bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
     std::stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
@@ -66,6 +126,19 @@ bool Xadrez::formatoCorreto(std::string possivel_jogada) const {
     return true;
 }
 
+/**
+ * \brief Verifica se a jogada é valida
+ *
+ * Essa funcao recebe como parametro uma string de uma possivel
+ * jogada. A funcao verifica se é fim de jogo e retorna falso se
+ * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
+ * o formato da possivel jogada esta correto e lanca uma excecao 
+ * caso nao tenha formato correto. É lido da possivel jogada as 
+ * coordenadas da posicao inicial da peca e da posicao final.
+ * 
+ * \param possivel_jogada Uma string com a entrada lida.
+ * \return true ou false
+ */
 bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     if(this->fimDeJogo()) return false;
     if(!this->formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
@@ -99,6 +172,18 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     return true;
 }
 
+/**
+ * \brief Realiza uma jogada
+ *
+ * Essa funcao recebe como parametro uma string de uma possivel
+ * jogada. A funcao verifica se é fim de jogo e lanca uma excecao
+ * se for fim de jogo. Tambem verifica se a jogada é valida e 
+ * lanca uma excecao se nao for valida. Se nao for fim de jogo e 
+ * a jogada for valida, é lido da possivel jogada as coordenadas 
+ * da posicao inicial da peca e da posicao final.
+ * 
+ * \param possivel_jogada Uma string com a entrada lida.
+ */
 void Xadrez::realizarJogada(std::string possivel_jogada) {
     if(this->fimDeJogo()) throw Excecao("jogo ja acabou");
     if(!this->jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
@@ -245,6 +330,18 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
     this->passar_a_vez();
 }
 
+/**
+ * \brief Verifica a vitoria de um jogador
+ *
+ * Essa funcao recebe como parametro um jogador e verifica se
+ * o jogador adversario ainda tem a peca do rei no tabuleiro.
+ * Se isso for atendido, o jogador nao venceu a partida e é
+ * retornado falso e, caso nao for encontrado o rei do outro
+ * jogador, ele venceu a partida e é retornado verdadeiro.
+ * 
+ * \param jogador Um jogador da partida.
+ * \return true ou false
+ */
 bool Xadrez::verificarVitoria(Jogador const& jogador) const {
     // jogador1 eh branco: rei eh K
     // jogador2 eh preto: rei eh k
@@ -266,7 +363,14 @@ bool Xadrez::verificarVitoria(Jogador const& jogador) const {
     return true;
 }
 
+/**
+ * \brief Verifica o empate do jogo
+ *
+ * Essa funcao sempre retorna falso, pois, no Xadrez,
+ * nao existe empate.
+ * 
+ * \return false
+ */
 bool Xadrez::verificarEmpate() const {
     return false;
 }
-
