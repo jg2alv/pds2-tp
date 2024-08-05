@@ -6,6 +6,10 @@
 #include <map>
 #include <vector>
 
+/**
+ * \brief struct que armazena os resultados
+ * 
+ */
 struct Resultados {
     int vitorias;
     int derrotas;
@@ -15,6 +19,13 @@ struct Resultados {
     Resultados();
 };
 
+/**
+ * \brief Classe Jogador que controla os participantes dos jogos
+ * 
+ * Classe que possui apelido, nome, e um mapa que relaciona os Jogos e seus Resultados
+ * para determinado jogador. Também é usada para controlar jogadores dentro de uma partida
+ * 
+ */
 class Jogador {
 private:
     std::string _apelido;
