@@ -203,9 +203,19 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
             std::stringstream jogada_stream(possivel_jogada);
             std::string comando;
             jogada_stream >> comando;
-            if (comando == "desisto") {
-                jogo->efetuarDesistencia();
-                break;
+            
+            std::string extra;
+            bool linha_acaba_depois_do_comando = (jogada_stream >> extra).fail();
+            if (linha_acaba_depois_do_comando) {
+                if (comando == "desisto") {
+                    jogo->efetuarDesistencia();
+                    break;
+                } else if (comando == "cancela") {
+                    jogo->finalizarJogo();
+                    break;
+                } else {
+                    jogo->realizarJogada(possivel_jogada);
+                }
             } else {
                 jogo->realizarJogada(possivel_jogada);
             }
