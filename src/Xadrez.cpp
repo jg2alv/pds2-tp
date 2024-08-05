@@ -187,6 +187,12 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
             if(andou_na_diagonal && !tem_peca_inimiga_na_diagonal) throw Excecao("peao nao anda na diagonal");
 
             if(!andou_na_diagonal && peca_no_destino != ' ') throw Excecao("peao so captura na diagonal");
+
+            if(linha_origem > linha_dest && linha_dest == 0)
+                peca_selecionada = 'Q';
+            else if(linha_origem < linha_dest && linha_dest == 7)
+                peca_selecionada = 'q';
+            
             break;
         }
 
