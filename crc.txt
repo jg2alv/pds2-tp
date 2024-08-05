@@ -1,0 +1,82 @@
+classe Excecao:
+	Responsabilidades:
+		Saber uma mensagem de erro.
+	Colaboradores:
+		Nenhum.
+
+classe Jogada:
+	Responsabilidades:
+		Saber um número correspondente à linha e outro à coluna.
+	Colaboradores:
+		Nenhum.
+
+classe Jogador:
+	Responsabilidades:
+		Saber seu nome e apelido.
+		Saber quantos jogos diferentes já jogou.
+		Saber quais os nomes dos jogos que já jogou.
+		Saber quantas vezes venceu, perdeu e empatou cada jogo.
+		Fazer a impressão das informações a respeito de si mesmo.
+	Colaboradores:
+		Resultados.
+
+classe Jogo:
+	Responsabilidades:
+		Saber seu nome.
+		Saber o estado do tabuleiro.
+		Saber quem são os jogadores.
+		Saber se a partida já foi finalizada.
+		Saber qual jogador tem a vez.
+		Saber qual jogador venceu após o fim da partida.
+		Saber se um possível jogada está formata corretamente.
+		Saber se uma possível jogada é válida.
+		Fazer a contabilização de uma jogada válida.
+		Fazer a verificação de um empate.
+		Faber a verificação de uma vitória para determinado jogador.
+		Fazer a verificação de fim de jogo.
+		Fazer a atualização dos dados dos jogadores e finalizar a partida.
+	Colaboradores:
+		Jogador.
+		Excecao.
+
+
+classe Reversi (subclasse de Jogo):
+	Responsabilidades:
+		Saber se um determinado jogador tem movimento disponíveis.
+		Derivadas.
+	Colaboradores:
+		Jogada.
+		Derivadas.
+
+classe Lig4 (subclasse de Jogo):
+	Responsabilidades:
+		Derivadas.
+	Colaboradores:
+		Derivadas.
+
+classe JogoDaVelha (subclasse de Jogo):
+	Responsabilidades:
+		Derivadas.
+	Colaboradores:
+		Derivadas.
+
+classe Sistema:
+	Responsabilidades:
+		Saber se já foi finalizado.
+		Saber quais são os jogadores cadastrados.
+		Saber em que arquivo ficam guardados os dados dos jogadores.
+		Fazer a leitura dos dados do jogadores no arquivo.
+		Fazer o cadastro de um jogador.
+		Fazer o remoção do cadastro de um jogador.
+		Fazer a impressão dos dados dos jogadores cadastrados.
+		Fazer a execução uma partida de determinado jogo até o fim.
+		Fazer a atualização dos dados dos jogadores no arquivo.
+		Fazer sua própria finalização.
+	Colaboradores:
+		Jogo.
+		Reversi.
+		Lig4.
+		JogoDaVelha.
+		Excecao.
+
+

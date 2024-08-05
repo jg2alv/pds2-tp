@@ -31,7 +31,7 @@ std::string Xadrez::getNome() const {
 }
 
 void Xadrez::imprimirTabuleiro(std::ostream& out) const {
-    out << "---------Xadrez---------\n";
+    out << "-----------Xadrez-----------\n";
 
     char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
     out << "   1  2  3  4  5  6  7  8 " << std::endl;
@@ -93,8 +93,9 @@ bool Xadrez::jogadaValida(std::string possivel_jogada) const {
     char selecionado = this->get_char(linha_origem, coluna_origem);
     bool selecionadoEhMaiusculo = toupper(selecionado) == selecionado;
     bool charSelecionadoEhDoJogador = selecionadoEhMaiusculo == maiuscula;
+    bool posicao_nao_muda = linha_origem == linha_dest && coluna_origem == coluna_dest;
  
-    if(!charSelecionadoEhDoJogador || selecionado == ' ') return false;
+    if(!charSelecionadoEhDoJogador || selecionado == ' ' || posicao_nao_muda) return false;
     return true;
 }
 
@@ -151,12 +152,12 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
             if(diff_no_x != 0) {
                 for(int i = coluna_origem + 1; i < coluna_dest; i++) {
                     char c = this->get_char(linha_origem, i);
-                    if(c != ' ') throw Excecao("torre nao pode pular pecas-1");
+                    if(c != ' ') throw Excecao("torre nao pula pecas");
                 }
             } else {
                 for(int i = linha_origem + 1; i < linha_dest; i++) {
                     char c = this->get_char(i, coluna_origem);
-                    if(c != ' ') throw Excecao("torre nao pode pular pecas-2");
+                    if(c != ' ') throw Excecao("torre nao pula pecas");
                 }
             }
 
@@ -170,6 +171,31 @@ void Xadrez::realizarJogada(std::string possivel_jogada) {
 
         case 'B':
         case 'b': {
+            if(diff_no_x != diff_no_y) throw Excecao("bispo so anda na diagonal");
+
+            if(linha_dest > linha_origem && coluna_dest > coluna_origem) {
+                for(int i = linha_origem + 1, j = coluna_origem + 1; i < linha_dest && j < coluna_dest; i++, j++) {
+                    char c = this->get_char(i, j);
+                    if(c != ' ') throw Excecao("bispo nao pula pecas");
+                }
+            } else if(linha_dest < linha_origem && coluna_dest > coluna_origem) {
+                for(int i = linha_origem - 1, j = coluna_origem + 1; i > linha_dest && j < coluna_dest; i--, j++) {
+                    char c = this->get_char(i, j);
+                    if(c != ' ') throw Excecao("bispo nao pula pecas");
+                }
+            } else if(linha_dest > linha_origem && coluna_dest < coluna_origem) {
+                for(int i = linha_origem + 1, j = coluna_origem - 1; i < linha_dest && j > coluna_dest; i++, j--) {
+                    char c = this->get_char(i, j);
+                    if(c != ' ') throw Excecao("bispo nao pula pecas");
+                }
+            } else if(linha_dest < linha_origem && coluna_dest < coluna_origem) {
+                for(int i = linha_origem - 1, j = coluna_origem - 1; i > linha_dest && j > coluna_dest; i--, j--) {
+                    char c = this->get_char(i, j);
+                    if(c != ' ') throw Excecao("bispo nao pula pecas");
+                }
+            } else throw Excecao("nao deveria cair aqui nunca");
+            
+
             break;
         }
 
