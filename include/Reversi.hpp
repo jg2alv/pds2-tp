@@ -26,8 +26,6 @@
  * válida, realizar uma jogada, verificar se houve vitória ou empate e analisar o formato de entrada.
  * 
  */
-using namespace std;
-
 class Reversi : public Jogo {
 private:
     bool dentroDosLimites(const Jogada& jogada) const;
