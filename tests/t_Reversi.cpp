@@ -27,7 +27,7 @@ TEST_CASE("Testando Reversi") {
             REQUIRE_THROWS(reversi->realizarJogada("4"));
             REQUIRE_THROWS(reversi->realizarJogada("3 3"));
             REQUIRE_NOTHROW(reversi->realizarJogada("3 4"));
-        };
+        }
 
         SUBCASE("Testando jogadaValida do Reversi") {
             CHECK_THROWS(reversi->jogadaValida("teste"));

@@ -25,7 +25,7 @@ TEST_CASE("Testando JogoDaVelha") {
             REQUIRE_THROWS(jogo_da_velha->realizarJogada("1"));
             REQUIRE_THROWS(jogo_da_velha->realizarJogada("4 4"));
             REQUIRE_NOTHROW(jogo_da_velha->realizarJogada("1 1"));
-        };
+        }
         SUBCASE("Testando jogadaValida do JogoDaVelha") {
             CHECK_THROWS(jogo_da_velha->jogadaValida("teste"));
             CHECK_THROWS(jogo_da_velha->jogadaValida("1 1 1"));
