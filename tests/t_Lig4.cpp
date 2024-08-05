@@ -56,7 +56,8 @@ TEST_CASE("Testando Lig4") {
             REQUIRE_NOTHROW(lig4->realizarJogada(jogada));
         }
 
-        lig4->imprimirTabuleiro(cout);
+        stringstream tabuleiro_impresso;
+        INFO("tabuleiro impresso: ", tabuleiro_impresso);
         CHECK_FALSE(lig4->verificarEmpate());
         CHECK_FALSE(lig4->verificarVitoria(alice));
         CHECK(lig4->verificarVitoria(bruno));

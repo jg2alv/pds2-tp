@@ -59,6 +59,8 @@ TEST_CASE("Testando JogoDaVelha") {
             REQUIRE_NOTHROW(jogo_da_velha->realizarJogada(jogada));
         }
 
+        stringstream tabuleiro_impresso;
+        INFO("tabuleiro impresso: ", tabuleiro_impresso);
         CHECK_FALSE(jogo_da_velha->verificarEmpate());
         CHECK(jogo_da_velha->verificarVitoria(alice));
         CHECK_FALSE(jogo_da_velha->verificarVitoria(bruno));
