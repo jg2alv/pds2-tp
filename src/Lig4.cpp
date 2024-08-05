@@ -133,18 +133,26 @@ int Lig4::getLinhaTabuleiro(int coluna) const {
  * \brief Verifica se a jogada é valida
  *
  * Essa funcao recebe como parametro uma jogada e verifica
- * se a coluna e a linha dessa jogada estao dentro dos limites
- * do tabuleiro. Se isso for atendido, retorna verdadeiro.
- * Caso contrário, retorna falso.
+ * se a coluna esta dentro dos limites do tabuleiro. Se isso 
+ * for atendido, é mudada a linha da jogada com a funcao 
+ * 'getLinhaTabuleiro' e entao e verificado o valor da linha.
+ * Se foir diferente de -1, ou seja, a coluna nao esta cheia,
+ * retorna verdadeiro e, caso contrario, retorna falso.
  * 
  * \param jogada Uma jogada lida.
  * \return True ou false.
  */
-bool Lig4::jogada_valida(const Jogada &jogada) const {
+bool Lig4::jogada_valida(Jogada &jogada) const {
     int coluna = jogada.get_coluna();
-    int linha = jogada.get_linha();
 
-    return ((coluna >= 0 && coluna < this->colunas) && linha != -1);
+    if(!(coluna >= 0 && coluna < this->colunas))
+        return false;
+
+    else {
+        jogada.set_linha(getLinhaTabuleiro(coluna));
+        int linha = jogada.get_linha();
+        return (linha != -1);
+    }
 }
 
 /**
@@ -155,9 +163,9 @@ bool Lig4::jogada_valida(const Jogada &jogada) const {
  * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
  * o formato da possivel jogada esta correto e lanca uma excecao 
  * caso nao tenha formato correto. Por fim, é criada uma jogada 
- * com a linha e coluna lida da entrada e chamada a funcao 
- * 'jogada_valida', retornando verdadeiro se a jogada for valida 
- * ou falso, caso contrario.
+ * com a coluna lida da entrada e chamada a funcao 'jogada_valida', 
+ * retornando verdadeiro se a jogada for valida ou falso, caso 
+ * contrario.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return True ou false.
@@ -178,7 +186,7 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
     in >> coluna;
     coluna--;
 
-    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
+    Jogada jogada(coluna);
     return jogada_valida(jogada);
 }
 
@@ -202,8 +210,8 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
  * jogada. A funcao verifica se é fim de jogo e lanca uma excecao
  * se for fim de jogo. Tambem verifica se o formato da possivel 
  * jogada esta correto e lanca uma excecao caso nao tenha formato
- * correto. É criada uma jogada com a linha e coluna lida da entrada 
- * e verificado se a jogada é valida e, caso não seja, é lançada uma
+ * correto. É criada uma jogada com a coluna lida da entrada e 
+ * verificado se a jogada é valida e, caso não seja, é lançada uma
  * exceçao. Se nao for fim de jogo, o formato for correto e a jogada
  * for valida, entao é realizada a jogada e é trocado o jogador da vez.
  * 
@@ -225,13 +233,12 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     in >> coluna;
     coluna--;
 
-    Jogada jogada(getLinhaTabuleiro(coluna), coluna);
+    Jogada jogada(coluna);
     if (!jogada_valida(jogada)) {
         throw Excecao("jogada invalida");
     }
 
     realizar_jogada(jogada);
-
     passar_a_vez();
 }
 

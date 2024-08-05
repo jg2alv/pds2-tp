@@ -15,7 +15,7 @@ private:
     bool linhaVazia(int linha) const;
     bool colunaVazia(int coluna) const;
     bool tabuleiroCheio() const;
-    bool jogada_valida(const Jogada &jogada) const;
+    bool jogada_valida(Jogada &jogada) const;
     void realizar_jogada(const Jogada &jogada);
 
 public:
