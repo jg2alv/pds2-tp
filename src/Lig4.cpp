@@ -405,5 +405,9 @@ bool Lig4::tabuleiroCheio() const {
  * \return True ou false.
  */
 bool Lig4::verificarEmpate() const {
-    return tabuleiroCheio();
+    if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {
+        return false;
+    } else {
+        return tabuleiroCheio();
+    }
 }
