@@ -33,12 +33,12 @@ TEST_CASE("Testando JogoDaVelha") {
             CHECK_THROWS(jogo_da_velha->jogadaValida("teste"));
             CHECK_THROWS(jogo_da_velha->jogadaValida("1 1 1"));
             CHECK_THROWS(jogo_da_velha->jogadaValida("1"));
-            CHECK_THROWS(jogo_da_velha->realizarJogada("4 4"));
+            CHECK_THROWS(jogo_da_velha->jogadaValida("4 4"));
 
             for (int i = 1; i <= 3; i++) {
                 for (int j = 1; j <= 3; j++) {
                     string jogada_de_teste = to_string(i) + " " + to_string(j);
-                    CHECK_MESSAGE(jogo_da_velha->jogadaValida(jogada_de_teste), "Jogada de teste: ", jogada_de_teste);
+                    CHECK_MESSAGE(jogo_da_velha->jogadaValida(jogada_de_teste), "jogada_de_teste: ", jogada_de_teste);
                 }
             }
         }

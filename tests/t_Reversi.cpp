@@ -33,7 +33,7 @@ TEST_CASE("Testando Reversi") {
             CHECK_THROWS(reversi->jogadaValida("teste"));
             CHECK_THROWS(reversi->jogadaValida("3 4 4"));
             CHECK_THROWS(reversi->jogadaValida("4"));
-            CHECK_THROWS(reversi->realizarJogada("3 3"));
+            CHECK_THROWS(reversi->jogadaValida("3 3"));
 
             CHECK(reversi->jogadaValida("3 4"));
             CHECK_FALSE(reversi->jogadaValida("3 5"));
