@@ -8,6 +8,14 @@
 #include "Jogador.hpp"
 
 
+/**
+ * \brief Classe base abstrata para jogos de trabuleiro entre dois jogadores.
+ *
+ * \see Reversi
+ * \see Lig4
+ * \see JogoDaVelha
+ * \see Xadrez
+ */
 class Jogo {
 protected:
     int linhas; 
