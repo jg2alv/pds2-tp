@@ -176,7 +176,7 @@ bool Lig4::jogadaValida(std::string possivel_jogada) const {
     }
 
     if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
+        throw Excecao("formato incorreto (formato correto: [coluna])");
     }
 
     std::stringstream in;
@@ -223,7 +223,7 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     }
 
     if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
+        throw Excecao("formato incorreto (formato correto: [coluna])");
     }
 
     std::stringstream in;
@@ -235,7 +235,7 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
 
     Jogada jogada(coluna);
     if (!jogada_valida(jogada)) {
-        throw Excecao("jogada invalida");
+        throw Excecao("jogada invalida (coluna informada nao esta nos limites do tabuleiro)");
     }
 
     realizar_jogada(jogada);
