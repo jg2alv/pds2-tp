@@ -4,12 +4,14 @@
 #include <string>
 #include <exception>
 
-class Excecao : public std::exception {
+using namespace std;
+
+class Excecao : public exception {
 private: 
-    std::string _mensagem; 
+    string _mensagem; 
   
 public: 
-    Excecao(std::string mensagem);
+    Excecao(string mensagem);
     const char* what() const throw();
 };
 

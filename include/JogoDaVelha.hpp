@@ -8,6 +8,8 @@
 #include "Jogo.hpp"
 #include "Jogador.hpp"
 
+using namespace std;
+
 /**
  * \class JogoDaVelha
  * 
@@ -37,14 +39,14 @@ private:
 
 public:
     JogoDaVelha(Jogador &jogador1, Jogador &jogador2);
-    JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro);
+    JogoDaVelha(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro);
     ~JogoDaVelha();
 
-    virtual std::string getNome() const override;
-    virtual void imprimirTabuleiro(std::ostream& out) const override;
-    virtual bool formatoCorreto(std::string possivel_jogada) const override;
-    virtual bool jogadaValida(std::string possivel_jogada) const override;
-    virtual void realizarJogada(std::string possivel_jogada) override;
+    virtual string getNome() const override;
+    virtual void imprimirTabuleiro(ostream& out) const override;
+    virtual bool formatoCorreto(string possivel_jogada) const override;
+    virtual bool jogadaValida(string possivel_jogada) const override;
+    virtual void realizarJogada(string possivel_jogada) override;
     virtual bool verificarVitoria(Jogador const&) const override;
     virtual bool verificarEmpate() const override;
 };
