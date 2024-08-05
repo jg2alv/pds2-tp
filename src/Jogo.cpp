@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "Jogo.hpp"
+using namespace std;
 
 /**
      * \brief Obtém o símbolo associado a um jogador.
@@ -12,7 +13,6 @@
      * \param jogador O jogador cujo símbolo é necessário.
      * \return O símbolo do jogador (caractere).
      */
-using namespace std;
 
 char Jogo::get_simbolo(const Jogador& jogador) const {
     return simbolos.at(jogador.getApelido());
