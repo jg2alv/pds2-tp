@@ -6,7 +6,7 @@
 using namespace std;
 
 char Jogo::get_simbolo(const Jogador& jogador) const {
-    return this->simbolos.at(jogador.getApelido());
+    return simbolos.at(jogador.getApelido());
 }
 
 char Jogo::get_char(int i, int j) const {

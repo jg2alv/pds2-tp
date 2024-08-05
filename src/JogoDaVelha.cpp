@@ -127,7 +127,7 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
 
-    if (!((linha >= 0 && linha < this->linhas) && (coluna >= 0 && coluna < this->colunas))) 
+    if (!((linha >= 0 && linha < linhas) && (coluna >= 0 && coluna < colunas))) 
         return false;
     else 
         return (get_char(linha, coluna) == ' ');
@@ -227,10 +227,10 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
     char simbolo = get_simbolo(jogador);
     int qntd = 0;
 
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         qntd = 0;
 
-        for (int j = 0; j < this->colunas; j++) {
+        for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == ' ') break;
             if (get_char(i, j) == simbolo) qntd++;
         }
@@ -238,10 +238,10 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
         if (qntd == 3) return true;
     }
 
-    for (int j = 0; j < this->colunas; j++) {
+    for (int j = 0; j < colunas; j++) {
         qntd = 0;
         
-        for (int i = 0; i < this->linhas; i++) {
+        for (int i = 0; i < linhas; i++) {
             if (get_char(i, j) == ' ') break;
             if (get_char(i, j) == simbolo) qntd++;
         }
@@ -250,14 +250,14 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
     }
 
     qntd = 0;
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         if (get_char(i, i) == ' ') break;
         if (get_char(i, i) == simbolo) qntd++;
     }
     if (qntd == 3) return true;
 
     qntd = 0;
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         int j = 2 - i;
         if (get_char(i, j) == ' ') break;
         if (get_char(i, j) == simbolo) qntd++;
@@ -277,8 +277,8 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
  * \return true ou false
  */
 bool JogoDaVelha::tabuleiro_cheio() const {
-    for (int i = 0; i < this->linhas; i++) {
-        for (int j = 0; j < this->colunas; j++) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == ' ') 
                 return false;
         }

@@ -37,7 +37,7 @@ Jogador::Jogador(string apelido, string nome) : _apelido(apelido), _nome(nome) {
  * \return Apelido do jogador
  */
 string Jogador::getApelido() const {
-    return this->_apelido;
+    return _apelido;
 }
 
 /**
@@ -48,7 +48,7 @@ string Jogador::getApelido() const {
  * \return Nome do jogador
  */
 string Jogador::getNome() const {
-    return this->_nome;
+    return _nome;
 }
 
 
@@ -176,8 +176,8 @@ vector<string> Jogador::getJogosCadastrados() const {
  * \param out Stream de saída
  */
 void Jogador::imprimirInformacoes(ostream& out) const {
-    string apelido = this->getApelido();
-    string nome = this->getNome();
+    string apelido = getApelido();
+    string nome = getNome();
     out << apelido << " " << nome << endl;
     vector<string> jogos = getJogosCadastrados();
     for (int i = 0; i < getNumeroDeJogos(); i++)

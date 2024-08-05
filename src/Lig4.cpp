@@ -74,14 +74,14 @@ string Lig4::getNome() const {
 void Lig4::imprimirTabuleiro(ostream& out) const {
     out << "---------Lig4--------\n";
     
-    for (int i = 0; i < this->linhas; i++) {
-        for (int j = 0; j < this->colunas; j++) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
             cout << "|" << get_char(i, j) << "|";
         }
         out << endl;
     }
 
-    for (int i = 1; i <= this->colunas; i++) {
+    for (int i = 1; i <= colunas; i++) {
         out << " " << i << " ";
     }
 
@@ -123,7 +123,7 @@ bool Lig4::formatoCorreto(string possivel_jogada) const {
  * \return O indice da primeira linha vazia.
  */
 int Lig4::get_linha_tabuleiro(int coluna) const {
-    int i = this->linhas - 1;
+    int i = linhas - 1;
     for (; i >= 0; i--) {
         if (get_char(i, coluna) == ' ') 
             break;
@@ -147,7 +147,7 @@ int Lig4::get_linha_tabuleiro(int coluna) const {
 bool Lig4::jogada_valida(Jogada &jogada) const {
     int coluna = jogada.get_coluna();
 
-    if (!(coluna >= 0 && coluna < this->colunas))
+    if (!(coluna >= 0 && coluna < colunas))
         return false;
 
     else {
@@ -251,7 +251,7 @@ void Lig4::realizarJogada(string possivel_jogada) {
  * \return true ou false
  */
 bool Lig4::linha_vazia(int linha) const {
-    for (int j = 0; j < this->colunas; j++) {
+    for (int j = 0; j < colunas; j++) {
         if (get_char(linha, j) != ' ') 
             return false;
     }
@@ -271,7 +271,7 @@ bool Lig4::linha_vazia(int linha) const {
  * \return true ou false
  */
 bool Lig4::coluna_vazia(int coluna) const {
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         if (get_char(i, coluna) != ' ') 
             return false;
     }
@@ -294,11 +294,11 @@ bool Lig4::coluna_vazia(int coluna) const {
 bool Lig4::verificarVitoria(const Jogador& jogador) const {
     char simbolo = get_simbolo(jogador);
 
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         if (linha_vazia(i)) 
             continue;
 
-        for (int j = 0; j < (this->colunas - 3); j++) {
+        for (int j = 0; j < (colunas - 3); j++) {
 
             int qntd = 0;
             for (int k = j; k < j + 4; k++) {
@@ -314,11 +314,11 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
         }
     }
 
-    for (int j = 0; j < this->colunas; j++) {
+    for (int j = 0; j < colunas; j++) {
         if(coluna_vazia(j)) 
             continue;
 
-        for (int i = 0; i < (this->linhas - 3); i++) {
+        for (int i = 0; i < (linhas - 3); i++) {
 
             int qntd = 0;
             for (int k = i; k < i + 4; k++) {
@@ -334,8 +334,8 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
         }
     }
 
-    for (int i = 0; i < (this->linhas - 3); i++) {
-        for (int j = 0; j < (this->colunas - 3); j++) {
+    for (int i = 0; i < (linhas - 3); i++) {
+        for (int j = 0; j < (colunas - 3); j++) {
 
             int qntd = 0;
             for (int k = i, l = j; k < i + 4; k++, l++) {
@@ -351,8 +351,8 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
         }
     }
 
-    for (int i = 0; i < (this->linhas - 3); i++) {
-        for (int j = (this->colunas - 1); (j - 3) >= 0; j--) {
+    for (int i = 0; i < (linhas - 3); i++) {
+        for (int j = (colunas - 1); (j - 3) >= 0; j--) {
 
             int qntd = 0;
             for (int k = i, l = j; k < i + 4; k++, l--) {
@@ -381,8 +381,8 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
  * \return true ou false
  */
 bool Lig4::tabuleiro_cheio() const {
-    for (int i = 0; i < this->linhas; i++) {
-        for (int j = 0; j < this->colunas; j++) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == ' ') 
                 return false;
         }

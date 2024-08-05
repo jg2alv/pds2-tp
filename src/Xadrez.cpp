@@ -25,13 +25,13 @@ using namespace std;
 Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, jogador2) {
     char pecas[] = { 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r' };
 
-    for(int i = 0; i < this->colunas; i++) {
+    for(int i = 0; i < colunas; i++) {
         char peca = pecas[i];
-        this->set_char(0, i, peca);
-        this->set_char(1, i, 'p');
+        set_char(0, i, peca);
+        set_char(1, i, 'p');
 
-        this->set_char(7, i, toupper(peca));
-        this->set_char(6, i, 'P');
+        set_char(7, i, toupper(peca));
+        set_char(6, i, 'P');
     }
 }
 
@@ -83,9 +83,9 @@ void Xadrez::imprimirTabuleiro(ostream& out) const {
 
     char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
     out << "   1  2  3  4  5  6  7  8 " << endl;
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         out << alpha[i] << " ";
-        for (int j = 0; j < this->colunas; j++) {
+        for (int j = 0; j < colunas; j++) {
             cout << "|" << get_char(i, j) << "|";
         }
         out << " " << alpha[i] << endl;
@@ -142,8 +142,8 @@ bool Xadrez::formatoCorreto(string possivel_jogada) const {
  * \return true ou false
  */
 bool Xadrez::jogadaValida(string possivel_jogada) const {
-    if(this->fimDeJogo()) return false;
-    if(!this->formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
+    if(fimDeJogo()) return false;
+    if(!formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
 
     int tam = possivel_jogada.size();
     if(tam != 4) return false;
@@ -159,13 +159,13 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
     coluna_dest -= 1;
 
     bool maiuscula;
-    string apelido1 = this->jogador1.getApelido();
-    string apelido_da_vez = this->jogador_da_vez->getApelido();
+    string apelido1 = jogador1.getApelido();
+    string apelido_da_vez = jogador_da_vez->getApelido();
 
     if(apelido_da_vez == apelido1) maiuscula = true;
     else maiuscula = false;
 
-    char peca_selecionada = this->get_char(linha_origem, coluna_origem);
+    char peca_selecionada = get_char(linha_origem, coluna_origem);
     bool peca_selecionada_eh_maiuscula = toupper(peca_selecionada) == peca_selecionada;
     bool peca_selecionada_eh_do_jogador = peca_selecionada_eh_maiuscula == maiuscula;
     bool posicao_nao_mudou = linha_origem == linha_dest && coluna_origem == coluna_dest;
@@ -187,8 +187,8 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
  * \param possivel_jogada Uma string com a entrada lida.
  */
 void Xadrez::realizarJogada(string possivel_jogada) {
-    if(this->fimDeJogo()) throw Excecao("jogo ja acabou");
-    if(!this->jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
+    if(fimDeJogo()) throw Excecao("jogo ja acabou");
+    if(!jogadaValida(possivel_jogada)) throw Excecao("peca selecionada nao pertence ao jogador atual");
 
     stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
@@ -200,8 +200,8 @@ void Xadrez::realizarJogada(string possivel_jogada) {
     linha_dest -= 97;
     coluna_dest -= 1;
 
-    char peca_selecionada = this->get_char(linha_origem, coluna_origem);
-    char peca_no_destino = this->get_char(linha_dest, coluna_dest);
+    char peca_selecionada = get_char(linha_origem, coluna_origem);
+    char peca_no_destino = get_char(linha_dest, coluna_dest);
 
     int diff_no_x = abs(coluna_origem - coluna_dest);
     int diff_no_y = abs(linha_origem - linha_dest);
@@ -219,12 +219,12 @@ void Xadrez::realizarJogada(string possivel_jogada) {
 
         if(diff_no_x != 0) {
             for(int i = coluna_origem + 1; i < coluna_dest; i++) {
-                char c = this->get_char(linha_origem, i);
+                char c = get_char(linha_origem, i);
                 if(c != ' ') return "torre nao pula pecas";
             }
         } else {
             for(int i = linha_origem + 1; i < linha_dest; i++) {
-                char c = this->get_char(i, coluna_origem);
+                char c = get_char(i, coluna_origem);
                 if(c != ' ') return "torre nao pula pecas";
             }
         }
@@ -237,22 +237,22 @@ void Xadrez::realizarJogada(string possivel_jogada) {
 
         if(linha_dest > linha_origem && coluna_dest > coluna_origem) {
             for(int i = linha_origem + 1, j = coluna_origem + 1; i < linha_dest && j < coluna_dest; i++, j++) {
-                char c = this->get_char(i, j);
+                char c = get_char(i, j);
                 if(c != ' ') return "bispo nao pula pecas";
             }
         } else if(linha_dest < linha_origem && coluna_dest > coluna_origem) {
             for(int i = linha_origem - 1, j = coluna_origem + 1; i > linha_dest && j < coluna_dest; i--, j++) {
-                char c = this->get_char(i, j);
+                char c = get_char(i, j);
                 if(c != ' ') return "bispo nao pula pecas";
             }
         } else if(linha_dest > linha_origem && coluna_dest < coluna_origem) {
             for(int i = linha_origem + 1, j = coluna_origem - 1; i < linha_dest && j > coluna_dest; i++, j--) {
-                char c = this->get_char(i, j);
+                char c = get_char(i, j);
                 if(c != ' ') return "bispo nao pula pecas";
             }
         } else if(linha_dest < linha_origem && coluna_dest < coluna_origem) {
             for(int i = linha_origem - 1, j = coluna_origem - 1; i > linha_dest && j > coluna_dest; i--, j--) {
-                char c = this->get_char(i, j);
+                char c = get_char(i, j);
                 if(c != ' ') return "bispo nao pula pecas";
             }
         }
@@ -327,9 +327,9 @@ void Xadrez::realizarJogada(string possivel_jogada) {
         }
     }
 
-    this->set_char(linha_origem, coluna_origem, ' ');
-    this->set_char(linha_dest, coluna_dest, peca_selecionada);
-    this->passar_a_vez();
+    set_char(linha_origem, coluna_origem, ' ');
+    set_char(linha_dest, coluna_dest, peca_selecionada);
+    passar_a_vez();
 }
 
 /**
@@ -355,9 +355,9 @@ bool Xadrez::verificarVitoria(Jogador const& jogador) const {
     // se no existir, jogador2 venceu
     char rei = jogador.getApelido() == jogador1.getApelido() ? 'k' : 'K';
 
-    for(int i = 0; i < this->linhas; i++) {
-        for(int j = 0; j < this->colunas; j++) {
-            char c = this->get_char(i, j);
+    for(int i = 0; i < linhas; i++) {
+        for(int j = 0; j < colunas; j++) {
+            char c = get_char(i, j);
             if(c == rei) return false;
         }
     }

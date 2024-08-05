@@ -51,7 +51,7 @@ Sistema::Comando Sistema::identificar_comando(string candidato_a_comando) {
  * \return O booleano que representa se o sistema foi ou nao encerrado.
 */
 bool Sistema::isSistemaFinalizado() {
-    return this->sistema_finalizado;
+    return sistema_finalizado;
 }
 
 /**
@@ -66,7 +66,7 @@ bool Sistema::isSistemaFinalizado() {
 */
 vector<Jogador>::iterator Sistema::acharJogador(string apelido) {
     auto acharJogador = [apelido](Jogador const& j) { return j.getApelido() == apelido; };
-    auto jogador = find_if(this->jogadores.begin(), this->jogadores.end(), acharJogador);
+    auto jogador = find_if(jogadores.begin(), jogadores.end(), acharJogador);
     
     return jogador;
 }
@@ -85,12 +85,12 @@ vector<Jogador>::iterator Sistema::acharJogador(string apelido) {
  * \param nome O nome do possivel novo jogador.
 */
 void Sistema::cadastrarJogador(string apelido, string nome) {
-    auto jogador = this->acharJogador(apelido);
-    bool jogador_repetido = jogador != this->jogadores.end();
+    auto jogador = acharJogador(apelido);
+    bool jogador_repetido = jogador != jogadores.end();
     
     if(jogador_repetido) throw Excecao("jogador repetido (cada jogador tem um apelido unico)");
     
-    this->jogadores.push_back(Jogador(apelido, nome));
+    jogadores.push_back(Jogador(apelido, nome));
 }
 
 /**
@@ -106,12 +106,12 @@ void Sistema::cadastrarJogador(string apelido, string nome) {
  * \param apelido O apelido do jogador a ser removido.
 */
 void Sistema::removerJogador(string apelido) {
-    auto jogador = this->acharJogador(apelido);
-    bool jogador_inexistente = jogador == this->jogadores.end();
+    auto jogador = acharJogador(apelido);
+    bool jogador_inexistente = jogador == jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente (jogador com o apelido '" + apelido + "' nao encontrado)");
 
-    this->jogadores.erase(jogador);
+    jogadores.erase(jogador);
 }
 
 /**
@@ -134,17 +134,17 @@ void Sistema::listarJogadores(string base, ostream& out) {
     auto ordenacaoPorApelido = [](Jogador const& j1, Jogador const& j2) { return j1.getApelido() < j2.getApelido(); };
 
     if(base == "A")
-        sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorApelido);
+        sort(jogadores.begin(), jogadores.end(), ordenacaoPorApelido);
     else if(base == "N")
-        sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
+        sort(jogadores.begin(), jogadores.end(), ordenacaoPorNome);
     else throw Excecao("base de ordenacao de jogadores invalido (bases validas: N, para nome; A, para apelido)");
 
-    if(this->jogadores.size() == 0) {
+    if(jogadores.size() == 0) {
         out << "Nao existe jogadores cadastrados no sistema." << endl;
         return;
     }
 
-    for(Jogador const& jogador : this->jogadores)
+    for(Jogador const& jogador : jogadores)
         jogador.imprimirInformacoes(out);
 }
 
@@ -169,11 +169,11 @@ void Sistema::listarJogadores(string base, ostream& out) {
  * 
 */
 void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apelido2, istream& in, ostream& out) {
-    auto jogador1 = this->acharJogador(apelido1);
-    auto jogador2 = this->acharJogador(apelido2);
+    auto jogador1 = acharJogador(apelido1);
+    auto jogador2 = acharJogador(apelido2);
 
-    bool jogador1_existe = jogador1 != this->jogadores.end();
-    bool jogador2_existe = jogador2 != this->jogadores.end();
+    bool jogador1_existe = jogador1 != jogadores.end();
+    bool jogador2_existe = jogador2 != jogadores.end();
 
     
     if(!jogador1_existe || !jogador2_existe) {
@@ -246,15 +246,15 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
  * Caso o arquivo de banco de dados nao exista, a funcao joga uma excecao.
 */
 void Sistema::carregarArquivo() {
-    ifstream arquivo(this->banco_de_dados);
+    ifstream arquivo(banco_de_dados);
     bool arquivo_existe = arquivo.good();
-    if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' nao pode ser aberto");
+    if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' nao pode ser aberto");
 
     int numjogadores;
     arquivo >> numjogadores;
     
     bool arquivo_corrompido = arquivo.fail();
-    if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
+    if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
 
     for(int i = 0; i < numjogadores; i++) {
         string apelido, nome;
@@ -267,7 +267,7 @@ void Sistema::carregarArquivo() {
         int numjogos;
         arquivo >> numjogos;
         bool arquivo_corrompido = arquivo.fail();
-        if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
+        if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
 
         for(int j = 0; j < numjogos; j++) {
             string jogo;
@@ -275,12 +275,12 @@ void Sistema::carregarArquivo() {
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
             bool arquivo_corrompido = arquivo.fail();
-            if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' esta corrompido");
+            if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
 
             jogador.setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
-        this->jogadores.push_back(jogador);
+        jogadores.push_back(jogador);
     }
 
     arquivo.close();
@@ -295,10 +295,10 @@ void Sistema::carregarArquivo() {
  * essa funcao tambem joga uma excecao.
 */
 void Sistema::salvarSistema() {
-    ofstream arquivo(this->banco_de_dados);
-    arquivo << this->jogadores.size() << "\n";
+    ofstream arquivo(banco_de_dados);
+    arquivo << jogadores.size() << "\n";
 
-    for(Jogador const& jogador : this->jogadores) {
+    for(Jogador const& jogador : jogadores) {
         arquivo << jogador.getApelido() << "\n";
         arquivo << jogador.getNome() << "\n";
 
@@ -326,17 +326,17 @@ void Sistema::salvarSistema() {
  * por fim, ela limpa os dados salvos em memoria do sistema.
 */
 void Sistema::finalizarSistema() {
-    if (this->sistema_finalizado) {
+    if (sistema_finalizado) {
         return;
     }
 
-    this->sistema_finalizado = true;
+    sistema_finalizado = true;
 
     if (salvar_ao_sair) {
-        this->salvarSistema();
+        salvarSistema();
     }
 
-    this->limparSistema();
+    limparSistema();
 }
 
 /**
@@ -347,7 +347,7 @@ void Sistema::finalizarSistema() {
  * zerando seu `vector<Jogador*>::size()`.
 */
 void Sistema::limparSistema() {
-    this->jogadores.clear();
+    jogadores.clear();
 }
 
 /**
@@ -367,19 +367,19 @@ void Sistema::limparSistema() {
 Sistema::Sistema(string banco_de_dados, bool salvar_ao_sair) :
     banco_de_dados(banco_de_dados),
     salvar_ao_sair(salvar_ao_sair) {
-    ifstream arquivo(this->banco_de_dados);
+    ifstream arquivo(banco_de_dados);
     bool arquivo_existe = arquivo.good();
     arquivo.close();
     
     if(!arquivo_existe) {
-        ofstream arquivo(this->banco_de_dados);
+        ofstream arquivo(banco_de_dados);
         arquivo << "0";
         arquivo.close();
     }
 
-    this->carregarArquivo();
+    carregarArquivo();
 }
 
 Sistema::~Sistema() {
-    this->finalizarSistema();
+    finalizarSistema();
 }
