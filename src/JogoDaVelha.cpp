@@ -151,9 +151,7 @@ bool JogoDaVelha::jogadaValida(std::string possivel_jogada) const {
         return false;
     }
 
-    if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
-    }
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
 
     std::stringstream in;
     in.str(possivel_jogada);
@@ -194,13 +192,8 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  * \param possivel_jogada Uma string com a entrada lida.
  */
 void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
-    if (fimDeJogo()) {
-        throw Excecao("jogo ja acabou");
-    }
-
-    if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto");
-    }
+    if (fimDeJogo()) throw Excecao("jogo ja acabou");
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
 
     std::stringstream in;
     in.str(possivel_jogada);
@@ -210,10 +203,8 @@ void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
     linha --, coluna--;
 
     Jogada jogada(linha, coluna);
-    if (!jogada_valida(jogada)) {
-        throw Excecao("jogada invalida");
-    }
-
+    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (jogada valida: 1 <= linha, coluna <= 3)");
+    
     realizar_jogada(jogada);
     passar_a_vez();
 }
