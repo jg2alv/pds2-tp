@@ -218,13 +218,9 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
  * \param possivel_jogada Uma string com a entrada lida.
  */
 void Lig4::realizarJogada(std::string possivel_jogada) {
-    if (fimDeJogo()) {
-        throw Excecao("jogo ja acabou");
-    }
-
-    if (!formatoCorreto(possivel_jogada)) {
-        throw Excecao("formato incorreto (formato correto: [coluna])");
-    }
+    if (fimDeJogo()) throw Excecao("jogo ja acabou");
+    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [coluna])");
+    
 
     std::stringstream in;
     in.str(possivel_jogada);
@@ -234,9 +230,8 @@ void Lig4::realizarJogada(std::string possivel_jogada) {
     coluna--;
 
     Jogada jogada(coluna);
-    if (!jogada_valida(jogada)) {
-        throw Excecao("jogada invalida (coluna informada esta cheia ou esta fora dos limites do tabuleiro)");
-    }
+    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (coluna informada esta cheia ou esta fora dos limites do tabuleiro)");
+    
 
     realizar_jogada(jogada);
     passar_a_vez();
