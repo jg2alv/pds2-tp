@@ -8,6 +8,8 @@
 #include "Jogador.hpp"
 #include "Jogo.hpp"
 
+using namespace std;
+
 /**
  * \brief Construtor da classe JogoDaVelha
  * 
@@ -32,7 +34,7 @@ JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
  * \param jogador2 Segundo jogador.
  * \param tabuleiro O tabuleiro do jogo.
  */
-JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, std::vector<std::vector<char>> tabuleiro) :
+JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2, vector<vector<char>> tabuleiro) :
     Jogo(3, 3, jogador1, jogador2, tabuleiro) {}
 
 /**
@@ -51,7 +53,7 @@ JogoDaVelha::~JogoDaVelha() {}
  * 
  * \return Uma string "JogoDaVelha".
  */
-std::string JogoDaVelha::getNome() const {
+string JogoDaVelha::getNome() const {
     return "JogoDaVelha";
 }
 
@@ -65,20 +67,20 @@ std::string JogoDaVelha::getNome() const {
  * 
  * \param out Um stream de saida.
  */
-void JogoDaVelha::imprimirTabuleiro(std::ostream& out) const {
+void JogoDaVelha::imprimirTabuleiro(ostream& out) const {
     out << "--Jogo da Velha--\n    ";
 
     for (int i = 1; i <= 3; i++) {
         out << " " << i << " ";
     }
-    out << std::endl;
+    out << endl;
   
     for (int i = 0; i < 3; i++) {
         out << "  " << i + 1 << " ";
         for (int j = 0; j < 3; j++) {
             out << "|" << get_char(i, j) << "|";
     }
-        out << std::endl;
+        out << endl;
   }
 }
 
@@ -93,10 +95,10 @@ void JogoDaVelha::imprimirTabuleiro(std::ostream& out) const {
  * \param possivel_jogada A string da entrada.
  * \return true ou false
  */
-bool JogoDaVelha::formatoCorreto(std::string possivel_jogada) const {
-    std::stringstream jogada_stream(possivel_jogada);
+bool JogoDaVelha::formatoCorreto(string possivel_jogada) const {
+    stringstream jogada_stream(possivel_jogada);
     int linha, coluna;
-    std::string extra;
+    string extra;
 
     if (!(jogada_stream >> linha)) {
         return false;
@@ -125,7 +127,7 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     int linha = jogada.get_linha();
     int coluna = jogada.get_coluna();
 
-    if (!((linha >= 0 && linha < this->linhas) && (coluna >= 0 && coluna < this->colunas))) 
+    if (!((linha >= 0 && linha < linhas) && (coluna >= 0 && coluna < colunas))) 
         return false;
     else 
         return (get_char(linha, coluna) == ' ');
@@ -146,14 +148,14 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
  */
-bool JogoDaVelha::jogadaValida(std::string possivel_jogada) const {
+bool JogoDaVelha::jogadaValida(string possivel_jogada) const {
     if (fimDeJogo()) {
         return false;
     }
 
     if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int linha, coluna;
@@ -191,11 +193,11 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
-void JogoDaVelha::realizarJogada(std::string possivel_jogada) {
+void JogoDaVelha::realizarJogada(string possivel_jogada) {
     if (fimDeJogo()) throw Excecao("jogo ja acabou");
     if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
 
-    std::stringstream in;
+    stringstream in;
     in.str(possivel_jogada);
     
     int linha, coluna;
@@ -225,10 +227,10 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
     char simbolo = get_simbolo(jogador);
     int qntd = 0;
 
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         qntd = 0;
 
-        for (int j = 0; j < this->colunas; j++) {
+        for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == ' ') break;
             if (get_char(i, j) == simbolo) qntd++;
         }
@@ -236,10 +238,10 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
         if (qntd == 3) return true;
     }
 
-    for (int j = 0; j < this->colunas; j++) {
+    for (int j = 0; j < colunas; j++) {
         qntd = 0;
         
-        for (int i = 0; i < this->linhas; i++) {
+        for (int i = 0; i < linhas; i++) {
             if (get_char(i, j) == ' ') break;
             if (get_char(i, j) == simbolo) qntd++;
         }
@@ -248,14 +250,14 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
     }
 
     qntd = 0;
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         if (get_char(i, i) == ' ') break;
         if (get_char(i, i) == simbolo) qntd++;
     }
     if (qntd == 3) return true;
 
     qntd = 0;
-    for (int i = 0; i < this->linhas; i++) {
+    for (int i = 0; i < linhas; i++) {
         int j = 2 - i;
         if (get_char(i, j) == ' ') break;
         if (get_char(i, j) == simbolo) qntd++;
@@ -275,8 +277,8 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
  * \return true ou false
  */
 bool JogoDaVelha::tabuleiro_cheio() const {
-    for (int i = 0; i < this->linhas; i++) {
-        for (int j = 0; j < this->colunas; j++) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
             if (get_char(i, j) == ' ') 
                 return false;
         }
@@ -294,7 +296,7 @@ bool JogoDaVelha::tabuleiro_cheio() const {
  * cheio. Se estiver, houve empate e é retornado 
  * verdadeiro e, se nao estiver, é retornado falso.
  * 
- * \return True ou false.
+ * \return true ou false
  */
 bool JogoDaVelha::verificarEmpate() const {
     if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {

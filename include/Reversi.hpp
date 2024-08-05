@@ -26,6 +26,7 @@
  * válida, realizar uma jogada, verificar se houve vitória ou empate e analisar o formato de entrada.
  * 
  */
+using namespace std;
 
 class Reversi : public Jogo {
 private:
@@ -37,15 +38,15 @@ private:
 
 public:
     Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
-    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro);
+    Reversi(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro);
     ~Reversi();
 
     bool podeJogar(const Jogador& jogador) const;
-    virtual std::string getNome() const override;
-    virtual void imprimirTabuleiro(std::ostream& out) const override;
-    virtual bool formatoCorreto(std::string possivel_jogada) const override;
-    virtual bool jogadaValida(std::string possivel_jogada) const override;
-    virtual void realizarJogada(std::string possivel_jogada) override;
+    virtual string getNome() const override;
+    virtual void imprimirTabuleiro(ostream& out) const override;
+    virtual bool formatoCorreto(string possivel_jogada) const override;
+    virtual bool jogadaValida(string possivel_jogada) const override;
+    virtual void realizarJogada(string possivel_jogada) override;
     virtual bool verificarVitoria(Jogador const&) const override;
     virtual bool verificarEmpate() const override;
 };

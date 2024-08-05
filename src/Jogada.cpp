@@ -28,7 +28,7 @@ Jogada::Jogada(int linha, int coluna) : _linha(linha), _coluna(coluna) {}
  */
 int Jogada::get_linha()const
 {
-    return this->_linha;
+    return _linha;
 }
 
 /**
@@ -40,7 +40,7 @@ int Jogada::get_linha()const
  */
 int Jogada::get_coluna()const
 {
-    return this->_coluna;
+    return _coluna;
 }
 
 /**
@@ -52,5 +52,5 @@ int Jogada::get_coluna()const
  */
 void Jogada::set_linha(int linha)
 {
-    this->_linha = linha;
+    _linha = linha;
 }

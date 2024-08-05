@@ -7,6 +7,7 @@
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 
+using namespace std;
 
 /**
  * \brief Classe base abstrata para jogos de trabuleiro entre dois jogadores.
@@ -20,7 +21,7 @@ class Jogo {
 protected:
     int linhas; 
     int colunas; 
-    std::vector<std::vector<char>> tabuleiro; 
+    vector<vector<char>> tabuleiro; 
 
     bool jogo_finalizado;
 
@@ -33,7 +34,7 @@ protected:
     Jogador *vencedor;
     Jogador *perdedor;
 
-    std::map<std::string, char> simbolos;
+    map<string, char> simbolos;
 
     char get_simbolo(const Jogador& jogador) const;
     char get_char(int i, int j) const;
@@ -43,7 +44,7 @@ protected:
 
 public:
     Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2);
-    Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro);
+    Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro);
     virtual ~Jogo();
 
     bool fimDeJogo() const;
@@ -57,11 +58,11 @@ public:
     Jogador *getVencedor() const;
     Jogador *getPerdedor() const;
 
-    virtual std::string getNome() const = 0;
-    virtual void imprimirTabuleiro(std::ostream& out) const = 0;
-    virtual bool formatoCorreto(std::string possivel_jogada) const = 0;
-    virtual bool jogadaValida(std::string possivel_jogada) const = 0;
-    virtual void realizarJogada(std::string possivel_jogada) = 0;
+    virtual string getNome() const = 0;
+    virtual void imprimirTabuleiro(ostream& out) const = 0;
+    virtual bool formatoCorreto(string possivel_jogada) const = 0;
+    virtual bool jogadaValida(string possivel_jogada) const = 0;
+    virtual void realizarJogada(string possivel_jogada) = 0;
     virtual bool verificarVitoria(Jogador const&) const = 0;
     virtual bool verificarEmpate() const = 0;
 };

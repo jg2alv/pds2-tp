@@ -12,6 +12,8 @@
 #include "JogoDaVelha.hpp"
 #include "Xadrez.hpp"
 
+using namespace std;
+
 /**
  * \brief Analisa um comando da entrada
  *
@@ -22,7 +24,7 @@
  * \param candidato_a_comando A string da entrada.
  * \return O campo do enum Comando.
  */
-Sistema::Comando Sistema::identificar_comando(std::string candidato_a_comando) {
+Sistema::Comando Sistema::identificar_comando(string candidato_a_comando) {
     if (candidato_a_comando == "CJ") {
         return Sistema::Comando::CadastrarJogador;
     } else if (candidato_a_comando == "RJ") {
@@ -49,7 +51,7 @@ Sistema::Comando Sistema::identificar_comando(std::string candidato_a_comando) {
  * \return O booleano que representa se o sistema foi ou nao encerrado.
 */
 bool Sistema::isSistemaFinalizado() {
-    return this->sistema_finalizado;
+    return sistema_finalizado;
 }
 
 /**
@@ -62,9 +64,9 @@ bool Sistema::isSistemaFinalizado() {
  * \param apelido O apelido do jogador a ser encontrado.
  * \return O iterador que aponta para o jogador.
 */
-std::vector<Jogador>::iterator Sistema::acharJogador(std::string apelido) {
+vector<Jogador>::iterator Sistema::acharJogador(string apelido) {
     auto acharJogador = [apelido](Jogador const& j) { return j.getApelido() == apelido; };
-    auto jogador = std::find_if(this->jogadores.begin(), this->jogadores.end(), acharJogador);
+    auto jogador = find_if(jogadores.begin(), jogadores.end(), acharJogador);
     
     return jogador;
 }
@@ -82,13 +84,13 @@ std::vector<Jogador>::iterator Sistema::acharJogador(std::string apelido) {
  * \param apelido O apelido do possivel novo jogador.
  * \param nome O nome do possivel novo jogador.
 */
-void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
-    auto jogador = this->acharJogador(apelido);
-    bool jogador_repetido = jogador != this->jogadores.end();
+void Sistema::cadastrarJogador(string apelido, string nome) {
+    auto jogador = acharJogador(apelido);
+    bool jogador_repetido = jogador != jogadores.end();
     
     if(jogador_repetido) throw Excecao("jogador repetido (cada jogador tem um apelido unico)");
     
-    this->jogadores.push_back(Jogador(apelido, nome));
+    jogadores.push_back(Jogador(apelido, nome));
 }
 
 /**
@@ -103,20 +105,20 @@ void Sistema::cadastrarJogador(std::string apelido, std::string nome) {
  * 
  * \param apelido O apelido do jogador a ser removido.
 */
-void Sistema::removerJogador(std::string apelido) {
-    auto jogador = this->acharJogador(apelido);
-    bool jogador_inexistente = jogador == this->jogadores.end();
+void Sistema::removerJogador(string apelido) {
+    auto jogador = acharJogador(apelido);
+    bool jogador_inexistente = jogador == jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente (jogador com o apelido '" + apelido + "' nao encontrado)");
 
-    this->jogadores.erase(jogador);
+    jogadores.erase(jogador);
 }
 
 /**
  * \brief Lista em ordem alfabetica os jogadores cadastrados no sistema
  *
  * Essa funcao recebe uma string, que representa o base na qual sera realizada a
- * ordenacao: A (apelido) ou N (nome); e a referencia de um std::ostream,
+ * ordenacao: A (apelido) ou N (nome); e a referencia de um ostream,
  * que indica onde o resultado da funcao deve ser impresso (em um arquivo,
  * para testes ou na tela, para interacao com o ususario).
  * Caso a base de ordenacao recebido seja invalido, a funcao joga uma excecao.
@@ -127,22 +129,22 @@ void Sistema::removerJogador(std::string apelido) {
  * \param out A stream na qual as informacoes do jogador serao impressas.
  * 
 */
-void Sistema::listarJogadores(std::string base, std::ostream& out) {
+void Sistema::listarJogadores(string base, ostream& out) {
     auto ordenacaoPorNome = [](Jogador const& j1, Jogador const& j2) { return j1.getNome() < j2.getNome(); };
     auto ordenacaoPorApelido = [](Jogador const& j1, Jogador const& j2) { return j1.getApelido() < j2.getApelido(); };
 
     if(base == "A")
-        std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorApelido);
+        sort(jogadores.begin(), jogadores.end(), ordenacaoPorApelido);
     else if(base == "N")
-        std::sort(this->jogadores.begin(), this->jogadores.end(), ordenacaoPorNome);
+        sort(jogadores.begin(), jogadores.end(), ordenacaoPorNome);
     else throw Excecao("base de ordenacao de jogadores invalido (bases validas: N, para nome; A, para apelido)");
 
-    if(this->jogadores.size() == 0) {
-        out << "Nao existe jogadores cadastrados no sistema." << std::endl;
+    if(jogadores.size() == 0) {
+        out << "Nao existe jogadores cadastrados no sistema." << endl;
         return;
     }
 
-    for(Jogador const& jogador : this->jogadores)
+    for(Jogador const& jogador : jogadores)
         jogador.imprimirInformacoes(out);
 }
 
@@ -155,7 +157,7 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
  * As streams indicam de onde a entrada deve ser lida, e aonde ela deve ser impressa
  * (em arquivos, para testes, ou na tela, para usufruto do usuario).
  * Primeiro, a funcao checa se os jogadores existem e joga uma excecao caso nao existam.
- * Entao, a funcao da inicio no event-loop do jogo: obtem a entrada a partir do `std::istream&`
+ * Entao, a funcao da inicio no event-loop do jogo: obtem a entrada a partir do `istream&`
  * recebido por parametro; e imprime o tabuleiro e as outras informacoes do fluxo da partida.
  * Os jogadores, entao, disputam a partida e, no final, a funcao imprime o resultado do jogo.
  * 
@@ -166,20 +168,20 @@ void Sistema::listarJogadores(std::string base, std::ostream& out) {
  * \param out Onde imprimir a saida do jogo.
  * 
 */
-void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::istream& in, std::ostream& out) {
-    auto jogador1 = this->acharJogador(apelido1);
-    auto jogador2 = this->acharJogador(apelido2);
+void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apelido2, istream& in, ostream& out) {
+    auto jogador1 = acharJogador(apelido1);
+    auto jogador2 = acharJogador(apelido2);
 
-    bool jogador1_existe = jogador1 != this->jogadores.end();
-    bool jogador2_existe = jogador2 != this->jogadores.end();
+    bool jogador1_existe = jogador1 != jogadores.end();
+    bool jogador2_existe = jogador2 != jogadores.end();
 
     
     if(!jogador1_existe || !jogador2_existe) {
-        std::string apelido = jogador1_existe ? apelido2 : apelido1;
+        string apelido = jogador1_existe ? apelido2 : apelido1;
         throw Excecao("jogador '" + apelido + "' nao encontrado");
     }
 
-    std::unique_ptr<Jogo> jogo;
+    unique_ptr<Jogo> jogo;
     if (nome_do_jogo == "Lig4") {
         jogo.reset(new Lig4(6, 7, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Reversi") {
@@ -197,14 +199,14 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
         try {
             out << "Turno do jogador " << jogo->getJogadorDaVez()->getApelido() << ": ";
 
-            std::string possivel_jogada;
-            std::getline(in, possivel_jogada);
+            string possivel_jogada;
+            getline(in, possivel_jogada);
 
-            std::stringstream jogada_stream(possivel_jogada);
-            std::string comando;
+            stringstream jogada_stream(possivel_jogada);
+            string comando;
             jogada_stream >> comando;
             
-            std::string extra;
+            string extra;
             bool linha_acaba_depois_do_comando = (jogada_stream >> extra).fail();
             if (linha_acaba_depois_do_comando) {
                 if (comando == "desisto") {
@@ -221,8 +223,8 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
             }
 
             jogo->imprimirTabuleiro(out);
-        } catch (std::exception const& e) {
-            out << "ERRO: " << e.what() << std::endl;
+        } catch (exception const& e) {
+            out << "ERRO: " << e.what() << endl;
         }
     }
 
@@ -244,32 +246,41 @@ void Sistema::executarPartida(std::string nome_do_jogo, std::string apelido1, st
  * Caso o arquivo de banco de dados nao exista, a funcao joga uma excecao.
 */
 void Sistema::carregarArquivo() {
-    std::ifstream arquivo(this->banco_de_dados);
+    ifstream arquivo(banco_de_dados);
     bool arquivo_existe = arquivo.good();
-    if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + this->banco_de_dados + "' nao pode ser aberto");
+    if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' nao pode ser aberto");
 
     int numjogadores;
     arquivo >> numjogadores;
+    
+    bool arquivo_corrompido = arquivo.fail();
+    if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
 
     for(int i = 0; i < numjogadores; i++) {
-        std::string apelido, nome;
+        string apelido, nome;
         arquivo >> apelido;
         arquivo.ignore();
-        std::getline(arquivo, nome);
+        getline(arquivo, nome);
 
         Jogador jogador(apelido, nome);
 
         int numjogos;
         arquivo >> numjogos;
+        bool arquivo_corrompido = arquivo.fail();
+        if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
+
         for(int j = 0; j < numjogos; j++) {
-            std::string jogo;
+            string jogo;
             int vitorias, derrotas, empates;
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
+            bool arquivo_corrompido = arquivo.fail();
+            if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
+
             jogador.setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
 
-        this->jogadores.push_back(jogador);
+        jogadores.push_back(jogador);
     }
 
     arquivo.close();
@@ -284,10 +295,10 @@ void Sistema::carregarArquivo() {
  * essa funcao tambem joga uma excecao.
 */
 void Sistema::salvarSistema() {
-    std::ofstream arquivo(this->banco_de_dados);
-    arquivo << this->jogadores.size() << "\n";
+    ofstream arquivo(banco_de_dados);
+    arquivo << jogadores.size() << "\n";
 
-    for(Jogador const& jogador : this->jogadores) {
+    for(Jogador const& jogador : jogadores) {
         arquivo << jogador.getApelido() << "\n";
         arquivo << jogador.getNome() << "\n";
 
@@ -295,7 +306,7 @@ void Sistema::salvarSistema() {
         arquivo << njogos << "\n";
         if(njogos == 0) continue;
 
-        for(std::string jogo : jogador.getJogosCadastrados()) {
+        for(string jogo : jogador.getJogosCadastrados()) {
             auto resultados = jogador.getResultados(jogo);
             arquivo << jogo << " ";
             arquivo << resultados.vitorias << " ";
@@ -315,17 +326,17 @@ void Sistema::salvarSistema() {
  * por fim, ela limpa os dados salvos em memoria do sistema.
 */
 void Sistema::finalizarSistema() {
-    if (this->sistema_finalizado) {
+    if (sistema_finalizado) {
         return;
     }
 
-    this->sistema_finalizado = true;
+    sistema_finalizado = true;
 
     if (salvar_ao_sair) {
-        this->salvarSistema();
+        salvarSistema();
     }
 
-    this->limparSistema();
+    limparSistema();
 }
 
 /**
@@ -336,7 +347,7 @@ void Sistema::finalizarSistema() {
  * zerando seu `vector<Jogador*>::size()`.
 */
 void Sistema::limparSistema() {
-    this->jogadores.clear();
+    jogadores.clear();
 }
 
 /**
@@ -353,22 +364,22 @@ void Sistema::limparSistema() {
  * Caso contrario, a funcao carrega o arquivo para o sistema por meio de
  * `Sistema::carregarArquivo()`.
 */
-Sistema::Sistema(std::string banco_de_dados, bool salvar_ao_sair) :
+Sistema::Sistema(string banco_de_dados, bool salvar_ao_sair) :
     banco_de_dados(banco_de_dados),
     salvar_ao_sair(salvar_ao_sair) {
-    std::ifstream arquivo(this->banco_de_dados);
+    ifstream arquivo(banco_de_dados);
     bool arquivo_existe = arquivo.good();
     arquivo.close();
     
     if(!arquivo_existe) {
-        std::ofstream arquivo(this->banco_de_dados);
+        ofstream arquivo(banco_de_dados);
         arquivo << "0";
         arquivo.close();
     }
 
-    this->carregarArquivo();
+    carregarArquivo();
 }
 
 Sistema::~Sistema() {
-    this->finalizarSistema();
+    finalizarSistema();
 }

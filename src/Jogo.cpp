@@ -12,8 +12,10 @@
      * \param jogador O jogador cujo símbolo é necessário.
      * \return O símbolo do jogador (caractere).
      */
+using namespace std;
+
 char Jogo::get_simbolo(const Jogador& jogador) const {
-    return this->simbolos.at(jogador.getApelido());
+    return simbolos.at(jogador.getApelido());
 }
 
  /**
@@ -51,7 +53,7 @@ void Jogo::set_char(int i, int j, char c) {
      * pela próxima jogada.
      */
 void Jogo::passar_a_vez() {
-    std::swap(jogador_da_vez, outro_jogador);
+    swap(jogador_da_vez, outro_jogador);
 }
 
 /**
@@ -69,7 +71,7 @@ void Jogo::passar_a_vez() {
 Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
     linhas(linhas),
     colunas(colunas),
-    tabuleiro(linhas, std::vector<char>(colunas, ' ')),
+    tabuleiro(linhas, vector<char>(colunas, ' ')),
     jogo_finalizado(false),
     jogador1(jogador1),
     jogador2(jogador2 ),
@@ -92,7 +94,8 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
      * \param jogador2 Referência ao segundo jogador.
      * \param tabuleiro Estado inicial do tabuleiro.
      */
-Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, std::vector<std::vector<char>> tabuleiro) :
+
+Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2, vector<vector<char>> tabuleiro) :
     linhas(linhas),
     colunas(colunas),
     tabuleiro(tabuleiro),

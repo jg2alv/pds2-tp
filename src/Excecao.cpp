@@ -3,7 +3,9 @@
 
 #include "Excecao.hpp"
 
-Excecao::Excecao(std::string mensagem) : _mensagem(mensagem) {};
+using namespace std;
+
+Excecao::Excecao(string mensagem) : mensagem(mensagem) {};
 const char* Excecao::what() const throw() {
-    return this->_mensagem.c_str();
+    return mensagem.c_str();
 }
