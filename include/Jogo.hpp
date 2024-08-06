@@ -11,6 +11,14 @@
 /**
  * \brief Classe base abstrata para jogos de trabuleiro entre dois jogadores.
  *
+ * Objetos instânciados de classes derivadas dessa representam partidas entre dois jogadores em um
+ * jogo específico. Jogadas são realizadas até que um seja possível identificar um empate ou vitória;
+ * nessa cirscuntância, o jogo pode ser finalizado para que os jogadores tenham seus dados atualizados.
+ *
+ * Essa classe armazena um tabuleiro de caracteres, onde as jogadas são registradas,
+ * duas referências, uma para cada jogador, ponteiros para os jogadores de acordo com seu papel em certo
+ * instante da partida, e um mapa entre apelidos dos jogadores e caracteres no tabuleiro.
+ *
  * \see Reversi
  * \see Lig4
  * \see JogoDaVelha
