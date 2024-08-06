@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "Excecoes.hpp"
+#include "Excecao.hpp"
 
 using namespace std;
 

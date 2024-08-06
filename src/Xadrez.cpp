@@ -2,7 +2,7 @@
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"
-#include "Excecoes.hpp"
+#include "Excecao.hpp"
 
 #include <vector>
 #include <string>

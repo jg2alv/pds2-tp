@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "JogoDaVelha.hpp"
-#include "Excecoes.hpp"
+#include "Excecao.hpp"
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"
