@@ -60,11 +60,11 @@ int main() {
                         cout << "?                                     Imprime essa mensagem de ajuda." << endl;
                     }
                 }
-            } catch (const std::exception& e) {
+            } catch (const std::runtime_error& e) {
                 cout << "ERRO: " << e.what() << endl;
             }
         }
-    } catch(std::exception& e) {
+    } catch(std::runtime_error& e) {
         cout << "ERRO: " << e.what() << endl;
     }
 
