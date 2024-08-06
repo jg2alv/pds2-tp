@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "Lig4.hpp"
-#include "Excecao.hpp"
+#include "Excecoes.hpp"
 #include "Jogada.hpp"
 #include "Jogador.hpp"
 #include "Jogo.hpp"

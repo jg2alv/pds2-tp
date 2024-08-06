@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "Sistema.hpp"
-#include "Excecao.hpp"
+#include "Excecoes.hpp"
 #include "Lig4.hpp"
 #include "Reversi.hpp"
 #include "JogoDaVelha.hpp"

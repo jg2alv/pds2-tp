@@ -1,7 +1,7 @@
 #include "Reversi.hpp"
 #include "Jogador.hpp"
 #include "Jogada.hpp"
-#include "Excecao.hpp"
+#include "Excecoes.hpp"
 #include <vector>
 #include <iostream>
 #include <sstream>
