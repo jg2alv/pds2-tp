@@ -23,14 +23,14 @@ TEST_CASE("Testando Xadrez") {
             REQUIRE_THROWS(xadrez->realizarJogada("teste"));
             REQUIRE_THROWS(xadrez->realizarJogada("a2a3 a3a4"));
             REQUIRE_THROWS(xadrez->realizarJogada("a2"));
-            REQUIRE_THROWS(xadrez->realizarJogada("f1d3"));
+            REQUIRE_THROWS(xadrez->realizarJogada("f1f1"));
             REQUIRE_NOTHROW(xadrez->realizarJogada("g1f3"));
         }
         SUBCASE("Testando jogadaValida do Xadrez") {
             CHECK_THROWS(xadrez->jogadaValida("teste"));
             CHECK_THROWS(xadrez->jogadaValida("a2a3 a3a4"));
             CHECK_THROWS(xadrez->jogadaValida("a2"));
-            CHECK_FALSE(xadrez->jogadaValida("f1d3"));
+            CHECK_FALSE(xadrez->jogadaValida("f1f1"));
 
             CHECK(xadrez->jogadaValida("g1f3"));
             CHECK(xadrez->jogadaValida("b1c3"));
@@ -47,7 +47,7 @@ TEST_CASE("Testando Xadrez") {
             CHECK_FALSE(xadrez->formatoCorreto("teste"));
             CHECK_FALSE(xadrez->formatoCorreto("a2a3 a3a4"));
             CHECK_FALSE(xadrez->formatoCorreto("a2"));
-            CHECK(xadrez->formatoCorreto("f1d3"));
+            CHECK(xadrez->formatoCorreto("f1f1"));
         }
     }
 
