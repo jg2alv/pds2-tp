@@ -68,16 +68,15 @@ string Xadrez::getNome() const {
 void Xadrez::imprimirTabuleiro(ostream& out) const {
     out << "-----------Xadrez-----------\n";
 
-    char alpha[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-    out << "   1  2  3  4  5  6  7  8 " << endl;
+    out << "   a  b  c  d  e  f  g  h " << endl;
     for (int i = 0; i < linhas; i++) {
-        out << alpha[i] << " ";
+        out << 8 - i << " ";
         for (int j = 0; j < colunas; j++) {
             cout << "|" << get_char(i, j) << "|";
         }
-        out << " " << alpha[i] << endl;
+        out << " " << 8 - i << endl;
     }
-    out << "   1  2  3  4  5  6  7  8 " << endl;
+    out << "   a  b  c  d  e  f  g  h " << endl;
 }
 
 /**
@@ -111,8 +110,18 @@ bool Xadrez::formatoCorreto(string possivel_jogada) const {
     bool linhasNoIntervaloCorreto = linhaValida(linha_origem) && linhaValida(linha_dest);
     bool colunasNoIntervaloCorreto = colunaValida(coluna_origem) && colunaValida(coluna_dest);
 
-    if(!linhasNoIntervaloCorreto || !colunasNoIntervaloCorreto) return false;
+    int tam = possivel_jogada.size();
+    bool tamanho_da_entrada_eh_correto = tam == 4;
+
+    if(!linhasNoIntervaloCorreto || !colunasNoIntervaloCorreto || !tamanho_da_entrada_eh_correto) return false;
     return true;
+}
+
+void Xadrez::converterInput(char* linha, int* coluna) {
+    char linha_convertida = 7 - *coluna;
+    int coluna_convertida = (int)(*linha);
+    *linha = linha_convertida;
+    *coluna = coluna_convertida; 
 }
 
 /**
@@ -132,9 +141,6 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
     if(fimDeJogo()) return false;
     if(!formatoCorreto(possivel_jogada)) throw Excecao("formato de linhas e/ou colunas incorreto (padrao: [a-h][1-8][a-h][1-8])");
 
-    int tam = possivel_jogada.size();
-    if(tam != 4) return false;
-
     stringstream stream(possivel_jogada);
     char linha_origem, linha_dest;
     int coluna_origem, coluna_dest;
@@ -144,6 +150,9 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
     coluna_origem -= 1;
     linha_dest -= 97;
     coluna_dest -= 1;
+
+    Xadrez::converterInput(&linha_origem, &coluna_origem);
+    Xadrez::converterInput(&linha_dest, &coluna_dest);
 
     bool maiuscula;
     string apelido1 = jogador1.getApelido();
@@ -186,6 +195,9 @@ void Xadrez::realizarJogada(string possivel_jogada) {
     coluna_origem -= 1;
     linha_dest -= 97;
     coluna_dest -= 1;
+
+    Xadrez::converterInput(&linha_origem, &coluna_origem);
+    Xadrez::converterInput(&linha_dest, &coluna_dest);
 
     char peca_selecionada = get_char(linha_origem, coluna_origem);
     char peca_no_destino = get_char(linha_dest, coluna_dest);

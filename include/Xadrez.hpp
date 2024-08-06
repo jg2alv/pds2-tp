@@ -39,6 +39,8 @@ public:
     Xadrez(Jogador &jogador1, Jogador &jogador2);
     ~Xadrez();
 
+    static void converterInput(char* linha, int* coluna);
+
     virtual std::string getNome() const override;
     virtual void imprimirTabuleiro(std::ostream& out) const override;
     virtual bool formatoCorreto(std::string possivel_jogada) const override;
