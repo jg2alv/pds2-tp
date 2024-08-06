@@ -133,6 +133,13 @@ void Xadrez::converterInput(char* linha, int* coluna) {
  * o formato da possivel jogada esta correto e lanca uma excecao 
  * caso nao tenha formato correto. Eh lido da possivel jogada as 
  * coordenadas da posicao inicial da peca e da posicao final.
+ * Entao, o input do usuario eh convertido, por meio da funcao estatica
+ * `Xadrez::converterInput()`, e algumas verificacoes sao feitas.
+ * Uma excecao eh jogada caso o jogador atual esteja selecionando uma peca
+ * que pertence ao inimigo; ou caso a peca selecionada seja uma casa vazia;
+ * ou caso a posicao inicial e final sejam as mesmas. Se esses 3 testes
+ * passarem, a funcao retorna true. Caso contrario, retorna false,
+ * indicando que uma excecao deve ser lancada.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
@@ -178,7 +185,29 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
  * se for fim de jogo. Tambem verifica se a jogada eh valida e 
  * lanca uma excecao se nao for valida. Se nao for fim de jogo e 
  * a jogada for valida, eh lido da possivel jogada as coordenadas 
- * da posicao inicial da peca e da posicao final.
+ * da posicao inicial da peca e da posicao final. Do mesmo modo como
+ * na funcao de verificar a validez da jogada, o input eh convertido.
+ * Apos isso, eh verificada a validez do movimento; ou seja, se
+ * o movimento desejado para a peca selecionada eh um movimento
+ * permitido nas regras do jogo de xadrez. Eis, aqui, tais regras:
+ * - Peao: pode se mover somente para frente uma ou duas casas (duas apenas
+ *         se for o primeiro movimento da peca no jogo. Captura pecas inimigas
+ *         que estao na sua diagonal (esquerda ou direita).
+ * - Torre: pode se mover nos eixos x e y - ou seja, horizontal e verticalmente -,
+ *          por quantas casas desejar (desde que nao haja pecas entre sua posicao
+ *          final e inicial, pois a torre nao pula pecas). Captura pecas se movimentando
+ *          horizontal ou verticalmente.
+ * - Cavalo: faz um L no tabuleiro: anda duas casas em uma direcao e uma casa em outra.
+ *           Pode pular pecas, inimigas ou amigas, que estejam entre sua posicao final
+ *           e inicial. Captura a peca inimiga sobre a qual ele cai.
+ * - Bispo: pode andar somente nas diagonais, qualquer uma das quatro. Nao pula pecas.
+ * - Rainha: regras de movimento sao a uniao das habilidades do Bispo e da Torre.
+ * - Rei: pode se mover uma casa em qualquer uma das 8 direcoes (4 direcoes principais e
+ *        4 diagonais).
+ * Alem disso, foi implementada a promocao de Peao para Rainha: se um peao chega no
+ * outro lado do tabuleiro, ele eh promovido em Rainha.
+ * A funcao joga excecoes se os movimentos inseridos forem invalidos. Caso isso nao ocorra,
+ * a funcao realiza a jogada e passa a vez para o proximo jogador.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
@@ -341,10 +370,10 @@ void Xadrez::realizarJogada(string possivel_jogada) {
  * \brief Verifica a vitoria de um jogador
  *
  * Essa funcao recebe como parametro um jogador e verifica se
- * o jogador adversario ainda tem a peca do rei no tabuleiro.
- * Se isso for atendido, o jogador nao venceu a partida e eh
- * retornado falso e, caso nao for encontrado o rei do outro
- * jogador, ele venceu a partida e eh retornado verdadeiro.
+ * o jogador adversario (j2) ainda tem a peca do rei no tabuleiro.
+ * Se isso for atendido, o jogador atual (j1) nao venceu a partida e eh
+ * retornado falso. Caso nao for encontrado o rei de j2 no tabuleiro,
+ * j1 venceu a partida e eh retornado verdadeiro.
  * 
  * \param jogador Um jogador da partida.
  * \return true ou false
@@ -357,7 +386,7 @@ bool Xadrez::verificarVitoria(Jogador const& jogador) const {
     // se nao existir, jogador1 venceu
     
     // se verifica vitoria de jogador2, tem que ver se existe K.
-    // se no existir, jogador2 venceu
+    // se nao existir, jogador2 venceu
     char rei = jogador.getApelido() == jogador1.getApelido() ? 'k' : 'K';
 
     for(int i = 0; i < linhas; i++) {
