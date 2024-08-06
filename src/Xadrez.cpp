@@ -72,7 +72,7 @@ void Xadrez::imprimirTabuleiro(ostream& out) const {
     for (int i = 0; i < linhas; i++) {
         out << 8 - i << " ";
         for (int j = 0; j < colunas; j++) {
-            cout << "|" << get_char(i, j) << "|";
+            out << "|" << get_char(i, j) << "|";
         }
         out << " " << 8 - i << endl;
     }

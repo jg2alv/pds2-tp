@@ -375,9 +375,9 @@ void Reversi::imprimirTabuleiro(ostream& out) const {
     }
     out << "\n";
     for (int i = 0; i < linhas; i++) {
-        cout << i + 1 << " "; 
+        out << i + 1 << " "; 
         for (int j = 0; j < colunas; j++) {
-            cout << "|" << get_char(i, j) << "|";
+            out << "|" << get_char(i, j) << "|";
         }
         out << "\n";
     }

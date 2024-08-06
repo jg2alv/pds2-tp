@@ -59,7 +59,7 @@ void Lig4::imprimirTabuleiro(ostream& out) const {
     
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            cout << "|" << get_char(i, j) << "|";
+            out << "|" << get_char(i, j) << "|";
         }
         out << endl;
     }
