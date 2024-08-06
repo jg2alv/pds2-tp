@@ -181,15 +181,55 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         throw Excecao("jogador '" + apelido + "' nao encontrado");
     }
 
+    string resto_da_linha;
+    getline(in, resto_da_linha);
+    stringstream novo_in(resto_da_linha);
+
     unique_ptr<Jogo> jogo;
     if (nome_do_jogo == "Lig4") {
-        jogo.reset(new Lig4(6, 7, *jogador1, *jogador2));
+        unsigned int linhas = 6, colunas = 7;
+
+        string extra;
+        if (stringstream(resto_da_linha) >> extra) {
+            if (novo_in >> linhas && novo_in >> colunas && !(novo_in >> extra)) {
+                if (linhas < 4 || colunas < 4) {
+                    throw Excecao("o numero de linhas e colunas do Lig4 customizado deve ser maiores os iguais a 4");
+                }
+            } else {
+                throw Excecao("para customizar o Lig4, primeiro digite o numero de linhas (>= 4) e depois o numero de colunas (>= 4)");
+            }
+        }
+
+        jogo.reset(new Lig4(linhas, colunas, *jogador1, *jogador2));
     } else if (nome_do_jogo == "Reversi") {
-        jogo.reset(new Reversi(8, 8, *jogador1, *jogador2));
+        unsigned int dimensoes = 8;
+
+        string extra;
+        if (stringstream(resto_da_linha) >> extra) {
+            if (novo_in >> dimensoes && !(novo_in >> extra)) {
+                if (dimensoes < 4 || dimensoes % 2 == 1) {
+                    throw Excecao("as dimensoes do Reversi customizado deve ser maiores os iguais a 4 e pares");
+                }
+            } else {
+                throw Excecao("para customizar o Reversi, digite um numero para as dimensoes (>= 4 e divisivel por 2) do tabuleiro");
+            }
+        }
+
+        jogo.reset(new Reversi(dimensoes, dimensoes, *jogador1, *jogador2));
     } else if (nome_do_jogo == "JogoDaVelha") {
-        jogo.reset(new JogoDaVelha(*jogador1, *jogador2));
+        string extra;
+        if (stringstream(resto_da_linha) >> extra) {
+            throw Excecao("nao eh possivel customizar o JogoDaVelha");
+        } else {
+            jogo.reset(new JogoDaVelha(*jogador1, *jogador2));
+        }
     } else if (nome_do_jogo == "Xadrez") {
-        jogo.reset(new Xadrez(*jogador1, *jogador2));
+        string extra;
+        if (stringstream(resto_da_linha) >> extra) {
+            throw Excecao("nao eh possivel customizar o Xadrez");
+        } else {
+            jogo.reset(new Xadrez(*jogador1, *jogador2));
+        }
     } else {
         throw Excecao("jogo nao existe (jogos validos: Lig4, Reversi, JogoDaVelha, Xadrez)");
     }
