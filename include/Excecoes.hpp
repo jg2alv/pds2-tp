@@ -4,7 +4,7 @@
 #include <string>
 #include <exception>
 
-class Excecao : public std::exception {
+class Excecao : public std::runtime_error {
 private: 
     std::string _mensagem; 
   
