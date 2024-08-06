@@ -1,4 +1,4 @@
-classe Excecao:
+classe Excecao (subclasse de std::runtime_error):
 	Responsabilidades:
 		Saber uma mensagem de erro.
 	Colaboradores:
