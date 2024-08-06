@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 #include "Jogador.hpp"
 
@@ -44,7 +45,7 @@ class Sistema {
         void removerJogador(std::string apelido);
         void listarJogadores(std::string base, std::ostream& out);
         void finalizarSistema();
-        void executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::string extras, std::istream& in, std::ostream& out);
+        void executarPartida(std::string nome_do_jogo, std::string apelido1, std::string apelido2, std::stringstream& extras, std::istream& in, std::ostream& out);
         void carregarArquivo();
         void salvarSistema();
         void limparSistema();

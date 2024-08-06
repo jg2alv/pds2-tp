@@ -169,7 +169,7 @@ void Sistema::listarJogadores(string base, ostream& out) {
  * \param out Onde imprimir a saida do jogo.
  * 
 */
-void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apelido2, string extras, istream& in, ostream& out) {
+void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apelido2, stringstream& extras, istream& in, ostream& out) {
     auto jogador1 = acharJogador(apelido1);
     auto jogador2 = acharJogador(apelido2);
 
@@ -182,15 +182,13 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         throw Excecao("jogador '" + apelido + "' nao encontrado");
     }
 
-    stringstream extras_stream(extras);
-
     unique_ptr<Jogo> jogo;
     if (nome_do_jogo == "Lig4") {
         unsigned int linhas = 6, colunas = 7;
 
         string string_de_teste;
-        if (stringstream(extras) >> string_de_teste) {
-            if (extras_stream >> linhas && extras_stream >> colunas && !(extras_stream >> string_de_teste)) {
+        if (stringstream(extras.str()) >> string_de_teste) {
+            if (extras >> linhas && extras >> colunas && !(extras >> string_de_teste)) {
                 if (linhas < 4 || colunas < 4) {
                     throw Excecao("o numero de linhas e colunas do Lig4 customizado deve ser maiores os iguais a 4");
                 }
@@ -204,8 +202,8 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         unsigned int dimensoes = 8;
 
         string string_de_teste;
-        if (stringstream(extras)>> string_de_teste) {
-            if (extras_stream >> dimensoes && !(extras_stream >> string_de_teste)) {
+        if (stringstream(extras.str())>> string_de_teste) {
+            if (extras >> dimensoes && !(extras >> string_de_teste)) {
                 if (dimensoes < 4 || dimensoes % 2 == 1) {
                     throw Excecao("as dimensoes do Reversi customizado devem ser maiores os iguais a 4 e pares");
                 }
@@ -217,14 +215,14 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         jogo.reset(new Reversi(dimensoes, dimensoes, *jogador1, *jogador2));
     } else if (nome_do_jogo == "JogoDaVelha") {
         string string_de_teste;
-        if (stringstream(extras) >> string_de_teste) {
+        if (extras >> string_de_teste) {
             throw Excecao("nao eh possivel customizar o JogoDaVelha");
         } else {
             jogo.reset(new JogoDaVelha(*jogador1, *jogador2));
         }
     } else if (nome_do_jogo == "Xadrez") {
         string string_de_teste;
-        if (stringstream(extras) >> string_de_teste) {
+        if (extras >> string_de_teste) {
             throw Excecao("nao eh possivel customizar o Xadrez");
         } else {
             jogo.reset(new Xadrez(*jogador1, *jogador2));
@@ -236,7 +234,7 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
     jogo->imprimirTabuleiro(out);
     while (!jogo->fimDeJogo()) {
         try {
-            out << "Turno do jogador " << jogo->getJogadorDaVez()->getApelido() << ": ";
+            out << "Turno do jogador " << jogo->getJogadorDaVez()->getApelido() << " (entre uma jogada, 'desisto' ou 'cancela'): ";
 
             string possivel_jogada;
             getline(in, possivel_jogada);
