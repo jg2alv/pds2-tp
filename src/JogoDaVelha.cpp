@@ -27,7 +27,7 @@ JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
  * \brief Destrutor da classe JogoDaVelha
  * 
  * Destrutor da classe JogoDaVelha. Como nao tem nenhum atributo
- * alocado dinamicamente, nao é preciso desalocar nenhuma
+ * alocado dinamicamente, nao eh preciso desalocar nenhuma
  * memoria manualmente.
  */
 JogoDaVelha::~JogoDaVelha() {}
@@ -86,25 +86,23 @@ bool JogoDaVelha::formatoCorreto(string possivel_jogada) const {
     int linha, coluna;
     string extra;
 
-    if (!(jogada_stream >> linha)) {
+    if (!(jogada_stream >> linha))
         return false;
-    }
 
-    if (!(jogada_stream >> coluna)) {
+    if (!(jogada_stream >> coluna))
         return false;
-    }
 
     return !(jogada_stream >> extra);
 }
 
 /**
- * \brief Verifica se a jogada é valida
+ * \brief Verifica se a jogada eh valida
  *
  * Essa funcao recebe como parametro uma jogada e verifica se
- * a posicao dessa jogada está dentro dos limites do tabuleiro.
- * Se não estiver, é retornado falso. Se estiver dentro dos limites,
- * é verificado se a posiçao esta vazia e é retornado verdadeiro
- * se estiver vazia ou falso se não estiver.
+ * a posicao dessa jogada esta dentro dos limites do tabuleiro.
+ * Se nao estiver, eh retornado falso. Se estiver dentro dos limites,
+ * eh verificado se a posiçao esta vazia e eh retornado verdadeiro
+ * se estiver vazia ou falso se nao estiver.
  * 
  * \param jogada Uma jogada lida.
  * \return true ou false
@@ -114,32 +112,32 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
     int coluna = jogada.get_coluna();
 
     if (!((linha >= 0 && linha < linhas) && (coluna >= 0 && coluna < colunas))) 
-        return false;
+        return false;  
     else 
         return (get_char(linha, coluna) == ' ');
 }
 
 /**
- * \brief Verifica se a jogada é valida
+ * \brief Verifica se a jogada eh valida
  *
  * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se é fim de jogo e retorna falso se
+ * jogada. A funcao verifica se eh fim de jogo e retorna falso se
  * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
  * o formato da possivel jogada esta correto e lanca uma excecao 
- * caso nao tenha formato correto. Por fim, é criada uma jogada 
+ * caso nao tenha formato correto. Por fim, eh criada uma jogada 
  * com a linha e coluna lida da entrada e chamada a funcao 
- * 'jogada_valida', retornando verdadeiro se a jogada for valida 
+ * `jogada_valida`, retornando verdadeiro se a jogada for valida 
  * ou falso, caso contrario.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
  */
 bool JogoDaVelha::jogadaValida(string possivel_jogada) const {
-    if (fimDeJogo()) {
+    if (fimDeJogo())
         return false;
-    }
 
-    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha][coluna])");
+    if (!formatoCorreto(possivel_jogada)) 
+        throw Excecao("formato incorreto (formato correto: [linha][coluna])");
 
     stringstream in;
     in.str(possivel_jogada);
@@ -156,7 +154,7 @@ bool JogoDaVelha::jogadaValida(string possivel_jogada) const {
  * \brief Coloca um simbolo no tabuleiro
  *
  * Essa funcao recebe como parametro uma jogada e coloca no tabuleiro, 
- * na posiçao da linha e da coluna dessa jogada, o simbolo do jogador 
+ * na posicao da linha e da coluna dessa jogada, o simbolo do jogador 
  * da vez.
  * 
  * \param jogada Uma jogada lida.
@@ -169,19 +167,22 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
  * \brief Realiza uma jogada
  *
  * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se é fim de jogo e lanca uma excecao
+ * jogada. A funcao verifica se eh fim de jogo e lanca uma excecao
  * se for fim de jogo. Tambem verifica se o formato da possivel 
  * jogada esta correto e lanca uma excecao caso nao tenha formato
- * correto. É criada uma jogada com a linha e coluna lida da entrada 
- * e verificado se a jogada é valida e, caso não seja, é lançada uma
- * exceçao. Se nao for fim de jogo, o formato for correto e a jogada
- * for valida, entao é realizada a jogada e é trocado o jogador da vez.
+ * correto. Eh criada uma jogada com a linha e coluna lida da entrada 
+ * e verificado se a jogada eh valida e, caso nao seja, eh lançada uma
+ * excecao. Se nao for fim de jogo, o formato for correto e a jogada
+ * for valida, eh realizada a jogada e eh trocado o jogador da vez.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
 void JogoDaVelha::realizarJogada(string possivel_jogada) {
-    if (fimDeJogo()) throw Excecao("jogo ja acabou");
-    if (!formatoCorreto(possivel_jogada)) throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
+    if (fimDeJogo()) 
+        throw Excecao("jogo ja acabou");
+
+    if (!formatoCorreto(possivel_jogada)) 
+        throw Excecao("formato incorreto (formato correto: [linha] [coluna])");
 
     stringstream in;
     in.str(possivel_jogada);
@@ -191,7 +192,8 @@ void JogoDaVelha::realizarJogada(string possivel_jogada) {
     linha --, coluna--;
 
     Jogada jogada(linha, coluna);
-    if (!jogada_valida(jogada)) throw Excecao("jogada invalida (posicao informada ja esta ocupada ou esta fora dos limites do tabuleiro)");
+    if (!jogada_valida(jogada)) 
+        throw Excecao("jogada invalida (posicao informada ja esta ocupada ou esta fora dos limites do tabuleiro)");
     
     realizar_jogada(jogada);
     passar_a_vez();
@@ -201,7 +203,7 @@ void JogoDaVelha::realizarJogada(string possivel_jogada) {
  * \brief Verifica a vitoria de um jogador
  *
  * Essa funcao recebe como parametro um jogador e verifica se
- * esse jogador tem tres pecas adjacentes no tabuleiro. É 
+ * esse jogador tem tres pecas adjacentes no tabuleiro. Eh 
  * verificada cada linha, cada coluna e cada diagonal (nos dois
  * sentidos). Caso encontre tres simbolos do jogador em algum
  * desses casos, retorna verdadeiro. Caso contrario, retorna falso.
@@ -217,8 +219,11 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
         qntd = 0;
 
         for (int j = 0; j < colunas; j++) {
-            if (get_char(i, j) == ' ') break;
-            if (get_char(i, j) == simbolo) qntd++;
+            if (get_char(i, j) == ' ') 
+                break;
+
+            if (get_char(i, j) == simbolo) 
+                qntd++;
         }
 
         if (qntd == 3) return true;
@@ -228,8 +233,11 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
         qntd = 0;
         
         for (int i = 0; i < linhas; i++) {
-            if (get_char(i, j) == ' ') break;
-            if (get_char(i, j) == simbolo) qntd++;
+            if (get_char(i, j) == ' ') 
+                break;
+
+            if (get_char(i, j) == simbolo) 
+                qntd++;
         }
 
         if (qntd == 3) return true;
@@ -237,16 +245,23 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
 
     qntd = 0;
     for (int i = 0; i < linhas; i++) {
-        if (get_char(i, i) == ' ') break;
-        if (get_char(i, i) == simbolo) qntd++;
+        if (get_char(i, i) == ' ') 
+            break;
+
+        if (get_char(i, i) == simbolo) 
+            qntd++;
     }
     if (qntd == 3) return true;
 
     qntd = 0;
     for (int i = 0; i < linhas; i++) {
         int j = 2 - i;
-        if (get_char(i, j) == ' ') break;
-        if (get_char(i, j) == simbolo) qntd++;
+        
+        if (get_char(i, j) == ' ') 
+            break;
+
+        if (get_char(i, j) == simbolo) 
+            qntd++;
     }
     if (qntd == 3) return true;
 
@@ -257,8 +272,8 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
  * \brief Verifica se o tabuleiro esta cheio
  *
  * Essa funcao verifica se todas as posicoes do tabuleiro
- * estao cheias. Caso isso seja atendido, é retornado 
- * verdadeiro e, caso contrario, é retornado falso.
+ * estao cheias. Caso isso seja atendido, eh retornado 
+ * verdadeiro e, caso contrario, eh retornado falso.
  * 
  * \return true ou false
  */
@@ -277,17 +292,16 @@ bool JogoDaVelha::tabuleiro_cheio() const {
  * \brief Verifica o empate do jogo
  *
  * Essa funcao verifica se houve a vitora de algum
- * jogador e, caso tenha, nao houve empate e é retornado
+ * jogador e, caso tenha, nao houve empate e eh retornado
  * falso. Caso contrario, verifica se o tabuleiro esta
- * cheio. Se estiver, houve empate e é retornado 
- * verdadeiro e, se nao estiver, é retornado falso.
+ * cheio. Se estiver, houve empate e eh retornado 
+ * verdadeiro e, se nao estiver, eh retornado falso.
  * 
  * \return true ou false
  */
 bool JogoDaVelha::verificarEmpate() const {
-    if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) {
+    if (verificarVitoria(jogador1) || verificarVitoria(jogador2)) 
         return false;
-    } else {
+    else 
         return tabuleiro_cheio();
-    }
 }

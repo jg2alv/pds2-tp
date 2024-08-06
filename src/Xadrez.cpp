@@ -84,11 +84,11 @@ void Xadrez::imprimirTabuleiro(ostream& out) const {
  *
  * Essa funcao recebe como parametro uma string da entrada lida 
  * e analisa se existe exatamente uma letra e um numero para uma
- * posicao inicial da peca e para uma posicao final. É lido da 
+ * posicao inicial da peca e para uma posicao final. Eh lido da 
  * entrada essas letra e numeros, transformado as letras em numeros
- * da linha do tabuleiro e, então, é verificado se as coordenadas
+ * da linha do tabuleiro e, então, eh verificado se as coordenadas
  * recebidas estao dentro do limite do tabuleiro. Se isso for atendido,
- * é retornado verdadeiro e, caso contrario, é retornado falso.
+ * eh retornado verdadeiro e, caso contrario, eh retornado falso.
  * 
  * \param possivel_jogada A string da entrada.
  * \return true ou false
@@ -125,13 +125,13 @@ void Xadrez::converterInput(char* linha, int* coluna) {
 }
 
 /**
- * \brief Verifica se a jogada é valida
+ * \brief Verifica se a jogada eh valida
  *
  * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se é fim de jogo e retorna falso se
+ * jogada. A funcao verifica se eh fim de jogo e retorna falso se
  * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
  * o formato da possivel jogada esta correto e lanca uma excecao 
- * caso nao tenha formato correto. É lido da possivel jogada as 
+ * caso nao tenha formato correto. Eh lido da possivel jogada as 
  * coordenadas da posicao inicial da peca e da posicao final.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
@@ -174,10 +174,10 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
  * \brief Realiza uma jogada
  *
  * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se é fim de jogo e lanca uma excecao
- * se for fim de jogo. Tambem verifica se a jogada é valida e 
+ * jogada. A funcao verifica se eh fim de jogo e lanca uma excecao
+ * se for fim de jogo. Tambem verifica se a jogada eh valida e 
  * lanca uma excecao se nao for valida. Se nao for fim de jogo e 
- * a jogada for valida, é lido da possivel jogada as coordenadas 
+ * a jogada for valida, eh lido da possivel jogada as coordenadas 
  * da posicao inicial da peca e da posicao final.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
@@ -342,9 +342,9 @@ void Xadrez::realizarJogada(string possivel_jogada) {
  *
  * Essa funcao recebe como parametro um jogador e verifica se
  * o jogador adversario ainda tem a peca do rei no tabuleiro.
- * Se isso for atendido, o jogador nao venceu a partida e é
+ * Se isso for atendido, o jogador nao venceu a partida e eh
  * retornado falso e, caso nao for encontrado o rei do outro
- * jogador, ele venceu a partida e é retornado verdadeiro.
+ * jogador, ele venceu a partida e eh retornado verdadeiro.
  * 
  * \param jogador Um jogador da partida.
  * \return true ou false

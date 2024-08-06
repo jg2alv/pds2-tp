@@ -14,8 +14,8 @@
  * 
  * \brief Classe que representa o jogo Lig4
  * 
- * Lig4 é um jogo de tabuleiro jogado por dois jogadores.
- * O objetivo do jogo é que um jogador coloque no tabuleiro quatro peças
+ * Lig4 eh um jogo de tabuleiro jogado por dois jogadores.
+ * O objetivo do jogo eh que um jogador coloque no tabuleiro quatro peças
  * consecutivas de seu simbolo, seja em uma linha, coluna ou diagonal.
  * O primeiro jogador que completar esse objetivo vence o jogo. Caso todo 
  * o tabuleiro seja preenchido e nenhum jogador tenha conseguido colocar 
@@ -24,10 +24,10 @@
  * Para jogar, o jogador da vez tera que digitar o numero de uma coluna do 
  * tabuleiro que deseja colocar sua peca. Caso a coluna nao exista ou esteja 
  * cheia, o jogador devera digitar outra coluna que seja valida.
- * Essa classe é responsavel por realizar uma partida do jogo Lig4. Ela tem
+ * Essa classe eh responsavel por realizar uma partida do jogo Lig4. Ela tem
  * metodos que imprime o tabuleiro do jogo, que le uma jogada de um jogador, 
- * que verifica se a jogada esta no formato correto e é valida, que adiociona
- * a nova peça no tabuleiro e que verifica se houve empate ou vitoria.
+ * que verifica se a jogada esta no formato correto e eh valida, que adiciona
+ * a nova peca no tabuleiro e que verifica se houve empate ou vitoria.
  */
 class Lig4 : public Jogo {
 private:
