@@ -9,13 +9,9 @@ using namespace std;
 
 
 TEST_CASE("Teste para Sistema") {
-    SUBCASE("Testando inicializacao do Sistema") {
-        REQUIRE_NOTHROW(Sistema("./test_data/jogadores1.txt", false));
-        REQUIRE_NOTHROW(Sistema("./test_data/jogadores2.txt", false));
-        REQUIRE_NOTHROW(Sistema("./test_data/jogadores3.txt", false));
-        REQUIRE_THROWS(Sistema("./test_data/jogadores4.txt", false));
-    }
+
     SUBCASE("Primeiro arquivo de testes para Sistema") {
+        REQUIRE_NOTHROW(Sistema("./test_data/jogadores1.txt", false));
         Sistema sistema("./test_data/jogadores1.txt", false);
 
         string saida_esperada = "A Alice\n"
@@ -54,13 +50,14 @@ TEST_CASE("Teste para Sistema") {
                          "D Diogo\n";
 
         stringstream().swap(saida);
-        sistema.listarJogadores("N", saida);
+        sistema.listarJogadores("A", saida);
         CHECK(saida.str() == saida_esperada);
 
         sistema.finalizarSistema();
-        REQUIRE(sistema.isSistemaFinalizado());
+        CHECK(sistema.isSistemaFinalizado());
     }
     SUBCASE("Segundo arquivo de testes para Sistema") {
+        REQUIRE_NOTHROW(Sistema("./test_data/jogadores2.txt", false));
         Sistema sistema("./test_data/jogadores2.txt", false);
 
         stringstream saida;
@@ -85,10 +82,20 @@ TEST_CASE("Teste para Sistema") {
         sistema.listarJogadores("N", saida);
         CHECK(saida.str() == saida_esperada);
 
+        REQUIRE_THROWS(sistema.removerJogador("paulo"));
+        REQUIRE_NOTHROW(sistema.removerJogador("josue"));
+        REQUIRE_NOTHROW(sistema.removerJogador("davi"));
+        REQUIRE_THROWS(sistema.removerJogador("davi"));
+
+        stringstream().swap(saida);
+        sistema.listarJogadores("A", saida);
+        CHECK(saida.str() == "Nao existe jogadores cadastrados no sistema.\n");
+
         sistema.finalizarSistema();
         REQUIRE(sistema.isSistemaFinalizado());
     }
-    SUBCASE("Arquivo de teste 3") {
+    SUBCASE("Terceiro arquivo de teste para o Sistema") {
+        REQUIRE_NOTHROW(Sistema("./test_data/jogadores3.txt", false));
         Sistema sistema("./test_data/jogadores3.txt", false);
         
         stringstream saida;
@@ -103,14 +110,24 @@ TEST_CASE("Teste para Sistema") {
         REQUIRE_THROWS(sistema.cadastrarJogador("apelido", "outro nome"));
         REQUIRE_NOTHROW(sistema.cadastrarJogador("outro_apelido", "nome"));
 
-        REQUIRE_THROWS(sistema.removerJogador("nao apelido"));
-        REQUIRE_NOTHROW(sistema.removerJogador("apelido"));
-        REQUIRE_NOTHROW(sistema.removerJogador("outro_apelido"));
-        REQUIRE_THROWS(sistema.removerJogador("nao apelido"));
+        stringstream().swap(saida);
+        stringstream extras("4 4");
+        stringstream entrada("1 1\n2 1\n1 2\n2 2\n1 3\n");
+        REQUIRE_THROWS(sistema.executarPartida("JogoDaVelha", "apelido", "outro_apelido", extras, entrada, saida));
+
+        stringstream().swap(saida);
+        sistema.listarJogadores("A", saida);
+        CHECK(saida.str() == "apelido nome\noutro_apelido nome\n");
+
+        stringstream().swap(saida);
+        sistema.listarJogadores("N", saida);
+        CHECK(saida.str() == "apelido nome\noutro_apelido nome\n");
 
         sistema.finalizarSistema();
         REQUIRE(sistema.isSistemaFinalizado());
     }
+
+    REQUIRE_THROWS(Sistema("./test_data/jogadores4.txt", false));
 }
 
 
