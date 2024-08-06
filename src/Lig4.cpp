@@ -28,16 +28,16 @@ Lig4::Lig4(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) :
 /**
  * \brief Destrutor da classe Lig4
  * 
- * Destrutor da classe Lig4. Como nao tem nenhum atributo
- * alocado dinamicamente, nao eh preciso desalocar nenhuma
- * memoria manualmente.
+ * Destrutor da classe Lig4. Como não tem nenhum atributo
+ * alocado dinamicamente, não é preciso desalocar nenhuma
+ * memória manualmente.
  */
 Lig4::~Lig4() {}
 
 /**
  * \brief Retorna uma string do nome do jogo
  *
- * Essa funcao retorna o nome do jogo, no caso "Lig4".
+ * Essa função retorna o nome do jogo, no caso "Lig4".
  * 
  * \return Uma string "Lig4".
  */
@@ -48,11 +48,11 @@ string Lig4::getNome() const {
 /**
  * \brief Imprime o tabuleiro do jogo
  *
- * Essa funcao recebe um stream de saida e imprime, nesse
+ * Essa função recebe um stream de saída e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * "Lig4" e indicando os indices de cada coluna.
+ * "Lig4" e indicando os índices de cada coluna.
  * 
- * \param out Um stream de saida.
+ * \param out Um stream de saída.
  */
 void Lig4::imprimirTabuleiro(ostream& out) const {
     out << "---------Lig4--------\n";
@@ -74,10 +74,10 @@ void Lig4::imprimirTabuleiro(ostream& out) const {
 /**
  * \brief Analisa o formato da entrada recebida
  *
- * Essa funcao recebe como parametro uma string da entrada lida 
- * e analisa se existe exatamente um numero na entrada.
- * Se isso for atendido, a funcao retorna verdadeiro.
- * Caso contrario, retorna falso.
+ * Essa função recebe como parâmetro uma string da entrada lida 
+ * e analisa se existe exatamente um número na entrada.
+ * Se isso for atendido, a função retorna verdadeiro.
+ * Caso contrário, retorna falso.
  * 
  * \param possivel_jogada A string da entrada.
  * \return true ou false
@@ -96,13 +96,13 @@ bool Lig4::formatoCorreto(string possivel_jogada) const {
 /**
  * \brief Encontra a primeira linha vazia de uma coluna
  *
- * Essa funcao recebe como parametro o numero de uma coluna,
+ * Essa função recebe como parâmetro o número de uma coluna,
  * percorre as posições dessa coluna do tabuleiro e retorna
- * o indice da linha da primeira posiçao vazia. Caso nenhuma
- * linha esteja vazia, a funcao retorna -1.
+ * o índice da linha da primeira posição vazia. Caso nenhuma
+ * linha esteja vazia, a função retorna -1.
  * 
  * \param coluna Uma coluna do tabuleiro.
- * \return O indice da primeira linha vazia.
+ * \return O índice da primeira linha vazia.
  */
 int Lig4::get_linha_tabuleiro(int coluna) const {
     int i = linhas - 1;
@@ -115,14 +115,14 @@ int Lig4::get_linha_tabuleiro(int coluna) const {
 }
 
 /**
- * \brief Verifica se a jogada eh valida
+ * \brief Verifica se a jogada está em uma posição válida
  *
- * Essa funcao recebe como parametro uma jogada e verifica
- * se a coluna esta dentro dos limites do tabuleiro. Se isso 
- * for atendido, eh mudada a linha da jogada com a funcao 
- * `get_linha_tabuleiro` e entao e verificado o valor da linha.
- * Se for diferente de -1, ou seja, a coluna nao esta cheia,
- * retorna verdadeiro e, caso contrario, retorna falso.
+ * Essa função recebe como parâmetro uma jogada e verifica
+ * se a coluna está dentro dos limites do tabuleiro. Se isso 
+ * for atendido, é mudada a linha da jogada com a função 
+ * `get_linha_tabuleiro` e então é verificado o valor da linha.
+ * Se for diferente de -1, ou seja, a coluna não está cheia,
+ * retorna verdadeiro e, caso contrário, retorna falso.
  * 
  * \param jogada Uma jogada lida.
  * \return true ou false
@@ -141,16 +141,16 @@ bool Lig4::jogada_valida(Jogada &jogada) const {
 }
 
 /**
- * \brief Verifica se a jogada eh valida
+ * \brief Verifica se a jogada é válida
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e retorna falso se
- * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
- * o formato da possivel jogada esta correto e lanca uma excecao 
- * caso nao tenha formato correto. Por fim, eh criada uma jogada 
- * com a coluna lida da entrada e chamada a funcao `jogada_valida`, 
- * retornando verdadeiro se a jogada for valida ou falso, caso 
- * contrario.
+ * Essa função recebe como parâmetro uma string de uma possível
+ * jogada. A função verifica se é fim de jogo e retorna falso se
+ * for fim de jogo, pois não tem mais jogadas. Também verifica se 
+ * o formato da possível jogada está correto e lança uma exceção 
+ * caso não tenha formato correto. Por fim, é criada uma jogada 
+ * com a coluna lida da entrada e chamada a função `jogada_valida`, 
+ * retornando verdadeiro se a jogada for válida ou falso, caso 
+ * contrário.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
@@ -174,10 +174,10 @@ bool Lig4::jogadaValida(string possivel_jogada) const {
 }
 
 /**
- * \brief Coloca um simbolo no tabuleiro
+ * \brief Coloca um símbolo no tabuleiro
  *
- * Essa funcao recebe como parametro uma jogada e coloca no tabuleiro, 
- * na posicao da linha e da coluna dessa jogada, o simbolo do jogador 
+ * Essa função recebe como parametro uma jogada e coloca no tabuleiro, 
+ * na posicao da linha e da coluna dessa jogada, o símbolo do jogador 
  * da vez.
  * 
  * \param jogada Uma jogada lida.
@@ -189,14 +189,14 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
 /**
  * \brief Realiza uma jogada
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e lanca uma excecao
- * se for fim de jogo. Tambem verifica se o formato da possivel 
- * jogada esta correto e lanca uma excecao caso nao tenha formato
- * correto. Eh criada uma jogada com a coluna lida da entrada e 
- * verificado se a jogada eh valida e, caso nao seja, eh lançada uma
- * excecao. Se nao for fim de jogo, o formato for correto e a jogada
- * for valida, eh realizada a jogada e eh trocado o jogador da vez.
+ * Essa função recebe como parâmetro uma string de uma possível
+ * jogada. A função verifica se é fim de jogo e lança uma exceção
+ * se for fim de jogo. Também verifica se o formato da possível 
+ * jogada está correto e lança uma exceção caso não tenha formato
+ * correto. É criada uma jogada com a coluna lida da entrada e 
+ * verificado se a jogada é válida e, caso não seja, é lançada uma
+ * exceção. Se não for fim de jogo, o formato for correto e a jogada
+ * for válida, é realizada a jogada e é trocado o jogador da vez.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
@@ -223,12 +223,12 @@ void Lig4::realizarJogada(string possivel_jogada) {
 }
 
 /**
- * \brief Verifica se uma linha do tabuleiro esta vazia
+ * \brief Verifica se uma linha do tabuleiro está vazia
  *
- * Essa funcao recebe como parametro uma linha e verifica se
- * todas as posicoes do tabuleiro que estao nessa linha estao 
+ * Essa função recebe como parâmetro uma linha e verifica se
+ * todas as posições do tabuleiro que estão nessa linha estão 
  * vazias. Caso todas estejam vazias, retorna verdadeiro, se
- * nao, retorna falso.
+ * não, retorna falso.
  * 
  * \param linha Uma linha do tabuleiro.
  * \return true ou false
@@ -243,12 +243,12 @@ bool Lig4::linha_vazia(int linha) const {
 }
 
 /**
- * \brief Verifica se uma coluna do tabuleiro esta vazia
+ * \brief Verifica se uma coluna do tabuleiro está vazia
  *
- * Essa funcao recebe como parametro uma coluna e verifica se
- * todas as posicoes do tabuleiro que estao nessa coluna estao 
+ * Essa função recebe como parâmetro uma coluna e verifica se
+ * todas as posições do tabuleiro que estão nessa coluna estão 
  * vazias. Caso todas estejam vazias, retorna verdadeiro, se
- * nao, retorna falso.
+ * não, retorna falso.
  * 
  * \param coluna Uma coluna do tabuleiro.
  * \return true ou false
@@ -263,13 +263,14 @@ bool Lig4::coluna_vazia(int coluna) const {
 }
 
 /**
- * \brief Verifica a vitoria de um jogador
+ * \brief Verifica a vitória de um jogador
  *
- * Essa funcao recebe como parametro um jogador e verifica se
- * esse jogador tem quatro pecas adjacentes no tabuleiro. Eh 
+ * Essa função recebe como parâmetro um jogador e verifica se
+ * esse jogador tem quatro peças adjacentes no tabuleiro. É 
  * verificada cada linha, cada coluna e cada diagonal (nos dois
- * sentidos). Caso encontre quatro simbolos do jogador em algum
- * desses casos, retorna verdadeiro. Caso contrario, retorna falso.
+ * sentidos). Caso encontre quatro símbolos do jogador em algum
+ * desses casos, retorna verdadeiro e, caso contrário, retorna 
+ * falso.
  * 
  * \param jogador Um jogador da partida.
  * \return true ou false
@@ -357,9 +358,9 @@ bool Lig4::verificarVitoria(const Jogador& jogador) const {
 /**
  * \brief Verifica se o tabuleiro esta cheio
  *
- * Essa funcao verifica se todas as posicoes do tabuleiro
- * estao cheias. Caso isso seja atendido, eh retornado 
- * verdadeiro e, caso contrario, eh retornado falso.
+ * Essa função verifica se todas as posições do tabuleiro
+ * estão cheias. Caso isso seja atendido, é retornado 
+ * verdadeiro e, caso contrário, é retornado falso.
  * 
  * \return true ou false
  */
@@ -377,11 +378,11 @@ bool Lig4::tabuleiro_cheio() const {
 /**
  * \brief Verifica o empate do jogo
  *
- * Essa funcao verifica se houve a vitora de algum
- * jogador e, caso tenha, nao houve empate e eh retornado
- * falso. Caso contrario, verifica se o tabuleiro esta
- * cheio. Se estiver, houve empate e eh retornado 
- * verdadeiro e, se nao estiver, eh retornado falso.
+ * Essa função verifica se houve a vitória de algum
+ * jogador e, caso tenha, não houve empate e é retornado
+ * falso. Caso contrário, verifica se o tabuleiro está
+ * cheio. Se estiver, houve empate e é retornado 
+ * verdadeiro e, se não estiver, é retornado falso.
  * 
  * \return true ou false
  */

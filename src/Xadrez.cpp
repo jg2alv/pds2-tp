@@ -16,8 +16,8 @@ using namespace std;
  * 
  * Construtor da classe Xadrez, que inicializa os jogadores
  * da partida, a linha e a coluna do tabuleiro com tamanho
- * 8, chamando o construtor da classe Jogo, e coloca os peoes
- * de cada jogador na posicao inicial do jogo.
+ * 8, chamando o construtor da classe Jogo, e coloca os peões
+ * de cada jogador na posição inicial do jogo.
  * 
  * \param jogador1 Primeiro jogador.
  * \param jogador2 Segundo jogador.
@@ -38,8 +38,8 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
 /**
  * \brief Destrutor da classe Xadrez
  * 
- * Destrutor da classe Xadrez. Como nao tem nenhum atributo
- * alocado dinamicamente, nao é preciso desalocar nenhuma
+ * Destrutor da classe Xadrez. Como não tem nenhum atributo
+ * alocado dinamicamente, não é preciso desalocar nenhuma
  * memoria manualmente.
  */
 Xadrez::~Xadrez() {}
@@ -47,7 +47,7 @@ Xadrez::~Xadrez() {}
 /**
  * \brief Retorna uma string do nome do jogo
  *
- * Essa funcao retorna o nome do jogo, no caso "Xadrez".
+ * Essa função retorna o nome do jogo, no caso "Xadrez".
  * 
  * \return Uma string "Xadrez".
  */
@@ -58,9 +58,9 @@ string Xadrez::getNome() const {
 /**
  * \brief Imprime o tabuleiro do jogo
  *
- * Essa funcao recebe um stream de saida e imprime, nesse
+ * Essa função recebe um stream de saída e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * "Xadrez" e indicando os indices de cada coluna e as 
+ * "Xadrez" e indicando os índices de cada coluna e as 
  * letras de cada linha.
  * 
  * \param out Um stream de saida.
@@ -82,13 +82,14 @@ void Xadrez::imprimirTabuleiro(ostream& out) const {
 /**
  * \brief Analisa o formato da entrada recebida
  *
- * Essa funcao recebe como parametro uma string da entrada lida 
- * e analisa se existe exatamente uma letra e um numero para uma
- * posicao inicial da peca e para uma posicao final. Eh lido da 
- * entrada essas letra e numeros, transformado as letras em numeros
- * da linha do tabuleiro e, então, eh verificado se as coordenadas
- * recebidas estao dentro do limite do tabuleiro. Se isso for atendido,
- * eh retornado verdadeiro e, caso contrario, eh retornado falso.
+ * Essa função recebe como parâmetro uma string da entrada lida 
+ * e analisa se existe exatamente uma letra e um número para uma
+ * posição inicial da peça e para uma posição final. É lido da 
+ * entrada essas letras e números, transformado as letras em números
+ * da linha do tabuleiro e, então, é verificado se as coordenadas
+ * recebidas estão dentro do limite do tabuleiro. Se isso for 
+ * atendido, é retornado verdadeiro e, caso contrário, é retornado 
+ * falso.
  * 
  * \param possivel_jogada A string da entrada.
  * \return true ou false
@@ -125,21 +126,22 @@ void Xadrez::converterInput(char* linha, int* coluna) {
 }
 
 /**
- * \brief Verifica se a jogada eh valida
+ * \brief Verifica se a jogada é válida
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e retorna falso se
- * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
- * o formato da possivel jogada esta correto e lanca uma excecao 
- * caso nao tenha formato correto. Eh lido da possivel jogada as 
- * coordenadas da posicao inicial da peca e da posicao final.
- * Entao, o input do usuario eh convertido, por meio da funcao estatica
- * `Xadrez::converterInput()`, e algumas verificacoes sao feitas.
- * Uma excecao eh jogada caso o jogador atual esteja selecionando uma peca
- * que pertence ao inimigo; ou caso a peca selecionada seja uma casa vazia;
- * ou caso a posicao inicial e final sejam as mesmas. Se esses 3 testes
- * passarem, a funcao retorna true. Caso contrario, retorna false,
- * indicando que uma excecao deve ser lancada.
+ * Essa função recebe como parâmetro uma string de uma possível
+ * jogada. A função verifica se é fim de jogo e retorna falso se
+ * for fim de jogo, pois não tem mais jogadas. Também verifica se 
+ * o formato da possível jogada está correto e lança uma exceção 
+ * caso não tenha formato correto. É lido da possível jogada as 
+ * coordenadas da posiçãoo inicial da peça e da posiçãoo final.
+ * Então, o input do usuario é convertido, por meio da função 
+ * estática `Xadrez::converterInput()`, e algumas verificações são 
+ * feitas. Uma exceção é lançada caso o jogador atual esteja 
+ * selecionando uma peça que pertence ao inimigo; ou caso a peça 
+ * selecionada seja uma casa vazia; ou caso a posição inicial e 
+ * final sejam as mesmas. Se esses 3 testes passarem, a função 
+ * retorna true. Caso contrário, retorna false, indicando que uma 
+ * exceção deve ser lançada.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
@@ -180,34 +182,39 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
 /**
  * \brief Realiza uma jogada
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e lanca uma excecao
- * se for fim de jogo. Tambem verifica se a jogada eh valida e 
- * lanca uma excecao se nao for valida. Se nao for fim de jogo e 
- * a jogada for valida, eh lido da possivel jogada as coordenadas 
- * da posicao inicial da peca e da posicao final. Do mesmo modo como
- * na funcao de verificar a validez da jogada, o input eh convertido.
- * Apos isso, eh verificada a validez do movimento; ou seja, se
- * o movimento desejado para a peca selecionada eh um movimento
+ * Essa função recebe como parâmetro uma string de uma possível jogada. 
+ * A função verifica se é fim de jogo e lança uma exceção se for fim de
+ * jogo. Também verifica se a jogada é válida e lança uma exceção se não
+ * for válida. Se não for fim de jogo e a jogada for válida, é lido da 
+ * possível jogada as coordenadas da posição inicial da peça e da posição
+ * final. Do mesmo modo como na função de verificar a validez da jogada, 
+ * o input é convertido. Após isso, é verificada a validez do movimento; 
+ * ou seja, se o movimento desejado para a peça selecionada é um movimento
  * permitido nas regras do jogo de xadrez. Eis, aqui, tais regras:
- * - Peao: pode se mover somente para frente uma ou duas casas (duas apenas
- *         se for o primeiro movimento da peca no jogo. Captura pecas inimigas
- *         que estao na sua diagonal (esquerda ou direita).
- * - Torre: pode se mover nos eixos x e y - ou seja, horizontal e verticalmente -,
- *          por quantas casas desejar (desde que nao haja pecas entre sua posicao
- *          final e inicial, pois a torre nao pula pecas). Captura pecas se movimentando
- *          horizontal ou verticalmente.
- * - Cavalo: faz um L no tabuleiro: anda duas casas em uma direcao e uma casa em outra.
- *           Pode pular pecas, inimigas ou amigas, que estejam entre sua posicao final
- *           e inicial. Captura a peca inimiga sobre a qual ele cai.
- * - Bispo: pode andar somente nas diagonais, qualquer uma das quatro. Nao pula pecas.
- * - Rainha: regras de movimento sao a uniao das habilidades do Bispo e da Torre.
- * - Rei: pode se mover uma casa em qualquer uma das 8 direcoes (4 direcoes principais e
- *        4 diagonais).
- * Alem disso, foi implementada a promocao de Peao para Rainha: se um peao chega no
- * outro lado do tabuleiro, ele eh promovido em Rainha.
- * A funcao joga excecoes se os movimentos inseridos forem invalidos. Caso isso nao ocorra,
- * a funcao realiza a jogada e passa a vez para o proximo jogador.
+ * - Peão: pode se mover somente para frente uma ou duas casas (duas 
+ *         apenas se for o primeiro movimento da peça no jogo). Captura 
+ *         peças inimigas que estão na sua diagonal (esquerda ou
+ *         direita).
+ * - Torre: pode se mover nos eixos x e y - ou seja, horizontal e 
+ *          verticalmente -, por quantas casas desejar (desde que não 
+ *          haja peças entre sua posição final e inicial, pois a torre 
+ *          não pula peças). Captura peças se movimentando horizontal ou
+ *          verticalmente.
+ * - Cavalo: faz um L no tabuleiro: anda duas casas em uma direção e uma 
+ *           casa em outra. Pode pular peças, inimigas ou amigas, que 
+ *           estejam entre sua posição final e inicial. Captura a peça 
+ *           inimiga sobre a qual ele cai.
+ * - Bispo: pode andar somente nas diagonais, qualquer uma das quatro. 
+ *          Não pula peças.
+ * - Rainha: regras de movimento são a união das habilidades do Bispo e 
+ *           da Torre.
+ * - Rei: pode se mover uma casa em qualquer uma das 8 direções (4 direções 
+ *        principais e 4 diagonais).
+ * Além disso, foi implementada a promoção de Peão para Rainha: se um peão 
+ * chega no outro lado do tabuleiro, ele é promovido em Rainha.
+ * A função joga exceções se os movimentos inseridos forem inválidos. Caso 
+ * isso não ocorra, a função realiza a jogada e passa a vez para o próximo 
+ * jogador.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
@@ -367,26 +374,26 @@ void Xadrez::realizarJogada(string possivel_jogada) {
 }
 
 /**
- * \brief Verifica a vitoria de um jogador
+ * \brief Verifica a vitória de um jogador
  *
- * Essa funcao recebe como parametro um jogador e verifica se
- * o jogador adversario (j2) ainda tem a peca do rei no tabuleiro.
- * Se isso for atendido, o jogador atual (j1) nao venceu a partida e eh
- * retornado falso. Caso nao for encontrado o rei de j2 no tabuleiro,
- * j1 venceu a partida e eh retornado verdadeiro.
+ * Essa função recebe como parâmetro um jogador e verifica se
+ * o jogador adversário (j2) ainda tem a peca do rei no tabuleiro.
+ * Se isso for atendido, o jogador atual (j1) não venceu a partida 
+ * e é retornado falso. Caso não for encontrado o rei de j2 no 
+ * tabuleiro, j1 venceu a partida e é retornado verdadeiro.
  * 
  * \param jogador Um jogador da partida.
  * \return true ou false
  */
 bool Xadrez::verificarVitoria(Jogador const& jogador) const {
-    // jogador1 eh branco: rei eh K
-    // jogador2 eh preto: rei eh k
+    // jogador1 é branco: rei é K
+    // jogador2 é preto: rei é k
 
-    // se verifica vitoria de jogador1, tem que ver se existe k.
-    // se nao existir, jogador1 venceu
+    // se verifica vitória de jogador1, tem que ver se existe k.
+    // se não existir, jogador1 venceu
     
-    // se verifica vitoria de jogador2, tem que ver se existe K.
-    // se nao existir, jogador2 venceu
+    // se verifica vitória de jogador2, tem que ver se existe K.
+    // se não existir, jogador2 venceu
     char rei = jogador.getApelido() == jogador1.getApelido() ? 'k' : 'K';
 
     for(int i = 0; i < linhas; i++) {
@@ -402,8 +409,8 @@ bool Xadrez::verificarVitoria(Jogador const& jogador) const {
 /**
  * \brief Verifica o empate do jogo
  *
- * Essa funcao sempre retorna falso, pois, no Xadrez,
- * nao existe empate.
+ * Essa função sempre retorna falso, pois, no Xadrez,
+ * não existe empate.
  * 
  * \return false
  */

@@ -26,8 +26,8 @@ JogoDaVelha::JogoDaVelha(Jogador &jogador1, Jogador &jogador2) :
 /**
  * \brief Destrutor da classe JogoDaVelha
  * 
- * Destrutor da classe JogoDaVelha. Como nao tem nenhum atributo
- * alocado dinamicamente, nao eh preciso desalocar nenhuma
+ * Destrutor da classe JogoDaVelha. Como não tem nenhum atributo
+ * alocado dinamicamente, não é preciso desalocar nenhuma
  * memoria manualmente.
  */
 JogoDaVelha::~JogoDaVelha() {}
@@ -46,12 +46,12 @@ string JogoDaVelha::getNome() const {
 /**
  * \brief Imprime o tabuleiro do jogo
  *
- * Essa funcao recebe um stream de saida e imprime, nesse
+ * Essa função recebe um stream de saída e imprime, nesse
  * stream, o tabuleiro do jogo, com uma cabeçalho escrito
- * "Jogo da Velha" e indicando os indices de cada linha e
+ * "Jogo da Velha" e indicando os índices de cada linha e
  * coluna.
  * 
- * \param out Um stream de saida.
+ * \param out Um stream de saída.
  */
 void JogoDaVelha::imprimirTabuleiro(ostream& out) const {
     out << "--Jogo da Velha--\n    ";
@@ -73,10 +73,10 @@ void JogoDaVelha::imprimirTabuleiro(ostream& out) const {
 /**
  * \brief Analisa o formato da entrada recebida
  *
- * Essa funcao recebe como parametro uma string da entrada lida 
- * e analisa se existe exatamente dois numeros na entrada.
- * Se isso for atendido, a funcao retorna verdadeiro.
- * Caso contrario, retorna falso.
+ * Essa função recebe como parâmetro uma string da entrada 
+ * lida e analisa se existe exatamente dois números na entrada.
+ * Se isso for atendido, a função retorna verdadeiro.
+ * Caso contrário, retorna falso.
  * 
  * \param possivel_jogada A string da entrada.
  * \return true ou false
@@ -96,13 +96,13 @@ bool JogoDaVelha::formatoCorreto(string possivel_jogada) const {
 }
 
 /**
- * \brief Verifica se a jogada eh valida
+ * \brief Verifica se a jogada está em uma posição válida
  *
- * Essa funcao recebe como parametro uma jogada e verifica se
- * a posicao dessa jogada esta dentro dos limites do tabuleiro.
- * Se nao estiver, eh retornado falso. Se estiver dentro dos limites,
- * eh verificado se a posiçao esta vazia e eh retornado verdadeiro
- * se estiver vazia ou falso se nao estiver.
+ * Essa função recebe como parâmetro uma jogada e verifica se
+ * a posição dessa jogada está dentro dos limites do tabuleiro.
+ * Se não estiver, é retornado falso. Se estiver dentro dos limites,
+ * é verificado se a posição está vazia e é retornado verdadeiro
+ * se estiver vazia, ou falso se não estiver.
  * 
  * \param jogada Uma jogada lida.
  * \return true ou false
@@ -118,16 +118,16 @@ bool JogoDaVelha::jogada_valida(const Jogada &jogada) const {
 }
 
 /**
- * \brief Verifica se a jogada eh valida
+ * \brief Verifica se a jogada é valida
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e retorna falso se
- * for fim de jogo, pois nao tem mais jogadas. Tambem verifica se 
- * o formato da possivel jogada esta correto e lanca uma excecao 
- * caso nao tenha formato correto. Por fim, eh criada uma jogada 
- * com a linha e coluna lida da entrada e chamada a funcao 
- * `jogada_valida`, retornando verdadeiro se a jogada for valida 
- * ou falso, caso contrario.
+ * Essa função recebe como parâmetro uma string de uma possível
+ * jogada. A função verifica se é fim de jogo e retorna falso se
+ * for fim de jogo, pois não tem mais jogadas. Também verifica se 
+ * o formato da possível jogada está correto e lança uma exceção 
+ * caso não tenha formato correto. Por fim, é criada uma jogada 
+ * com a linha e coluna lida da entrada e chamada a função 
+ * `jogada_valida`, retornando verdadeiro se a jogada for válida 
+ * ou falso, caso contrário.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
@@ -151,10 +151,10 @@ bool JogoDaVelha::jogadaValida(string possivel_jogada) const {
 }
 
 /**
- * \brief Coloca um simbolo no tabuleiro
+ * \brief Coloca um símbolo no tabuleiro
  *
- * Essa funcao recebe como parametro uma jogada e coloca no tabuleiro, 
- * na posicao da linha e da coluna dessa jogada, o simbolo do jogador 
+ * Essa função recebe como parâmetro uma jogada e coloca no tabuleiro, 
+ * na posicao da linha e da coluna dessa jogada, o símbolo do jogador 
  * da vez.
  * 
  * \param jogada Uma jogada lida.
@@ -166,14 +166,14 @@ void JogoDaVelha::realizar_jogada(const Jogada &jogada) {
 /**
  * \brief Realiza uma jogada
  *
- * Essa funcao recebe como parametro uma string de uma possivel
- * jogada. A funcao verifica se eh fim de jogo e lanca uma excecao
- * se for fim de jogo. Tambem verifica se o formato da possivel 
- * jogada esta correto e lanca uma excecao caso nao tenha formato
- * correto. Eh criada uma jogada com a linha e coluna lida da entrada 
- * e verificado se a jogada eh valida e, caso nao seja, eh lançada uma
- * excecao. Se nao for fim de jogo, o formato for correto e a jogada
- * for valida, eh realizada a jogada e eh trocado o jogador da vez.
+ * Essa função recebe como parâmetro uma string de uma possível
+ * jogada. A função verifica se é fim de jogo e lança uma exceção
+ * se for fim de jogo. Também verifica se o formato da possível 
+ * jogada está correto e lança uma exceção caso não tenha formato
+ * correto. É criada uma jogada com a linha e coluna lida da entrada 
+ * e verificado se a jogada é válida e, caso não seja, é lançada uma
+ * exceção. Se não for fim de jogo, o formato for correto e a jogada
+ * for válida, é realizada a jogada e é trocado o jogador da vez.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  */
@@ -200,13 +200,13 @@ void JogoDaVelha::realizarJogada(string possivel_jogada) {
 }
 
 /**
- * \brief Verifica a vitoria de um jogador
+ * \brief Verifica a vitória de um jogador
  *
- * Essa funcao recebe como parametro um jogador e verifica se
- * esse jogador tem tres pecas adjacentes no tabuleiro. Eh 
+ * Essa função recebe como parâmetro um jogador e verifica se
+ * esse jogador tem três peças adjacentes no tabuleiro. É 
  * verificada cada linha, cada coluna e cada diagonal (nos dois
- * sentidos). Caso encontre tres simbolos do jogador em algum
- * desses casos, retorna verdadeiro. Caso contrario, retorna falso.
+ * sentidos). Caso encontre três símbolos do jogador em algum
+ * desses casos, retorna verdadeiro. Caso contrário, retorna falso.
  * 
  * \param jogador Um jogador da partida.
  * \return true ou false
@@ -269,11 +269,11 @@ bool JogoDaVelha::verificarVitoria(Jogador const& jogador) const {
 }
 
 /**
- * \brief Verifica se o tabuleiro esta cheio
+ * \brief Verifica se o tabuleiro está cheio
  *
- * Essa funcao verifica se todas as posicoes do tabuleiro
- * estao cheias. Caso isso seja atendido, eh retornado 
- * verdadeiro e, caso contrario, eh retornado falso.
+ * Essa função verifica se todas as posições do tabuleiro
+ * estão cheias. Caso isso seja atendido, é retornado 
+ * verdadeiro e, caso contrário, é retornado falso.
  * 
  * \return true ou false
  */
@@ -291,11 +291,11 @@ bool JogoDaVelha::tabuleiro_cheio() const {
 /**
  * \brief Verifica o empate do jogo
  *
- * Essa funcao verifica se houve a vitora de algum
- * jogador e, caso tenha, nao houve empate e eh retornado
- * falso. Caso contrario, verifica se o tabuleiro esta
- * cheio. Se estiver, houve empate e eh retornado 
- * verdadeiro e, se nao estiver, eh retornado falso.
+ * Essa função verifica se houve a vitória de algum
+ * jogador e, caso tenha, não houve empate e é retornado
+ * falso. Caso contrário, verifica se o tabuleiro está
+ * cheio. Se estiver, houve empate e é retornado 
+ * verdadeiro e, se não estiver, é retornado falso.
  * 
  * \return true ou false
  */
