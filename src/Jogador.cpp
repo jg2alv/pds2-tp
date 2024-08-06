@@ -183,8 +183,10 @@ void Jogador::imprimirInformacoes(ostream& out) const {
     for (int i = 0; i < getNumeroDeJogos(); i++)
     {
         Resultados resultados = __pontuacao.at(jogos[i]);
-        out << jogos[i] << " - " << "V: " << resultados.vitorias << " ";
-        out << "D: " << resultados.derrotas << endl;
+        out << jogos[i] << " - ";
+        out << "V: " << resultados.vitorias << " ";
+        out << "D: " << resultados.derrotas << " ";
+        out << "E: " << resultados.empates << endl;
     }
 }
 

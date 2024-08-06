@@ -38,8 +38,8 @@ TEST_CASE("Testes para o Jogador") {
     CHECK(alice.getJogosCadastrados() == vector<string>{"Lig4", "Reversi"}); 
 
     string saida_esperada = "A Alice\n"
-                            "Lig4 - V: 1 D: 1\n"
-                            "Reversi - V: 1 D: 3\n";
+                            "Lig4 - V: 1 D: 1 E: 2\n"
+                            "Reversi - V: 1 D: 3 E: 1\n";
     stringstream saida;
     alice.imprimirInformacoes(saida);
     CHECK(saida.str() == saida_esperada);

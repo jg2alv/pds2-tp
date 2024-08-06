@@ -13,14 +13,14 @@ TEST_CASE("Teste para Sistema") {
         Sistema sistema("./test_data/jogadores1.txt", false);
 
         string saida_esperada = "A Alice\n"
-                                 "Lig4 - V: 0 D: 1\n"
-                                 "Reversi - V: 2 D: 1\n"
+                                 "Lig4 - V: 0 D: 1 E: 2\n"
+                                 "Reversi - V: 2 D: 1 E: 0\n"
                                  "B Bruno\n"
-                                 "Lig4 - V: 5 D: 0\n"
+                                 "Lig4 - V: 5 D: 0 E: 0\n"
                                  "C Carol\n"
-                                 "JogoDaVelha - V: 0 D: 4\n"
-                                 "Lig4 - V: 0 D: 0\n"
-                                 "Reversi - V: 0 D: 1\n"
+                                 "JogoDaVelha - V: 0 D: 4 E: 2\n"
+                                 "Lig4 - V: 0 D: 0 E: 3\n"
+                                 "Reversi - V: 0 D: 1 E: 0\n"
                                  "D Diogo\n";
         
         stringstream saida;
