@@ -64,7 +64,7 @@ bool Sistema::isSistemaFinalizado() {
  * \param apelido O apelido do jogador a ser encontrado.
  * \return O iterador que aponta para o jogador.
 */
-vector<Jogador>::iterator Sistema::acharJogador(string apelido) {
+vector<Jogador>::iterator Sistema::achar_jogador(string apelido) {
     auto acharJogador = [apelido](Jogador const& j) { return j.getApelido() == apelido; };
     auto jogador = find_if(jogadores.begin(), jogadores.end(), acharJogador);
     
@@ -85,7 +85,7 @@ vector<Jogador>::iterator Sistema::acharJogador(string apelido) {
  * \param nome O nome do possivel novo jogador.
 */
 void Sistema::cadastrarJogador(string apelido, string nome) {
-    auto jogador = acharJogador(apelido);
+    auto jogador = achar_jogador(apelido);
     bool jogador_repetido = jogador != jogadores.end();
     
     if(jogador_repetido) throw Excecao("jogador repetido (cada jogador tem um apelido unico)");
@@ -106,7 +106,7 @@ void Sistema::cadastrarJogador(string apelido, string nome) {
  * \param apelido O apelido do jogador a ser removido.
 */
 void Sistema::removerJogador(string apelido) {
-    auto jogador = acharJogador(apelido);
+    auto jogador = achar_jogador(apelido);
     bool jogador_inexistente = jogador == jogadores.end();
 
     if(jogador_inexistente) throw Excecao("jogador inexistente (jogador com o apelido '" + apelido + "' nao encontrado)");
@@ -170,8 +170,8 @@ void Sistema::listarJogadores(string base, ostream& out) {
  * 
 */
 void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apelido2, stringstream& extras, istream& in, ostream& out) {
-    auto jogador1 = acharJogador(apelido1);
-    auto jogador2 = acharJogador(apelido2);
+    auto jogador1 = achar_jogador(apelido1);
+    auto jogador2 = achar_jogador(apelido2);
 
     bool jogador1_existe = jogador1 != jogadores.end();
     bool jogador2_existe = jogador2 != jogadores.end();

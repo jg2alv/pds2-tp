@@ -29,6 +29,8 @@ class Sistema {
         std::string banco_de_dados;
         bool salvar_ao_sair;
 
+        std::vector<Jogador>::iterator achar_jogador(std::string apelido);
+
     public:
         enum class Comando {
             CadastrarJogador,
@@ -40,7 +42,6 @@ class Sistema {
         };
         static Sistema::Comando identificar_comando(std::string candidato_a_comando);
         bool isSistemaFinalizado();
-        std::vector<Jogador>::iterator acharJogador(std::string apelido);
         void cadastrarJogador(std::string nome, std::string apelido);
         void removerJogador(std::string apelido);
         void listarJogadores(std::string base, std::ostream& out);
