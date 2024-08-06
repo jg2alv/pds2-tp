@@ -45,6 +45,12 @@ TEST_CASE("Testando Lig4") {
     }
 
     SUBCASE("Testando partida do Lig4") {
+        REQUIRE(*lig4->getJogadorDaVez() == alice);
+        REQUIRE(*lig4->getOutroJogador() == bruno);
+
+        REQUIRE_FALSE(lig4->fimDeJogo());
+        REQUIRE_FALSE(lig4->isJogoFinalizado());
+
         ifstream arquivo_de_jogadas("./test_data/jogadas_lig41.txt");
         stringstream jogadas_stream;
         jogadas_stream << arquivo_de_jogadas.rdbuf();
@@ -64,6 +70,8 @@ TEST_CASE("Testando Lig4") {
 
         REQUIRE(lig4->fimDeJogo());
         lig4->finalizarJogo();
+
+        REQUIRE(lig4->isJogoFinalizado());
 
         CHECK(lig4->getVencedor() == &bruno);
         CHECK(lig4->getPerdedor() == &alice);

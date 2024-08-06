@@ -48,6 +48,12 @@ TEST_CASE("Testando JogoDaVelha") {
     }
 
     SUBCASE("Testando partida do JogoDaVelha") {
+        REQUIRE(*jogo_da_velha->getJogadorDaVez() == alice);
+        REQUIRE(*jogo_da_velha->getOutroJogador() == bruno);
+
+        REQUIRE_FALSE(jogo_da_velha->fimDeJogo());
+        REQUIRE_FALSE(jogo_da_velha->isJogoFinalizado());
+
         ifstream arquivo_de_jogadas("./test_data/jogadas_jogo_da_velha1.txt");
         stringstream jogadas_stream;
         jogadas_stream << arquivo_de_jogadas.rdbuf();
@@ -67,6 +73,8 @@ TEST_CASE("Testando JogoDaVelha") {
 
         REQUIRE(jogo_da_velha->fimDeJogo());
         jogo_da_velha->finalizarJogo();
+
+        REQUIRE(jogo_da_velha->isJogoFinalizado());
 
         CHECK(jogo_da_velha->getVencedor() == &alice);
         CHECK(jogo_da_velha->getPerdedor() == &bruno);

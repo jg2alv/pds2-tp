@@ -50,6 +50,12 @@ TEST_CASE("Testando Reversi") {
     }
 
     SUBCASE("Testando partida do Reversi") {
+        REQUIRE(*reversi->getJogadorDaVez() == alice);
+        REQUIRE(*reversi->getOutroJogador() == bruno);
+
+        REQUIRE_FALSE(reversi->fimDeJogo());
+        REQUIRE_FALSE(reversi->isJogoFinalizado());
+
         ifstream arquivo_de_jogadas("./test_data/jogadas_reversi1.txt");
         stringstream jogadas_stream;
         jogadas_stream << arquivo_de_jogadas.rdbuf();
@@ -69,6 +75,8 @@ TEST_CASE("Testando Reversi") {
 
         REQUIRE(reversi->fimDeJogo());
         reversi->finalizarJogo();
+
+        REQUIRE(reversi->isJogoFinalizado());
 
         CHECK(reversi->getVencedor() == &alice);
         CHECK(reversi->getPerdedor() == &bruno);

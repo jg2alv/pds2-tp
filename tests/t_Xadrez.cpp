@@ -52,6 +52,12 @@ TEST_CASE("Testando Xadrez") {
     }
 
     SUBCASE("Testando partida do Xadrez") {
+        REQUIRE(*xadrez->getJogadorDaVez() == alice);
+        REQUIRE(*xadrez->getOutroJogador() == bruno);
+
+        REQUIRE_FALSE(xadrez->fimDeJogo());
+        REQUIRE_FALSE(xadrez->isJogoFinalizado());
+
         ifstream arquivo_de_jogadas("./test_data/jogadas_xadrez1.txt");
         stringstream jogadas_stream;
         jogadas_stream << arquivo_de_jogadas.rdbuf();
@@ -71,6 +77,8 @@ TEST_CASE("Testando Xadrez") {
 
         REQUIRE(xadrez->fimDeJogo());
         xadrez->finalizarJogo();
+
+        REQUIRE(xadrez->isJogoFinalizado());
 
         CHECK(xadrez->getVencedor() == &bruno);
         CHECK(xadrez->getPerdedor() == &alice);
