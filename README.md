@@ -1,4 +1,4 @@
-# Projeto Final (PDS2)
+# Projeto Final
 
 ### Dependências
 É necessário `g++` para compilar os binários e `doxygen` para a documentação. <br>
@@ -17,29 +17,48 @@ Use `bin/t_main` para rodar os testes. <br>
 Use `make run` para compilar e jogar de uma só vez. <br>
 Use `make test` para compilar e testar de uma só vez. <br>
 
+### Funcionalidade
+Ao iniciar o programa, o arquivo `data/jogadores.txt` e lido, ou criado caso não exista, e o usuário pode digitar uma série comandos para interagir com o sistema. <br>
+Digite `?` para uma explicação sobre os comandos disponíveis. <br>
+Após serem cadastrados pelo menos dois jogadores, pode ser realizada uma partida entre eles. Os jogos `Lig4` e `Reversi` podem ser customizados adicionando logo após o conteúdo normal de um comando `EP`: um número de linhas e colunas do tabuleiro, e o tamanho do lado de um tabuleiro quadrado, repectivamente. <br>
+ Cada um dos jogos disponíveis tem um formato de jogada único: <br>
+- O `JogoDaVelha` e o `Reversi` recebem dois números, uma linha e uma coluna, respectivamente. <br>
+- O `Lig4` recebe só um número, o da coluna. <br>
+- O `Xadrez` recebe uma string na forma `[a-h][1-8][a-h][1-8]`, onde o primeiro par de letra e número representa a coluna e a linha de origem de uma peça, e o segundo, seu destino. <br>
+Qualquer erro na entrada produzir uma mensagem de erro útil sobre a última ação. <br>
+Quando o programa é fechado ou finaliza normalmente, os dados adquiridos durante a execução são escritos no arquivo `data/jogadores.txt`. <br>
+
+### Formato do arquivo de jogadores
+```
+{número de jogadores}
+[
+{apelido do jogador}
+{nome do jogador}
+{número de jogos diferentes que o jogador já jogou}
+[{nome do jogo} {número de vitórias} {número de derrotas} {número de empates}]
+]
+```
+
 ### Problema
-Foi proposta a implementação de dois jogos, Reversi e Lig4, utilizando-se do conhecimento de C++ adquirido ao longo do semestre.Junto aos jogos, foi proposta a implementação de um sistema de cadastro de jogadores, que armazena os dados referente à um mesmo jogador, como suas vitórias e derrotas em determinado jogo. <br>
+Foi proposta a implementação de um sistema para cadastro de jogadores e realização de partidas em dois jogos, Reversi e Lig4, de forma que seus resultados sejam contabilizados entre execuções do programa. Foi definida como obrigatória a utilização da programção orientada a objetos em C++, em especial dos mecanismos de polimorfismo universal de inclusão fornecidos pela linguagem. <br>
 
 ### Solução
-Em visão de solucionar esse problema, iniciamos o desenvolvimento deste programa. Foram criadas, inicialmente 7 classes, sendo elas: <br>
-- `Jogo`: classe abstrata de jogos de tabuleiro, servindo o propósito de ser classe pai para os diversos jogos <br>
-- `Reversi`: classe que implementa o jogo Reversi, herdando as características da classe 'Jogo' <br>
-- `Lig4`: classe que implementa o jogo Lig4, herdando as características da classe 'Jogo' <br> 
-- `Jogador`: responsável por armazenar os dados de um jogador, como nome, apelido e pontuação. <br>
-- `Jogada`: responsável por representar uma jogada de um determinado jogador em um determinado jogo. <br>
-- `Sistema`: responsável por controlar todo o funcionamento do programa, como interpretar comandos, iniciar jogos, escrever resultados em arquivos ou encerrar o programa quando solicitado. <br>
-- `Excecao`: responsável por lançar uma exceção personalizada em caso de erro no programa <br>
-
+Em função de solucionar o problema proposto, foram criadas 9 classes, 1 delas abstrata com 5 herdeiras. <br>
+A classe `Jogo`, com seus métodos pure virtual para a realização de jogadas e verificação de vitória, além de seu métodos para gerenciamento dos jogadores e do tabuleiro, serviu de base a para as classes dos jogos específicos, `Reversi`, `Lig4`, `JogoDaVelha` e `Xadrez`. <br>
+A classe `Jogada` serviu de auxilio para a implementação dos jogos em particular. <br>
+A classe `Jogador` serviu como receptáculo para as informações cadastradas e resultados de partidas. <br>
+A classe `Sistema` acabou responsabilizada por construir e guardar `Jogador`es a partir do arquivo e reescrevê-lo com dados atualizados após o uso, além de realizar as partidas dos diferentes jogos de fato, com auxílio dos métodos disponibilizados pela classe `Jogo`. <br>
+Também criamos uma classe `Excecao`, herdeira de `std::exception` para gerenciamento de erros de excução. <br>
 O desenvolvimento e implementação de cada uma dessas classes foi dividido entre os membros do grupo. <br>
+As maiores dificuldades encontradas foram relacionadas a definir qual seria a interface das classes `Jogo`, na medida em que precisavam interagir de forma adequada com o `Sistema` e pudessem ser testadas facilmente independente dele. <br>
 
-Após a implementação de todos estes, e o programa funcionando corretamente, decidimos desenvolver outros dois jogos, como extras para o trabalho: <br>
-- `Xadrez`: classe que implementa o jogo Xadrez, herdando características da classe 'Jogo' <br>
-- `JogoDaVelha`: classe que implementa o jogo 'Jogo da Velha', herdando características da classe 'Jogo' <br>
-
-### Dificuldades
-Durante o desenvolvimento, nos deparamos com todas as dificuldades comuns, como relacionar todas as classes entre si, implementar a lógica de cada um dos jogos, e desenvolver um sistema com outros participantes.<br>
-Porém, todos os integrantes se mostraram dispostos a solucionar todas as adversidades encontradas, e por meio de comunicação diária e reuniões periódicas, passamos por todas as dificuldades sem problemas, e o programa foi implementado com sucesso.<br>
-
+### Extras
+Como funcionalidade extras decidimos incluir: <br>
+- Mensagens de erros explicativas e comandos de ajuda para os usuários. <br>
+- Customização para os jogos `Lig4` e `Reversi`, permitindo tamanhos de tabuleiro diferentes. <br>
+- Dois jogos novos sem opções de customização, `JogoDaVelha` e `Xadrez`*. <br>
+- Possibilidade de desistência e cancelamento de uma partida. <br>
+\*Basicamente um protótipo: não inclui xeque nem xeque-mate, roque, *en passant*, promoção para cavalo, bispo ou torre, afogamento ou outras possibilidades de empate. <br>
 
 ### Integrantes
 Davi Oliveira Sad (DaviOSad) <br>
