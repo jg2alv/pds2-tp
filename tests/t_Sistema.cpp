@@ -36,6 +36,29 @@ TEST_CASE("Teste para Sistema") {
         stringstream().swap(saida);
         sistema.listarJogadores("N", saida);
         CHECK(saida.str() == saida_esperada);
+
+        stringstream().swap(saida);
+        stringstream extras("4 4");
+        stringstream entrada("cancela");
+        REQUIRE_NOTHROW(sistema.executarPartida("Lig4", "A", "B", extras, entrada, saida));
+
+        saida_esperada = "A Alice\n"
+                         "Lig4 - V: 0 D: 1 E: 3\n"
+                         "Reversi - V: 2 D: 1 E: 0\n"
+                         "B Bruno\n"
+                         "Lig4 - V: 5 D: 0 E: 1\n"
+                         "C Carol\n"
+                         "JogoDaVelha - V: 0 D: 4 E: 2\n"
+                         "Lig4 - V: 0 D: 0 E: 3\n"
+                         "Reversi - V: 0 D: 1 E: 0\n"
+                         "D Diogo\n";
+
+        stringstream().swap(saida);
+        sistema.listarJogadores("N", saida);
+        CHECK(saida.str() == saida_esperada);
+
+        sistema.finalizarSistema();
+        REQUIRE(sistema.isSistemaFinalizado());
     }
     SUBCASE("Segundo arquivo de testes para Sistema") {
         Sistema sistema("./test_data/jogadores2.txt", false);
@@ -49,7 +72,7 @@ TEST_CASE("Teste para Sistema") {
         CHECK(saida.str() == "josue Abraao\ndavi Elias\n");
 
         stringstream().swap(saida);
-        stringstream extras("12");
+        stringstream extras("4");
         stringstream entrada("desisto");
         REQUIRE_NOTHROW(sistema.executarPartida("Reversi", "josue", "davi", extras, entrada, saida));
 
@@ -61,6 +84,9 @@ TEST_CASE("Teste para Sistema") {
         stringstream().swap(saida);
         sistema.listarJogadores("N", saida);
         CHECK(saida.str() == saida_esperada);
+
+        sistema.finalizarSistema();
+        REQUIRE(sistema.isSistemaFinalizado());
     }
     SUBCASE("Arquivo de teste 3") {
         Sistema sistema("./test_data/jogadores3.txt", false);
@@ -81,6 +107,9 @@ TEST_CASE("Teste para Sistema") {
         REQUIRE_NOTHROW(sistema.removerJogador("apelido"));
         REQUIRE_NOTHROW(sistema.removerJogador("outro_apelido"));
         REQUIRE_THROWS(sistema.removerJogador("nao apelido"));
+
+        sistema.finalizarSistema();
+        REQUIRE(sistema.isSistemaFinalizado());
     }
 }
 
