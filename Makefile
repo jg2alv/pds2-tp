@@ -45,8 +45,8 @@ clean:
 ./obj/Xadrez.o: ./src/Xadrez.cpp ./include/Jogo.hpp ./include/Jogador.hpp ./include/Jogada.hpp ./include/Xadrez.hpp ./include/Excecoes.hpp
 	$(GPP) -c ./src/Xadrez.cpp -o ./obj/Xadrez.o
 
-./obj/Excecao.o: ./src/Excecao.cpp ./include/Excecoes.hpp
-	$(GPP) -c ./src/Excecao.cpp -o ./obj/Excecao.o
+./obj/Excecao.o: ./src/Excecoes.cpp ./include/Excecoes.hpp
+	$(GPP) -c ./src/Excecoes.cpp -o ./obj/Excecao.o
 
 ./obj/Jogada.o: ./src/Jogada.cpp ./include/Jogada.hpp
 	$(GPP) -c ./src/Jogada.cpp -o ./obj/Jogada.o
