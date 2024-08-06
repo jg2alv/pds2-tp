@@ -286,6 +286,8 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
  * Caso o arquivo de banco de dados nao exista, a funcao joga uma excecao.
 */
 void Sistema::carregarArquivo() {
+    string msg_corrompido = "arquivo de banco de dados '" + banco_de_dados + "' esta corrompido. Tente deletar o arquivo e executar novamente o programa";
+
     ifstream arquivo(banco_de_dados);
     bool arquivo_existe = arquivo.good();
     if(!arquivo_existe) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' nao pode ser aberto");
@@ -294,7 +296,7 @@ void Sistema::carregarArquivo() {
     arquivo >> numjogadores;
     
     bool arquivo_corrompido = arquivo.fail();
-    if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
+    if(arquivo_corrompido) throw Excecao(msg_corrompido);
 
     for(int i = 0; i < numjogadores; i++) {
         string apelido, nome;
@@ -307,7 +309,7 @@ void Sistema::carregarArquivo() {
         int numjogos;
         arquivo >> numjogos;
         bool arquivo_corrompido = arquivo.fail();
-        if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
+        if(arquivo_corrompido) throw Excecao(msg_corrompido);
 
         for(int j = 0; j < numjogos; j++) {
             string jogo;
@@ -315,7 +317,7 @@ void Sistema::carregarArquivo() {
 
             arquivo >> jogo >> vitorias >> derrotas >> empates;
             bool arquivo_corrompido = arquivo.fail();
-            if(arquivo_corrompido) throw Excecao("arquivo de banco de dados '" + banco_de_dados + "' esta corrompido");
+            if(arquivo_corrompido) throw Excecao(msg_corrompido);
 
             jogador.setResultados(jogo, Resultados(vitorias, derrotas, empates));
         }
