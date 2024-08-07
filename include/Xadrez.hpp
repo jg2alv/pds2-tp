@@ -10,7 +10,7 @@
 #include "Jogo.hpp"
 
 /**
- * \brief classe que implementa o jogo 'Xadrez'
+ * \brief Classe que implementa o jogo Xadrez
  * 
  * Xadrez é um jogo de tabuleiro extremamente famoso, e muito antigo. Consiste em um jogo um contra um, 
  * em que o objetivo de cada jogador é tirar o Rei adversário de campo. 

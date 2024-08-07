@@ -24,41 +24,48 @@ classe Jogo:
 	Responsabilidades:
 		Saber seu nome.
 		Saber o estado do tabuleiro.
-		Saber quem são os jogadores.
+		Saber quem está jogando.
 		Saber se a partida já foi finalizada.
 		Saber qual jogador tem a vez.
 		Saber qual jogador venceu após o fim da partida.
-		Saber se um possível jogada está formata corretamente.
+		Saber se uma possível jogada está formata corretamente.
 		Saber se uma possível jogada é válida.
 		Fazer a contabilização de uma jogada válida.
 		Fazer a verificação de um empate.
 		Faber a verificação de uma vitória para determinado jogador.
 		Fazer a verificação de fim de jogo.
-		Fazer a atualização dos dados dos jogadores e finalizar a partida.
+		Fazer a atualização dos dados dos jogadores e finalização da partida.
 	Colaboradores:
 		Jogador.
 		Excecao.
 
-
 classe Reversi (subclasse de Jogo):
 	Responsabilidades:
-		Saber se um determinado jogador tem movimento disponíveis.
-		Derivadas.
+		Saber se um determinado jogador tem movimentos disponíveis.
+		Derivadas de Jogo.
 	Colaboradores:
 		Jogada.
 		Derivadas.
 
 classe Lig4 (subclasse de Jogo):
 	Responsabilidades:
-		Derivadas.
+		Derivadas de Jogo.
 	Colaboradores:
-		Derivadas.
+		Jogada.
+		Derivadas de Jogo.
 
 classe JogoDaVelha (subclasse de Jogo):
 	Responsabilidades:
-		Derivadas.
+		Derivadas de Jogo.
 	Colaboradores:
-		Derivadas.
+		Jogada.
+		Derivadas de Jogo.
+
+classe Xadrez (subclasse de Jogo):
+	Responsabilidades:
+		Derivadas de Jogo.
+	Colaboradores:
+		Derivadas de Jogo.
 
 classe Sistema:
 	Responsabilidades:
@@ -70,13 +77,14 @@ classe Sistema:
 		Fazer o remoção do cadastro de um jogador.
 		Fazer a impressão dos dados dos jogadores cadastrados.
 		Fazer a execução uma partida de determinado jogo até o fim.
-		Fazer a atualização dos dados dos jogadores no arquivo.
+		Fazer a escrita dos dados dos jogadores no arquivo.
 		Fazer sua própria finalização.
 	Colaboradores:
 		Jogo.
 		Reversi.
 		Lig4.
 		JogoDaVelha.
+		Xadrez.
 		Excecao.
 
 

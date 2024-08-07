@@ -94,7 +94,7 @@ Jogo::~Jogo() {}
  * \brief Verifica se o jogo terminou (vitória ou empate).
  * 
  * Esse método avalia se o jogo atingiu seu estado final, ou seja, se houve vitória 
- * de algum jogador ou empate. Se o jogo já foi finalizado, retorna `true`
+ * de algum jogador ou empate. Se o jogo já foi finalizado, retorna `true`.
  * 
  * \return True se o jogo estiver pronto para ser finalizado, false caso contrário.
  */

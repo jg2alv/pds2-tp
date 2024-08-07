@@ -59,7 +59,7 @@ bool Sistema::isSistemaFinalizado() {
  *
  * Essa funcao recebe o apelido de um jogador e retorna um iterador
  * do vetor interno do sistema que armazena os jogadores cadastrados.
- * Caso o jogador não seja encontrado, retorna vector<Jogador>::end().
+ * Caso o jogador não seja encontrado, retorna `vector<Jogador>::end()`.
  * 
  * \param apelido O apelido do jogador a ser encontrado.
  * \return O iterador que aponta para o jogador.
