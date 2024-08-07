@@ -10,6 +10,12 @@ classe Jogada:
 	Colaboradores:
 		Nenhum.
 
+classe Resultados:
+	Responsabilidades:
+		Saber um número de vitórias, derrotas e empates.
+	Colaboradores:
+		Nenhum.
+
 classe Jogador:
 	Responsabilidades:
 		Saber seu nome e apelido.
@@ -28,11 +34,7 @@ classe Jogo:
 		Saber se a partida já foi finalizada.
 		Saber qual jogador tem a vez.
 		Saber qual jogador venceu após o fim da partida.
-		Saber se uma possível jogada está formata corretamente.
-		Saber se uma possível jogada é válida.
 		Fazer a contabilização de uma jogada válida.
-		Fazer a verificação de um empate.
-		Faber a verificação de uma vitória para determinado jogador.
 		Fazer a verificação de fim de jogo.
 		Fazer a atualização dos dados dos jogadores e finalização da partida.
 	Colaboradores:
@@ -41,43 +43,41 @@ classe Jogo:
 
 classe Reversi (subclasse de Jogo):
 	Responsabilidades:
-		Saber se um determinado jogador tem movimentos disponíveis.
 		Derivadas de Jogo.
 	Colaboradores:
 		Jogada.
-		Derivadas.
+		Derivados de Jogo.
 
 classe Lig4 (subclasse de Jogo):
 	Responsabilidades:
 		Derivadas de Jogo.
 	Colaboradores:
 		Jogada.
-		Derivadas de Jogo.
+		Derivados de Jogo.
 
 classe JogoDaVelha (subclasse de Jogo):
 	Responsabilidades:
 		Derivadas de Jogo.
 	Colaboradores:
 		Jogada.
-		Derivadas de Jogo.
+		Derivados de Jogo.
 
 classe Xadrez (subclasse de Jogo):
 	Responsabilidades:
 		Derivadas de Jogo.
 	Colaboradores:
-		Derivadas de Jogo.
+		Derivados de Jogo.
 
 classe Sistema:
 	Responsabilidades:
 		Saber se já foi finalizado.
 		Saber quais são os jogadores cadastrados.
-		Saber em que arquivo ficam guardados os dados dos jogadores.
-		Fazer a leitura dos dados do jogadores no arquivo.
+		Fazer a leitura dos dados do jogadores de um arquivo.
 		Fazer o cadastro de um jogador.
 		Fazer o remoção do cadastro de um jogador.
 		Fazer a impressão dos dados dos jogadores cadastrados.
-		Fazer a execução uma partida de determinado jogo até o fim.
-		Fazer a escrita dos dados dos jogadores no arquivo.
+		Fazer a execução de uma partida de determinado jogo até o fim.
+		Fazer a escrita dos dados dos jogadores em um arquivo.
 		Fazer sua própria finalização.
 	Colaboradores:
 		Jogo.

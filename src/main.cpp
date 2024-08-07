@@ -62,6 +62,7 @@ int main() {
                     case Sistema::Comando::ExecutarPartida: {
                         string nome_do_jogo, apelido1, apelido2;
                         if (linha_entrada_stream >> nome_do_jogo && linha_entrada_stream >> apelido1 && linha_entrada_stream >> apelido2) {
+                            cout << linha_entrada_stream.str() << endl;
                             sistema.executarPartida(nome_do_jogo, apelido1, apelido2, linha_entrada_stream, cin, cout);
                             break;
                         } else {

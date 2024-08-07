@@ -186,7 +186,10 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         unsigned int linhas = 6, colunas = 7;
 
         string string_de_teste;
-        if (stringstream(extras.str()) >> string_de_teste) {
+        string ep, nome, apelido1, apelido2;
+        stringstream copia_extras(extras.str());
+        copia_extras >> ep >> nome >> apelido1 >> apelido2;
+        if (copia_extras >> string_de_teste) {
             if (extras >> linhas && extras >> colunas && !(extras >> string_de_teste)) {
                 if (linhas < 4 || colunas < 4) {
                     throw Excecao("o numero de linhas e colunas do Lig4 customizado deve ser maiores os iguais a 4");
@@ -201,7 +204,10 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
         unsigned int dimensoes = 8;
 
         string string_de_teste;
-        if (stringstream(extras.str())>> string_de_teste) {
+        string ep, nome, apelido1, apelido2;
+        stringstream copia_extras(extras.str());
+        copia_extras >> ep >> nome >> apelido1 >> apelido2;
+        if (copia_extras >> string_de_teste) {
             if (extras >> dimensoes && !(extras >> string_de_teste)) {
                 if (dimensoes < 4 || dimensoes % 2 == 1) {
                     throw Excecao("as dimensoes do Reversi customizado devem ser maiores os iguais a 4 e pares");
