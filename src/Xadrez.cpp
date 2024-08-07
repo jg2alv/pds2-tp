@@ -40,7 +40,7 @@ Xadrez::Xadrez(Jogador &jogador1, Jogador &jogador2) : Jogo(8, 8, jogador1, joga
  * 
  * Destrutor da classe Xadrez. Como não tem nenhum atributo
  * alocado dinamicamente, não é preciso desalocar nenhuma
- * memoria manualmente.
+ * memória manualmente.
  */
 Xadrez::~Xadrez() {}
 
@@ -131,17 +131,17 @@ void Xadrez::converterInput(char* linha, int* coluna) {
  * Essa função recebe como parâmetro uma string de uma possível
  * jogada. A função verifica se é fim de jogo e retorna falso se
  * for fim de jogo, pois não tem mais jogadas. Também verifica se 
- * o formato da possível jogada está correto e lança uma exceção 
+ * o formato da possível jogada está correto e lança uma Excecao 
  * caso não tenha formato correto. É lido da possível jogada as 
  * coordenadas da posiçãoo inicial da peça e da posiçãoo final.
  * Então, o input do usuario é convertido, por meio da função 
  * estática `Xadrez::converterInput()`, e algumas verificações são 
- * feitas. Uma exceção é lançada caso o jogador atual esteja 
+ * feitas. Uma Excecao é lançada caso o jogador atual esteja 
  * selecionando uma peça que pertence ao inimigo; ou caso a peça 
  * selecionada seja uma casa vazia; ou caso a posição inicial e 
  * final sejam as mesmas. Se esses 3 testes passarem, a função 
  * retorna true. Caso contrário, retorna false, indicando que uma 
- * exceção deve ser lançada.
+ * Excecao deve ser lançada.
  * 
  * \param possivel_jogada Uma string com a entrada lida.
  * \return true ou false
@@ -183,8 +183,8 @@ bool Xadrez::jogadaValida(string possivel_jogada) const {
  * \brief Realiza uma jogada
  *
  * Essa função recebe como parâmetro uma string de uma possível jogada. 
- * A função verifica se é fim de jogo e lança uma exceção se for fim de
- * jogo. Também verifica se a jogada é válida e lança uma exceção se não
+ * A função verifica se é fim de jogo e lança uma Excecao se for fim de
+ * jogo. Também verifica se a jogada é válida e lança uma Excecao se não
  * for válida. Se não for fim de jogo e a jogada for válida, é lido da 
  * possível jogada as coordenadas da posição inicial da peça e da posição
  * final. Do mesmo modo como na função de verificar a validez da jogada, 

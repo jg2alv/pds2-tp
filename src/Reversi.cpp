@@ -8,6 +8,7 @@
 #include <string>
 
 using namespace std;
+
 /**
  * \brief Construtor da classe Reversi
  * 
@@ -43,7 +44,7 @@ Reversi::Reversi(int linhas, int colunas, Jogador &jogador1, Jogador &jogador2) 
 /**
  * \brief Destrutor da classe Reversi.
  * 
- * Limpa recursos alocados e realiza qualquer ação de limpeza que for necessária.
+ * Necessária uma vez Reversi é herdeira da classe abstrata Jogo.
  */
 Reversi::~Reversi() {}
 
@@ -152,7 +153,7 @@ bool Reversi::formatoCorreto(string possivel_jogada) const {
  *
  * Esta função analisa a string de entrada, verificando o formato correto e,
  * posteriormente, se a jogada é válida de acordo com as regras do Reversi.
- * Se o formato estiver incorreto, lança uma exceção. Caso a jogada seja válida,
+ * Se o formato estiver incorreto, lança uma Excecao. Caso a jogada seja válida,
  * retorna true, caso contrário, retorna false.
  * 
  * \param possivel_jogada Uma string representando a jogada.
@@ -183,7 +184,7 @@ bool Reversi::jogadaValida(string possivel_jogada) const {
  *
  * Esta função executa uma jogada válida no tabuleiro, verificando primeiro
  * se o formato está correto e se a jogada é possível. Se o formato estiver
- * incorreto ou se a jogada não for válida, lança uma exceção. Caso contrário,
+ * incorreto ou se a jogada não for válida, lança uma Excecao. Caso contrário,
  * atualiza o tabuleiro com a nova jogada e altera o estado do jogo.
  * 
  * \param possivel_jogada Uma string representando a jogada.

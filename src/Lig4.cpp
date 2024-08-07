@@ -146,7 +146,7 @@ bool Lig4::jogada_valida(Jogada &jogada) const {
  * Essa função recebe como parâmetro uma string de uma possível
  * jogada. A função verifica se é fim de jogo e retorna falso se
  * for fim de jogo, pois não tem mais jogadas. Também verifica se 
- * o formato da possível jogada está correto e lança uma exceção 
+ * o formato da possível jogada está correto e lança uma Excecao 
  * caso não tenha formato correto. Por fim, é criada uma jogada 
  * com a coluna lida da entrada e chamada a função `jogada_valida`, 
  * retornando verdadeiro se a jogada for válida ou falso, caso 
@@ -190,12 +190,12 @@ void Lig4::realizar_jogada(const Jogada &jogada) {
  * \brief Realiza uma jogada
  *
  * Essa função recebe como parâmetro uma string de uma possível
- * jogada. A função verifica se é fim de jogo e lança uma exceção
+ * jogada. A função verifica se é fim de jogo e lança uma Excecao
  * se for fim de jogo. Também verifica se o formato da possível 
- * jogada está correto e lança uma exceção caso não tenha formato
+ * jogada está correto e lança uma Excecao caso não tenha formato
  * correto. É criada uma jogada com a coluna lida da entrada e 
  * verificado se a jogada é válida e, caso não seja, é lançada uma
- * exceção. Se não for fim de jogo, o formato for correto e a jogada
+ * Excecao. Se não for fim de jogo, o formato for correto e a jogada
  * for válida, é realizada a jogada e é trocado o jogador da vez.
  * 
  * \param possivel_jogada Uma string com a entrada lida.

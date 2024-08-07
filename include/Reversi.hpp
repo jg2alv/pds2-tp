@@ -8,8 +8,6 @@
 #include "Jogo.hpp"
 
 /**
- * \class Reversi
- * 
  * \brief Classe que representa o jogo Reversi
  * 
  * Reversi é um jogo de tabuleiro jogado por dois jogadores. O objetivo do jogo é 

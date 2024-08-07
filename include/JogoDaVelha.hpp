@@ -14,12 +14,12 @@
  * \brief Classe que representa o jogo da velha
  * 
  * Jogo da velha é um jogo de tabuleiro (3 x 3) jogado por dois jogadores.
- * O objetivo do jogo é que um jogador coloque no tabuleiro tres peças
+ * O objetivo do jogo é que um jogador coloque no tabuleiro três peças
  * consecutivas de seu símbolo, seja em uma linha, coluna ou diagonal.
  * O primeiro jogador que completar esse objetivo vence o jogo. Caso todo 
  * o tabuleiro seja preenchido e nenhum jogador tenha conseguido colocar 
- * três peças consecutivas, os dois jogadores irão empatar e a partida 
- * termina.
+ * três peças consecutivas, os dois jogadores empataram e a partida 
+ * pode ser concluída.
  * Para jogar, o jogador da vez terá que digitar o número de uma linha e de
  * uma coluna do tabuleiro que deseja colocar sua peça. Caso as coordenadas
  * não estejam dentro dos limites do tabuleiro ou a posição esteja ocupada, 
