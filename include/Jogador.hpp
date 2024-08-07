@@ -7,8 +7,10 @@
 #include <vector>
 
 /**
- * \brief struct que armazena os resultados
+ * \brief Struct que armazena os resultados
  * 
+ * Struct que armazena um número de vitórias, derrotas e empates.
+ * Usado pelo Jogador e seus usuários.
  */
 struct Resultados {
     int vitorias;
@@ -20,12 +22,10 @@ struct Resultados {
 };
 
 /**
- * \class Jogador
  * \brief Classe Jogador que controla os participantes dos jogos
  * 
- * Classe que possui apelido, nome, e um mapa que relaciona os Jogos e seus Resultados
- * para determinado jogador. Também é usada para controlar jogadores dentro de uma partida
- * 
+ * Classe que possui apelido, nome, e um mapa que relaciona os nomes dos Jogos e seus Resultados.
+ * É usada tanto pelo Sistema quanto para controlar jogadores em um Jogo.
  */
 class Jogador {
 private:

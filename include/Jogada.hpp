@@ -2,12 +2,9 @@
 #define JOGADA_HPP
 
 /**
- * \class Jogada
- * 
  * \brief Classe que representa uma jogada em um jogo de tabuleiro.
  * 
  * Classe que armazena a linha e a coluna de uma jogada em um jogo de tabuleiro.
- * 
  */
 class Jogada
 {

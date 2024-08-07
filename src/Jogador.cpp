@@ -7,32 +7,37 @@
 using namespace std;
 
 /**
- * \brief Struct que armazena os resultados do jogador durante a execução
- * 
- * Estrutura de dados para armazenar as vitórias, derrotas e empates de 
- * um jogador, para facilitar o controle e a escrita no arquivo
- * 
+ * \brief Construtor para Resultados com número de vitórias, derrotas e empates
+ *
+ * Recebe três números, o de vitórias, derrotas e empates, e constrói o Resultado de acordo.
+ * \param vitorias Número de vitórias.
+ * \param derrotas Número de derrotas.
+ * \param empates Número de empates.
  */
 Resultados::Resultados(int vitorias, int derrotas, int empates) :
     vitorias(vitorias), derrotas(derrotas), empates(empates) {}
 
+/**
+ * \brief Construtor para Resultados com todos seus valores zerados 
+ *
+ * Constrói os Resultados com seu número de vitórias, derrotas e empates zerados.
+ */
 Resultados::Resultados() : Resultados(0, 0, 0) {}
 
 /**
  * \brief Construtor da classe Jogador
  * 
- * Construtor da classe Jogador, que inicializa o apelido e o nome do jogador
+ * Construtor da classe Jogador, que inicializa o apelido e o nome do jogador.
  * 
  * \param apelido Apelido do jogador
  * \param nome Nome do jogador
  */
-
 Jogador::Jogador(string apelido, string nome) : _apelido(apelido), _nome(nome) {}
 
 /**
  * \brief Retorna o apelido do jogador
  * 
- * Função getApelido que retorna o apelido de um determinado jogador
+ * Função que retorna o apelido de um determinado jogador.
  * 
  * \return Apelido do jogador
  */
@@ -43,7 +48,7 @@ string Jogador::getApelido() const {
 /**
  * \brief Retorna o nome do jogador
  * 
- * Função getNome que retorna o nome de um determinado jogador
+ * Função que retorna o nome de um determinado jogador.
  * 
  * \return Nome do jogador
  */
@@ -57,11 +62,10 @@ string Jogador::getNome() const {
  * 
  * Sobrecarrega o operador == para a classe Jogador, para que compare
  * os apelidos de dois jogadores, que são únicos, e retorna true para 
- * apelidos iguais, ou falso para apelidos diferentes. Útil para 
- * saber se um jogador já existe ou não.
- * 
+ * apelidos iguais, ou falso para apelidos diferentes. 
+ *
  * \param outro Jogador a ser comparado
- * \return true se os jogadores são iguais, false caso contrário
+ * \return true se o outro jogador tem o mesmo apelido desse, false caso contrário
  */
 bool Jogador::operator==(Jogador const& outro) const {
     return _apelido == outro._apelido;
@@ -72,11 +76,10 @@ bool Jogador::operator==(Jogador const& outro) const {
  * 
  * Sobrecarrega o operador != para a classe Jogador, para que compare
  * os apelidos de dois jogadores, que são únicos, e retorna true para 
- * apelidos diferentes, ou falso para apelidos iguais. Útil para 
- * saber se um jogador já existe ou não.
- * 
+ * apelidos diferentes, ou falso para apelidos iguais. 
+ *
  * \param outro Jogador a ser comparado
- * \return true se os jogadores são diferentes, false caso contrário
+ * \return true se o outro jogador tem apelido diferente desse, false caso contrário
  */
 bool Jogador::operator!=(Jogador const& outro) const {
     return _apelido != outro._apelido;
@@ -86,7 +89,7 @@ bool Jogador::operator!=(Jogador const& outro) const {
 /**
  * \brief Retorna os resultados de um determinado jogo
  * 
- * Função getResultados que retorna os resultados de um determinado jogo
+ * Função que retorna os Resultados de um determinado jogo.
  * 
  * \param jogo Nome do jogo a ser consultado
  * \return Resultados do jogador no jogo
@@ -98,7 +101,7 @@ Resultados Jogador::getResultados(string jogo) const {
 /**
  * \brief Define os resultados de um determinado jogo
  * 
- * Função setResultados que define os resultados de um determinado jogo
+ * Função que define os Resultados de um determinado jogo.
  * 
  * \param jogo Nome do jogo a ser definido
  * \param resultados Resultados do jogador no jogo
