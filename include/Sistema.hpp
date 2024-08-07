@@ -10,17 +10,15 @@
 #include "Jogador.hpp"
 
 /**
- * \class Sistema
- * 
  * \brief Classe que lida com a interface usuario-sistema
  *
- * Essa classe cuida da interacao entre o jogador e o Sistema.
- * Com um metodo para cada comando do sistema, essa classe
- * representa o sistema como um todo e eh a intermediaria em
- * todas as interacoes entre o usuario e o sistema de jogos.
- * Ela eh a responsavel por criar, remover e listar jogadores;
- * alem de carregar as informacoes do disco na memoria, e salvar
- * as informacoes da memoria de volta no disco.
+ * Essa classe cuida da interação entre o jogador e o Sistema.
+ * Com um método para cada comando do sistema, essa classe
+ * representa o sistema como um todo e é a intermediária em
+ * todas as interações entre o usuário e o sistema de jogos.
+ * Ela é a responsável por criar, remover e listar jogadores;
+ * além de carregar as informações do disco na memória, e salvar
+ * as informações da memória de volta no disco.
 */
 class Sistema {
     private:

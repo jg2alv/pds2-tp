@@ -17,7 +17,7 @@ using namespace std;
 /**
  * \brief Analisa um comando da entrada
  *
- * Essa funcao recebe uma string da entrada, representando um comando,
+ * Essa função recebe uma string da entrada, representando um comando,
  * analisa-o e retorna o campo de um Enum que simboliza o comando recebido.
  * Caso o comando seja invalido, joga uma Excecao de comando invalido.
  * 
@@ -45,10 +45,10 @@ Sistema::Comando Sistema::identificar_comando(string candidato_a_comando) {
 /**
  * \brief Checa se o sistema finalizou
  *
- * Essa funcao retorna uma flag interna do sistema,
+ * Essa função retorna uma flag interna do sistema,
  * que indica se o sistema foi encerrado.
  * 
- * \return O booleano que representa se o sistema foi ou nao encerrado.
+ * \return O booleano que representa se o sistema foi ou não encerrado.
 */
 bool Sistema::isSistemaFinalizado() {
     return sistema_finalizado;
@@ -59,7 +59,7 @@ bool Sistema::isSistemaFinalizado() {
  *
  * Essa funcao recebe o apelido de um jogador e retorna um iterador
  * do vetor interno do sistema que armazena os jogadores cadastrados.
- * Caso o jogador nao seja encontrado, retorna vector<Jogador>::end().
+ * Caso o jogador não seja encontrado, retorna vector<Jogador>::end().
  * 
  * \param apelido O apelido do jogador a ser encontrado.
  * \return O iterador que aponta para o jogador.
@@ -74,15 +74,15 @@ vector<Jogador>::iterator Sistema::achar_jogador(string apelido) {
 /**
  * \brief Cadastra um novo jogador no sistema
  *
- * Essa funcao recebe duas strings: o apelido e o nome do jogador.
- * Como o apelido deve ser unico entre todos os jogadores,
- * a funcao joga uma excessao caso exista um jogador ja cadastrado
+ * Essa função recebe duas strings: o apelido e o nome do jogador.
+ * Como o apelido deve ser único entre todos os jogadores,
+ * a função joga uma Excecao caso exista um jogador já cadastrado
  * com o mesmo apelido.
- * Caso contrario, a funcao cria o novo jogador dinamicamente e
+ * Caso contrário, a função cria o novo jogador e
  * acrescenta-o na vetor de jogadores do sistema.
  * 
- * \param apelido O apelido do possivel novo jogador.
- * \param nome O nome do possivel novo jogador.
+ * \param apelido O apelido do possível novo jogador.
+ * \param nome O nome do possível novo jogador.
 */
 void Sistema::cadastrarJogador(string apelido, string nome) {
     auto jogador = achar_jogador(apelido);
@@ -96,12 +96,11 @@ void Sistema::cadastrarJogador(string apelido, string nome) {
 /**
  * \brief Remove um jogador existente no sistema
  *
- * Essa funcao recebe uma string representado
+ * Essa função recebe uma string representado
  * o apelido do jogador a ser removido do sistema.
- * A funcao joga uma excessao caso nao exista,
+ * A função joga uma Excecao caso não exista,
  * no sistema, um jogador cadastrado com o apelido recebido.
- * Caso contrario, a funcao limpa a area de memoria ocupada
- * pelo jogador e deleta-o do vetor do sistema.
+ * Caso contrário, a função o deleta do vetor do sistema.
  * 
  * \param apelido O apelido do jogador a ser removido.
 */
@@ -115,18 +114,18 @@ void Sistema::removerJogador(string apelido) {
 }
 
 /**
- * \brief Lista em ordem alfabetica os jogadores cadastrados no sistema
+ * \brief Lista em ordem alfabética os jogadores cadastrados no sistema
  *
- * Essa funcao recebe uma string, que representa o base na qual sera realizada a
- * ordenacao: A (apelido) ou N (nome); e a referencia de um ostream,
- * que indica onde o resultado da funcao deve ser impresso (em um arquivo,
+ * Essa função recebe uma string, que representa a base na qual sera realizada a
+ * ordenacao: A (apelido) ou N (nome); e a referência de um ostream,
+ * que indica onde o resultado da função deve ser impresso (em um arquivo,
  * para testes ou na tela, para interacao com o ususario).
- * Caso a base de ordenacao recebido seja invalido, a funcao joga uma excecao.
- * Caso contrario, a funcao ordena o vetor de jogadores do sistema e imprime as informacoes
+ * Caso a base de ordenação recebida seja inválido, a funcão joga uma Excecao.
+ * Caso contrário, a função ordena o vetor de jogadores do sistema e imprime as informações
  * de cada jogador cadastrado.
  * 
  * \param base A base de ordenacao :`A` ou `N` (apelido ou nome).
- * \param out A stream na qual as informacoes do jogador serao impressas.
+ * \param out A stream na qual as informacões do jogador serão impressas.
  * 
 */
 void Sistema::listarJogadores(string base, ostream& out) {
@@ -151,15 +150,15 @@ void Sistema::listarJogadores(string base, ostream& out) {
 /**
  * \brief Executa uma partida entre dois jogadores cadastrados no sistema
  *
- * Essa funcao recebe tres strings e referencia a duas streams.
+ * Essa função recebe três strings e referência a duas streams.
  * As strings representam, respectivamente, o nome do jogo e o apelido (identificador
- * unico) dos dois jogadores, que participarao da partida.
+ * único) dos dois jogadores, que participarão da partida.
  * As streams indicam de onde a entrada deve ser lida, e aonde ela deve ser impressa
- * (em arquivos, para testes, ou na tela, para usufruto do usuario).
- * Primeiro, a funcao checa se os jogadores existem e joga uma excecao caso nao existam.
- * Entao, a funcao da inicio no event-loop do jogo: obtem a entrada a partir do `istream&`
- * recebido por parametro; e imprime o tabuleiro e as outras informacoes do fluxo da partida.
- * Os jogadores, entao, disputam a partida e, no final, a funcao imprime o resultado do jogo.
+ * (em arquivos, para testes, ou na tela, para usufruto do usuário).
+ * Primeiro, a função checa se os jogadores existem e joga uma Excecao caso nao existam.
+ * Então, a função da início no event-loop do jogo: obtém a entrada a partir do `istream&`
+ * recebido por parâmetro; e imprime o tabuleiro e as outras informações do fluxo da partida.
+ * Os jogadores, então, disputam a partida e, no final, a função imprime o resultado do jogo.
  * 
  * \param nome_do_jogo O nome de um jogo implementado no sistema.
  * \param apelido1 O apelido do primeiro jogador.
@@ -275,12 +274,12 @@ void Sistema::executarPartida(string nome_do_jogo, string apelido1, string apeli
 }
 
 /**
- * \brief Le e carrega, para o sistema, os dados salvos no disco
+ * \brief Lê e carrega, para o sistema, os dados salvos no disco
  *
- * Essa funcao carrega os dados salvos em disco para o sistema.
+ * Essa função carrega os dados salvos em disco para o sistema.
  * Esses dados consistem em uma lista de jogadores, com apelido, nome,
- * e informacoes de vitorias, derrotas e empates daquele jogador em cada jogo.
- * Caso o arquivo de banco de dados nao exista, a funcao joga uma excecao.
+ * e informações de vitórias, derrotas e empates daquele jogador em cada jogo.
+ * Caso o arquivo de banco de dados não exista, a função joga uma Excecao.
 */
 void Sistema::carregarArquivo() {
     string msg_corrompido = "arquivo de banco de dados '" + banco_de_dados + "' esta corrompido. Tente deletar o arquivo e executar novamente o programa";
@@ -328,10 +327,10 @@ void Sistema::carregarArquivo() {
 /**
  * \brief Salva, no disco, os dados de jogadores do sistema
  *
- * Essa funcao salva, no disco, os dados dos jogadores no sistema.
- * A padronizacao do arquivo segue o mesmo padrao definido pela funcao
- * `Sistema::carregarArquivo()`. Caso o arquivo de banco de dados nao exista,
- * essa funcao tambem joga uma excecao.
+ * Essa função salva, no disco, os dados dos jogadores no sistema.
+ * A padronização do arquivo segue o mesmo padrao definido pela função
+ * `Sistema::carregarArquivo()`. Caso o arquivo de banco de dados não exista,
+ * essa função também joga uma Excecao.
 */
 void Sistema::salvarSistema() {
     ofstream arquivo(banco_de_dados);
@@ -360,9 +359,9 @@ void Sistema::salvarSistema() {
 /**
  * \brief Finaliza o sistema, definindo correatamente a flag interna
  *
- * Essa funcao finaliza o sistema, definindo a flag de `sistema_finalizado`,
- * e chamando a funcao `Sistema::salvarSistema()` (caso necessario);
- * por fim, ela limpa os dados salvos em memoria do sistema.
+ * Essa função finaliza o sistema, definindo a flag de `sistema_finalizado`,
+ * e chamando a função `Sistema::salvarSistema()` (caso necessário);
+ * por fim, ela limpa os dados salvos em memória do sistema.
 */
 void Sistema::finalizarSistema() {
     if (sistema_finalizado) {
@@ -379,11 +378,10 @@ void Sistema::finalizarSistema() {
 }
 
 /**
- * \brief Limpa os dados do sistema salvos em memoria
+ * \brief Limpa os dados do sistema salvos em memória
  *
- * Essa funcao percorre o vetor de jogadores do sistema, deletando
- * cada objeto. Alem disso, ela limpa todos os slots do vetor,
- * zerando seu `vector<Jogador*>::size()`.
+ * Essa função limpa todos os slots do vetor,
+ * zerando seu `vector<Jogador>::size()`.
 */
 void Sistema::limparSistema() {
     jogadores.clear();
@@ -392,15 +390,15 @@ void Sistema::limparSistema() {
 /**
  * \brief Constroi o sistema
  *
- * Essa funcao pega, como parametro, uma string e um booleano.
+ * Essa função pega, como parâmetro, uma string e um booleano.
  * A string indica o caminho (relativo ou absoluto) para o arquivo
  * de banco de dados do sistema. O booleano indica se deve-se ou
- * nao salvar as modificacoes do banco de dados ao finalizar o sistema.
- * A funcao checa pela existencia do arquivo de banco de dados.
- * A nao existencia dele implica tambem a nao existencia de jogadores cadastrados
- * previamente. Nesse caso, a funcao cria um novo arquivo e imprime o inteiro "0"
- * dentro dele - indicando que ha zero jogadores.
- * Caso contrario, a funcao carrega o arquivo para o sistema por meio de
+ * não salvar as modificacoes do banco de dados ao finalizar o sistema.
+ * A função checa pela existencia do arquivo de banco de dados.
+ * A não existencia dele implica também a não existência de jogadores cadastrados
+ * previamente. Nesse caso, a função cria um novo arquivo e imprime o inteiro "0"
+ * dentro dele - indicando que há zero jogadores.
+ * Caso contrário, a função carrega o arquivo para o sistema por meio de
  * `Sistema::carregarArquivo()`.
 */
 Sistema::Sistema(string banco_de_dados, bool salvar_ao_sair) :
