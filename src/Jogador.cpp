@@ -113,7 +113,7 @@ void Jogador::setResultados(string jogo, Resultados resultados) {
 /**
  * \brief Incrementa o número de vitórias em um determinado jogo
  * 
- * Função incrementarVitorias que incrementa o número de vitórias em um determinado jogo
+ * Função que incrementa o número de vitórias em um determinado jogo.
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
@@ -124,7 +124,7 @@ void Jogador::incrementarVitorias(string jogo) {
 /**
  * \brief Incrementa o número de derrotas em um determinado jogo
  * 
- * Função incrementarDerrotas que incrementa o número de derrotas em um determinado jogo
+ * Função que incrementa o número de derrotas em um determinado jogo.
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
@@ -135,7 +135,7 @@ void Jogador::incrementarDerrotas(string jogo) {
 /**
  * \brief Incrementa o número de empates em um determinado jogo
  * 
- * Função incrementarEmpates que incrementa o número de empates em um determinado jogo
+ * Função que incrementa o número de empates em um determinado jogo.
  * 
  * \param jogo Nome do jogo a ser incrementado
  */
@@ -146,9 +146,9 @@ void Jogador::incrementarEmpates(string jogo) {
 /**
  * \brief Retorna o número de jogos cadastrados
  * 
- * Função getNumeroDeJogos que retorna o número de jogos cadastrados
+ * Função que retorna o número de jogos diferentes já jogados por esse jogador.
  * 
- * \return Número de jogos cadastrados
+ * \return Número de jogos diferentes já jogados
  */
 int Jogador::getNumeroDeJogos() const {
     return __pontuacao.size();
@@ -157,10 +157,9 @@ int Jogador::getNumeroDeJogos() const {
 /**
  * \brief Retorna os jogos cadastrados
  * 
- * Função getJogosCadastrados que retorna os jogos que o jogador
- * já jogou
+ * Função que retorna os jogos que o jogador já jogou.
  * 
- * \return Vetor de jogos cadastrados
+ * \return Vetor de jogos já jogados
  */
 vector<string> Jogador::getJogosCadastrados() const {
     vector<string> jogos;
@@ -174,7 +173,7 @@ vector<string> Jogador::getJogosCadastrados() const {
 /**
  * \brief Imprime as informações do jogador
  * 
- * Função imprimirInformacoes que imprime as informações do jogador
+ * Função que imprime as informações do jogador.
  * 
  * \param out Stream de saída
  */
