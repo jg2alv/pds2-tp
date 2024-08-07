@@ -5,7 +5,7 @@
  * 
  * Construtor que inicializa Jogada com uma determinada coluna, e a linha 0.
  * 
- * \param coluna coluna da jogada
+ * \param coluna Coluna da jogada
  */
 Jogada::Jogada(int coluna) : Jogada(0, coluna) {}
 
@@ -14,8 +14,8 @@ Jogada::Jogada(int coluna) : Jogada(0, coluna) {}
  * 
  * Construtor que inicializa Jogada com uma determinada linha e coluna.
  * 
- * \param linha linha da jogada
- * \param coluna coluna da jogada
+ * \param linha Linha da jogada
+ * \param coluna Coluna da jogada
  */
 Jogada::Jogada(int linha, int coluna) : _linha(linha), _coluna(coluna) {}
 
@@ -24,7 +24,7 @@ Jogada::Jogada(int linha, int coluna) : _linha(linha), _coluna(coluna) {}
  * 
  * Função que retorna a linha da Jogada.
  * 
- * \return linha da jogada
+ * \return Linha da jogada
  */
 int Jogada::get_linha()const
 {
@@ -36,7 +36,7 @@ int Jogada::get_linha()const
  * 
  * Função que retorna a coluna da Jogada.
  * 
- * \return coluna da jogada
+ * \return Coluna da jogada
  */
 int Jogada::get_coluna()const
 {
@@ -48,7 +48,7 @@ int Jogada::get_coluna()const
  * 
  * Função que redefine a linha da Jogada.
  * 
- * \param linha linha da jogada
+ * \param linha Linha da jogada
  */
 void Jogada::set_linha(int linha)
 {

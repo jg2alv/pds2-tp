@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "Jogo.hpp"
+
 using namespace std;
 
 /**
@@ -84,8 +85,8 @@ Jogo::Jogo(int linhas, int colunas, Jogador& jogador1, Jogador& jogador2) :
 /**
  * \brief Destruidor da classe Jogo.
  * 
- * O destruidor da classe Jogo limpa e libera qualquer recurso alocado pela classe.
- * Necessariamente virtual para o bom funcionamento do polimorfismo.
+ * O destrutor da classe Jogo limpa e libera qualquer recurso alocado pela classe.
+ * Necessariamente virtual para bom funcionamento do polimorfismo universal de inclusão.
  */
 Jogo::~Jogo() {}
 

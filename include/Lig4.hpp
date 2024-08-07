@@ -17,8 +17,7 @@
  * consecutivas de seu símbolo, seja em uma linha, coluna ou diagonal.
  * O primeiro jogador que completar esse objetivo vence o jogo. Caso todo 
  * o tabuleiro seja preenchido e nenhum jogador tenha conseguido colocar 
- * quatro peças consecutivas, os dois jogadores empataram e a partida 
- * pode ser concluída.
+ * quatro peças consecutivas, os dois jogadores empataram.
  * Para jogar, o jogador da vez terá que digitar o número de uma coluna do 
  * tabuleiro que deseja colocar sua peça. Caso a coluna não exista ou esteja 
  * cheia, o jogador devera digitar outra coluna que seja válida.
